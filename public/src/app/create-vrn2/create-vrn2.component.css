@@ -1,0 +1,169 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.footerPOsition{
+  position: fixed;
+  bottom: 0;
+}
+
+.licenseEvent{
+ width: 80% !important; 
+}
+
+.footerPOsition > button{
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-form {
+  margin: 8px;
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+
+.demo-tab-content {
+  padding: 16px;
+}
+
+.positionPlace{
+  position: fixed !important;
+  top: 85%;
+  left: 85%;
+}
+
+.flexDisplayClass{
+  display: flex;
+}
+
+.marginHeightFixed{
+  height: 465px;
+}
+
+.marginclass{
+  margin: 6px 0 0 20px;
+}
+
+.marginLeftFixed{
+  margin-left:  50px !important;
+}
+
+.heightFixed{
+  height: 35px !important;
+}
+
+.inputMargin{
+  width: 50px;
+  margin-left: 10px;
+}
+
+.ruppeeMargin{
+  margin-left: 70px;
+}
+
+.selectedIndex {
+  background: yellowgreen !important;
+}
+
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+
+.footerPOsition{
+  position: fixed;
+  bottom: 0;
+}
+
+.footerPOsition > button{
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+} 
+
+ /* .mat-nav-list .mat-list-item.mat-list-item-focus, .mat-nav-list .mat-list-item:hover{
+  background: yellowgreen;
+}  */
+
+.displayNone{
+  display: none;
+}
+
+.heightStable{
+  height: 60px;
+}
+
+.zeromarginStable{
+  margin: 0%;
+}
+
+.mainFooter{
+  position: fixed !important;
+  top: 85%;
+  left: 85%;
+
+}
+
+
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+/* .widthContent{
+  width: 95%;
+  height: 95%;
+} */
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.marginStyle{
+margin : 4px;
+}

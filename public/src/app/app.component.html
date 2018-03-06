@@ -1,0 +1,64 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true" >
+        <!-- opened="true" -->
+         
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                      <span>VRN List</span>
+                    </mat-toolbar-row>
+                    </mat-toolbar>
+                <!-- <form class="example-form"> -->
+                     <mat-form-field class="example-full-width"> 
+                      <input matInput placeholder="Search" type="search">
+                     </mat-form-field>
+                    
+                <mat-nav-list >
+                    <mat-list-item *ngFor="let data of createUserData"  (click)="onVRNSelected(data)"   class="{{data.class}} heightStable">
+             
+                        <div>
+                   <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
+                        <h4 class="marginTitle">VRN. {{data.VRN}}</h4>
+                 <span class="marginTitle">Vehicle No. {{data.VEHICLENUM}}</span>
+               
+                 <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->
+                
+                </div>
+                </mat-list-item> 
+                  </mat-nav-list>
+               
+                  <div class="mainFooter button-row"> 
+                  <!-- <mat-toolbar color="primary">
+                        <mat-toolbar-row>
+                                <div class="button-row"> -->
+
+                                        <a routerLink="/createvrn" >
+                                            <button mat-mini-fab>
+                                              <mat-icon>add</mat-icon>
+                                            </button>
+                                            </a>
+                                        <!-- <button mat-mini-fab>
+                                                <mat-icon>add</mat-icon>
+                                              </button> -->
+                                      <!-- </div>
+                        </mat-toolbar-row>
+                        </mat-toolbar> -->
+                    </div>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    <mat-icon class="example-icon">menu</mat-icon>
+                </button>
+                <span>VRN Details</span>
+                <span class="example-spacer"></span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="widthContent">
+        <router-outlet></router-outlet>        
+    </div>
+    </div>
+</mat-drawer-container>
+
+        
