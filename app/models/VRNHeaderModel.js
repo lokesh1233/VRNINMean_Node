@@ -49,13 +49,15 @@ var VRNSchema = new Schema({
       type: String
     },
     CHANGEDON: {
-      type: String
+      type: String,
+      Default: Date.now
     },
     CREATEDBY: {
       type: String
     },
     CREATEDON: {
-      type: String
+      type: String,
+      Default: Date.now
     },
     TRANSPORTER: {
       type: String

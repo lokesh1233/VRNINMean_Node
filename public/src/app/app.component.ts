@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
     var that = this;
 
     //node server
-    this.http.get('http://192.168.137.126:3000/VRNHeader')
+    this.http.get('/VRNHeader')
     .map(res => res.json())
     .subscribe(docs => {
     debugger; 
