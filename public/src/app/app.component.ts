@@ -21,8 +21,8 @@ export class AppComponent implements OnInit{
 
   loadVRNMasterList(){
     var that = this;
-
-    //node server
+ 
+    //node server ad
     this.http.get('/VRNHeader')
     .map(res => res.json())
     .subscribe(docs => {

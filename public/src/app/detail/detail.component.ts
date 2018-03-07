@@ -3,6 +3,8 @@ import {MatSnackBar, MatTableDataSource} from '@angular/material';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { AppComponent }   from '../app.component';
 import { FormsModule }    from '@angular/forms';
+import 'rxjs/add/operator/map';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-master',
@@ -11,26 +13,24 @@ import { FormsModule }    from '@angular/forms';
 })
 
 export class DetailComponent implements OnInit {
-  constructor(public snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent) {
-  //  window.thatDetail = this;
-    this.route.params.subscribe(function(res){
-      
-  //    window.thatDetail.vrnMasterSelData();
-    })
+  constructor(public snackBar: MatSnackBar,private http: Http, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent) {
   }
   
   ngOnInit(){ 
-   // return;
-   // this.paramData();
+    //this.paramData();
+    var that = this;
+    this.route.params.subscribe(function(res){
+      that.vrnMasterSelData();
+    })
   }
 
   MOPSelectionChange(){
     var valdtn = this.feildValidation;
-    //this.MOPSelectedField = {};
-  //  var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
-    // for(var i in valdtn){
-    //   this.MOPSelectedField[i] = valdtn[i][selectedKey];
-    // }
+    this.MOPSelectedField = {};
+    var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
+     for(var i in valdtn){
+       this.MOPSelectedField[i] = valdtn[i][selectedKey];
+     }
   }
 
   MOPSelectedField = {};
@@ -55,13 +55,13 @@ export class DetailComponent implements OnInit {
     this.VRNId = id;
     if(id != 'A'){
       this.vrnMaterData = this.appComponent.getMasterItem();
-     // this.roadTransport = this.vrnMaterData.MODEOFTRANSPORT;
-    //  this.vrnMaterData.MODEOFTRANSPORT = '';
-      // this.vrnMaterData.VEHICLESTATUS = '';
-      // this.vrnMaterData.SEALCONDITION = '';
-      // this.vrnMaterData.REMARKS = '';
-      // this.vrnMaterData.NUMOFBOXES = '';
-      // this.vrnMaterData.SEALNUM = '';
+      this.roadTransport = this.vrnMaterData.MODEOFTRANSPORT;
+     this.vrnMaterData.MODEOFTRANSPORT = '';
+      this.vrnMaterData.VEHICLESTATUS = '';
+      this.vrnMaterData.SEALCONDITION = '';
+      this.vrnMaterData.REMARKS = '';
+      this.vrnMaterData.NUMOFBOXES = '';
+      this.vrnMaterData.SEALNUM = '';
     }
     this.loadVRNDetail(id);
     this.MOPSelectionChange();
@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit {
 
   loadVRNDetail(id){
     var that = this;
-    return;
+    
     // window.VRNUserDB.collection('VRNDetail').find({VRN:id}).execute().then(docs => {
     //   var vrnMat = that.vrnMaterData;
     //   if(docs.length>0){
@@ -82,6 +82,35 @@ export class DetailComponent implements OnInit {
     //   }
     // });
 
+
+   //node server
+   this.http.get('/VRNDetail/'+id)
+   .map(res => res.json())
+   .subscribe(docs => {
+   var vrnMat = that.vrnMaterData;
+     if(docs.length>0){
+      // vrnMat.VEHICLESTATUS = that.paramValues['VEHICLESTATUS'+docs[0].VEHICLESTATUS];
+      // vrnMat.SEALCONDITION = that.paramValues['SEALCONDITION'+docs[0].SEALCONDITION];
+      // vrnMat.TrnsprtMode = that.paramValues['TrnsprtMode'+that.roadTransport ];
+       vrnMat.REMARKS = docs[0].REMARKS;
+       vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
+       vrnMat.SEALNUM = docs[0].SEALNUM;
+     }
+ })
+
+
+
+     // window.VRNUserDB.collection('VRNDetail').find({VRN:id}).execute().then(docs => {
+    //   var vrnMat = that.vrnMaterData;
+    //   if(docs.length>0){
+    //     vrnMat.VEHICLESTATUS = that.paramValues['VEHICLESTATUS'+docs[0].VEHICLESTATUS];
+    //     vrnMat.SEALCONDITION = that.paramValues['SEALCONDITION'+docs[0].SEALCONDITION];
+    //     vrnMat.TrnsprtMode = that.paramValues['TrnsprtMode'+that.roadTransport ];
+    //     vrnMat.REMARKS = docs[0].REMARKS;
+    //     vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
+    //     vrnMat.SEALNUM = docs[0].SEALNUM;
+    //   }
+    // });
   }
 
   paramData(){
