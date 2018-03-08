@@ -27,10 +27,10 @@ export class DetailComponent implements OnInit {
   MOPSelectionChange(){
     var valdtn = this.feildValidation;
     this.MOPSelectedField = {};
-    // var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
-    //  for(var i in valdtn){
-    //    this.MOPSelectedField[i] = valdtn[i][selectedKey];
-    //  }
+     var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
+      for(var i in valdtn){
+        this.MOPSelectedField[i] = valdtn[i][selectedKey];
+      }
   }
 
   MOPSelectedField = {};
@@ -133,6 +133,14 @@ export class DetailComponent implements OnInit {
 
   VRNCheckIn(){
 var that = this;
+
+this.http.put(/VRNHeader/+this.vrnMaterData.VRN,{})
+   .map(res => res.json())
+   .subscribe(docs => {
+    that.openSnackBar(docs.message, '');
+     that.appComponent.loadVRNMasterList();
+     })
+
   //   window.VRNUserDB.collection('VRNHeader').updateOne({VRN:this.VRNId},{ '$set': {VRNSTATUS : "X"}}).then(docs => {
   //     debugger;
       

@@ -20,7 +20,7 @@ export class CreateVRN2Component {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   filteredAgencies : Observable<any[]>;
-  constructor(public snackBar: MatSnackBar,private http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
+  constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
     var that = this;
     this.filteredAgencies = this.agencyCtrl.valueChanges.pipe(
@@ -40,9 +40,16 @@ MOPSelectionChange(){
   for(var i in valdtn){
     this.MOPSelectedField[i] = valdtn[i][selectedKey];
   }
-
   this.createVRNDtlData.VEHICLESTATUS = 'L';
   this.createVRNDtlData.SEALCONDITION = 'I';
+  if(this.MOPSelectedField.vehStat == false){
+    this.createVRNDtlData.VEHICLESTATUS = '';
+  }
+  
+  if(this.MOPSelectedField.sealCond == false){
+    this.createVRNDtlData.SEALCONDITION = '';
+  }
+
   this.addButtonVal = false;
 }
 
@@ -59,6 +66,8 @@ var visible = true;
  this.MOPSelectedField.sealCond  = visible;
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
+ this.createVRNDtlData.SEAL1 = '';
+ this.createVRNDtlData.SEAL2 = '';
 }
 
 
@@ -72,6 +81,7 @@ var visible = true;
  }
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
+
 }
 
 filterAgencies(name: string) {
@@ -127,7 +137,7 @@ agencies = [];
   // window.VRNUserDB.collection('Params').find({'Domain':'TrnsprtMode'},{'modeNum':1,'modeTxt':1 }).execute().then(docs => {
   //   that.TransModes =  docs;
   // })
-  // this.agenciesData();
+  this.agenciesData();
 
   
 
@@ -143,9 +153,14 @@ agencies = [];
 
 agenciesData(){
   var that = this;
-  //  window.VRNUserDB.collection('Transporter').find({}).execute().then(docs => {
-  //    that.agencies = docs;
-  //  })
+
+
+//node server
+this.http.get('/Transporter')
+.map(res => res.json())
+.subscribe(docs => {
+  that.agencies =  docs;
+})
 }
 
 
@@ -157,10 +172,11 @@ agenciesData(){
   VEHICLENUM:"",
   DRIVERNAME:"",
   DRIVERNUM:"",
-  FLEETTYPE:"",
+  FLEETTYPECODE:"",
   IDPROOFNUM:"",
   IDPROOFTYPE:"",
   LRNUM:"",
+  FLEETTYPE:"",
   LRDATE:new Date(),
   LICENSENUM:"",
   VRNSTATUS:"",
@@ -180,7 +196,8 @@ createVRNDtlData = {
   SEALCONDITION:"I",
   REMARKS:"",
   NUMOFBOXES:"",
-  SEALNUM:"",
+  SEAL1:"",
+  SEAL2:"",
   VEHICLESECURITYTIME: new Date(),
   VEHICLESECURITYDATE: new Date(),
   VEHICLECHECKINDATE: new Date(),
@@ -196,6 +213,24 @@ licenseSelection(){
   }
 
   var that = this;
+  this.http.get('/License/'+LcnseNo)
+  .map(res => res.json())
+  .subscribe(docs => {
+   debugger;
+   if(docs.length>0){
+        that.createVRNData.DRIVERNAME = docs[0].Lastname;
+        that.createVRNData.DRIVERNUM = docs[0].Telephone;
+        that.addButtonVal = false;
+      }else{
+        that.createVRNData.DRIVERNAME = "";
+        that.createVRNData.DRIVERNUM = "";
+        that.addButtonVal = true;
+      }
+})
+
+  
+
+
   // window.VRNUserDB.collection('License').find({'Licencenumber':Number(LcnseNo)},{'Lastname': 1,'Telephone': 1 }).execute().then(docs => {
   //   if(docs.length>0){
   //     that.createVRNData.DRIVERNAME = docs[0].Lastname;
@@ -218,6 +253,20 @@ vehicleSelection(){
   }
 
   var that = this;
+
+  this.http.get('/Vehicle/'+vhcle,{})
+.map(res => res.json())
+.subscribe(docs => {
+  debugger;
+  that.createVRNData.TRANSPORTER = docs.length>0?docs[0].Vendor:"";
+  that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";
+  that.createVRNData.FLEETTYPECODE = 'M';//docs.length>0?docs[0].FleetType:""; 
+  that.createVRNData.FLEETTYPE = 'Market Vehicle';
+  //that.openSnackBar('Succesflly placed new Vehicle', '');
+  //that.appComponent.loadVRNMasterList();
+ // that.TransModes =  docs;
+})
+
   // window.VRNUserDB.collection('Vehicle').find({'VehicleNumber':vhcle},{'Vendor': 1 }).execute().then(docs => {
   //   that.createVRNData.TRANSPORTER = docs.length>0?docs[0].Vendor:"";
   //   that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";
@@ -236,9 +285,20 @@ debugger;
 this.createVRNData.PURPOSE = '';//this.selectedIndex == 0 ? "Inbound" : "Outbound"; 
 var that = this;
 
-//var cnt = window.VRNUserDB.collection('VRNHeader').count();
-setTimeout(function(){
+this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
+.map(res => res.json())
+.subscribe(docs => {
   debugger;
+  that.openSnackBar('Succesflly placed VRN', '');
+   that.appComponent.loadVRNMasterList();
+ // that.TransModes =  docs;
+})
+
+
+
+//var cnt = window.VRNUserDB.collection('VRNHeader').count();
+// setTimeout(function(){
+//   debugger;
 //that.createVRNData.VRN = (100000900 + cnt.__zone_symbol__value).toString(); 
 
 //that.createVRNDtlData.VRN = that.createVRNData.VRN;
@@ -251,7 +311,7 @@ setTimeout(function(){
 //   debugger;
 // });  
 
-},1500)
+//},1500)
 }
 
 VRNCheckIn(){
@@ -332,7 +392,8 @@ export class CreateLicenseDialog {
 
   constructor(
     public dialogRef: MatDialogRef<CreateLicenseDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar,public createVRNComponent: CreateVRN2Component) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar,public http: Http,public createVRNComponent: CreateVRN2Component) { }
+
 
 
     openSnackBar(message: string, action: string) {
@@ -354,6 +415,11 @@ export class CreateLicenseDialog {
    }
   ngOnInit() {
   var that = this;
+  this.http.get('/LicenseRegion')
+  .map(res => res.json())
+  .subscribe(docs => {
+    that.licenseRegionData =  docs;
+})
   // window.VRNUserDB.collection('LicenseRegion').find({}).execute().then(docs => {
   //   that.licenseRegionData =  docs;
   // })
@@ -368,6 +434,17 @@ onSubmit() {
     return;
   }
 
+
+
+  this.http.post('/License',this.createNewLicense)
+  .map(res => res.json())
+  .subscribe(docs => {
+   debugger;
+   that.openSnackBar('Succesflly created license '+ that.createNewLicense.Licencenumber, '');
+   //    // that.createVRNComponent.createVRNData.DRIVERNUM = dta.Telephone;
+   //    // that.createVRNComponent.createVRNData.DRIVERNAME = dta.Lastname;
+        that.dialogRef.close(dta);
+})
   // window.VRNUserDB.collection('License').insertOne(this.createNewLicense).then(docs => {
   //   debugger;
   //     that.openSnackBar('Succesflly created license', '');

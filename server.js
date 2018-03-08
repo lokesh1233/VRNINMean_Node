@@ -12,13 +12,13 @@
     ParamsModel = require('./app/models/ParamsModel'),
     TransporterModel = require('./app/models/TransporterModel'),
     VehicleModel = require('./app/models/VehicleModel'),
+    VRNCOunter = require('./app/models/VRNCounterModel'),
     bodyParser = require('body-parser'),         // pull information from HTML POST (express4)
     methodOverride = require('method-override'), // simulate DELETE and PUT (express4)
     database = require('./config/database'),
     port     = process.env.PORT || 8888;         // set the port
-    mongoose.set('debug', true);    
+    mongoose.set('debug', true);
 
-    auto__Increment = require('mongoose-auto-increment');
 
     // configuration ===============================================================
     mongoose.connect(database.url);     // connect to mongoDB database on modulus.io

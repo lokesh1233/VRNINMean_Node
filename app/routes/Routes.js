@@ -13,6 +13,9 @@ module.exports = function(app) {
     .get(vrnList.list_all_vrns)
     .post(vrnList.create_a_vrn);
 
+  app.route('/VRNHeader/:VRN')
+    .put(vrnList.update_vrn);
+    
   app.route('/VRNDetail/:VRN')
     .get(vrnDetail.read_detail_vrn);
     //.put(vrnList.update_a_vrn)

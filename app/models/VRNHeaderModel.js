@@ -1,10 +1,12 @@
 'use strict';
 var mongoose = require('mongoose'),
+ autoIncrement = require("mongodb-autoincrement"),
   Schema = mongoose.Schema;  
 
 var VRNSchema = new Schema({
     VRN: {
-      type: String
+      type: Number,
+      default:0
     },
     MODEOFTRANSPORT: {
       type: String
@@ -67,6 +69,15 @@ var VRNSchema = new Schema({
     }
 });
 
-VRNSchema.plugin(auto__Increment.plugin, { model: 'VRNHeader', field: 'VRN' });
+// autoIncrement.setDefaults({
+//   collection:'VRNHeader',
+//   field:'VRN',
+//   step:1
+// })
   
+// VRNSchema.plugin(autoIncrement.mongoosePlugin, {field:'VRN',
+//   step:1 });
 module.exports = mongoose.model('VRNHeader', VRNSchema,  "VRNHeader");
+
+
+

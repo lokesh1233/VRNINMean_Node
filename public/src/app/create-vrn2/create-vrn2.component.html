@@ -40,7 +40,7 @@
             </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
-                <input matInput placeholder="Fleet Type"  value="{{createVRNDtlData.fleetType}}" [(ngModel)]="createVRNDtlData.fleetType">
+                <input matInput placeholder="Fleet Type"  value="{{createVRNData.FLEETTYPE}}" [(ngModel)]="createVRNData.FLEETTYPE">
               </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.transName">
@@ -60,11 +60,11 @@
                       </mat-radio-group>
          
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
-                          <input matInput placeholder="Seal No. 1"  value="{{createVRNDtlData.Seal1}}" [(ngModel)]="createVRNDtlData.Seal1">
+                          <input matInput placeholder="Seal No. 1"  value="{{createVRNDtlData.SEAL1}}" [(ngModel)]="createVRNDtlData.Seal1">
                       </mat-form-field>
                      
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
-                          <input matInput placeholder="Seal No. 2"  value="{{createVRNDtlData.SEALNUM}}" [(ngModel)]="createVRNDtlData.SEALNUM">
+                          <input matInput placeholder="Seal No. 2"  value="{{createVRNDtlData.SEAL2}}" [(ngModel)]="createVRNDtlData.SEAL2">
                         </mat-form-field>
 
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
