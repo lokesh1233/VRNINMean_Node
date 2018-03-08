@@ -9,11 +9,11 @@
                     </mat-toolbar>
                 <!-- <form class="example-form"> -->
                      <mat-form-field class="example-full-width"> 
-                      <input matInput placeholder="Search" type="search">
+                      <input matInput placeholder="Search" type="search" (change)="searchChange($event)">
                      </mat-form-field>
                     
-                <mat-nav-list >
-                    <mat-list-item *ngFor="let data of createUserData"  (click)="onVRNSelected(data)"   class="{{data.class}} heightStable">
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data)" class="{{data.class}} heightStable">
              
                         <div>
                    <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
@@ -51,7 +51,7 @@
                 <button mat-icon-button mat-button (click)="drawer.toggle()">
                     <mat-icon aria-label="Menu Icon">menu</mat-icon>
                 </button>                
-                <span>VRN Details</span>
+                <span class="detailTitle">VRN Details</span>
                 <span class="example-spacer"></span>
             </mat-toolbar-row>
         </mat-toolbar>
