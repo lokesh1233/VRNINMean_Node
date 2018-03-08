@@ -27,17 +27,17 @@ export class DetailComponent implements OnInit {
   MOPSelectionChange(){
     var valdtn = this.feildValidation;
     this.MOPSelectedField = {};
-    var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
-     for(var i in valdtn){
-       this.MOPSelectedField[i] = valdtn[i][selectedKey];
-     }
+    // var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
+    //  for(var i in valdtn){
+    //    this.MOPSelectedField[i] = valdtn[i][selectedKey];
+    //  }
   }
 
   MOPSelectedField = {};
   VRNId = '';
   roadTransport='';
   paramValues={};
-  vrnMaterData = {};
+  vrnMaterData;
   selectedIndex = null;
   selectedUser = null;
   readUserItemData = 0;
@@ -51,12 +51,11 @@ export class DetailComponent implements OnInit {
 
   vrnMasterSelData(){
     let id = this.route.snapshot.paramMap.get('id');
-    this.vrnMaterData = {};
     this.VRNId = id;
     if(id != 'A'){
       this.vrnMaterData = this.appComponent.getMasterItem();
       this.roadTransport = this.vrnMaterData.MODEOFTRANSPORT;
-     this.vrnMaterData.MODEOFTRANSPORT = '';
+      this.vrnMaterData.MODEOFTRANSPORT = '';
       this.vrnMaterData.VEHICLESTATUS = '';
       this.vrnMaterData.SEALCONDITION = '';
       this.vrnMaterData.REMARKS = '';
@@ -89,9 +88,6 @@ export class DetailComponent implements OnInit {
    .subscribe(docs => {
    var vrnMat = that.vrnMaterData;
      if(docs.length>0){
-      // vrnMat.VEHICLESTATUS = that.paramValues['VEHICLESTATUS'+docs[0].VEHICLESTATUS];
-      // vrnMat.SEALCONDITION = that.paramValues['SEALCONDITION'+docs[0].SEALCONDITION];
-      // vrnMat.TrnsprtMode = that.paramValues['TrnsprtMode'+that.roadTransport ];
        vrnMat.REMARKS = docs[0].REMARKS;
        vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
        vrnMat.SEALNUM = docs[0].SEALNUM;
