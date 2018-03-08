@@ -134,3 +134,7 @@
   .widthContent{
     width: 95%;
   }
+
+  .detailTitle{
+    padding-left: 10px;
+}

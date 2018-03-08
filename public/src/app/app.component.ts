@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import {MatSnackBar, MatTableDataSource} from '@angular/material';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
+
 //import { DetailComponent }   from './detail/detail.component';
 
 @Component({
@@ -12,12 +13,35 @@ import { Http } from '@angular/http';
 })
 export class AppComponent implements OnInit{
   constructor(private router: Router,private http: Http) {}
-    
+    searchVal = "";
     ngOnInit(){ 
       this.loadVRNMasterList();
      // window.asd = this;
     // this.webhhokURL();
        }
+
+       searchChange(evt){
+         debugger;
+         this.searchVal = evt.srcElement.value;
+         var that = this;
+         if(this.searchVal === ""){
+          this.createUserData = this.primaryUserData; 
+         }
+         else{
+          this.createUserData = this.createUserData.filter(function(ele){
+              return (ele.VRN.indexOf(that.searchVal) > -1 || ele.VEHICLENUM.indexOf(that.searchVal) > -1);
+          });
+         }
+//         var dat = this.createUserData;
+
+//          for(var i=0;i<dat.length;i++){
+// if(dat[i].VRN.indexOf(this.searchVal)>-1){
+//   dat[i].visible=true;
+// }else{
+//   dat[i].visible=false;
+// }
+  //       }
+       }       
 
   loadVRNMasterList(){
     var that = this;
@@ -28,6 +52,7 @@ export class AppComponent implements OnInit{
     .subscribe(docs => {
     debugger; 
     docs = docs.sort(function(a, b){return b.VRN - a.VRN});
+      that.primaryUserData=docs;
        that.createUserData=docs;
       if(docs.length>0){
          that.onVRNSelected(docs[0]);
@@ -51,6 +76,7 @@ export class AppComponent implements OnInit{
   }
 
   createUserData = []
+  primaryUserData = [];
   selectedVRNData = {}
 
   onVRNSelected(data){
