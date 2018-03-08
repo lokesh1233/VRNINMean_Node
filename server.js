@@ -16,6 +16,7 @@
     methodOverride = require('method-override'), // simulate DELETE and PUT (express4)
     database = require('./config/database'),
     port     = process.env.PORT || 8888;         // set the port
+    mongoose.set('debug', true);
 
 
     // configuration ===============================================================

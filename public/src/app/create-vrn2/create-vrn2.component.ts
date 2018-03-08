@@ -4,6 +4,7 @@ import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import { Http } from '@angular/http';
 import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { AppComponent }   from '../app.component';
@@ -19,7 +20,7 @@ export class CreateVRN2Component {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   filteredAgencies : Observable<any[]>;
-  constructor(public snackBar: MatSnackBar,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
+  constructor(public snackBar: MatSnackBar,private http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
     var that = this;
     this.filteredAgencies = this.agencyCtrl.valueChanges.pipe(
@@ -28,13 +29,13 @@ export class CreateVRN2Component {
     );
 }
 
-MOPSelectedField = {};
+MOPSelectedField;
 addButtonVal = false;
 
 
 MOPSelectionChange(){
   var valdtn = this.feildValidation;
-  //this.MOPSelectedField = {};
+  this.MOPSelectedField = {};
   var selectedKey = this.createVRNData.MODEOFTRANSPORT;
   for(var i in valdtn){
     this.MOPSelectedField[i] = valdtn[i][selectedKey];
@@ -55,9 +56,9 @@ var visible = true;
   visible = false;
  }
  this.createVRNDtlData.SEALCONDITION = 'I';
- //this.MOPSelectedField.sealCond  = visible;
- //this.MOPSelectedField.seal1  = visible;
- //this.MOPSelectedField.seal2  = visible;
+ this.MOPSelectedField.sealCond  = visible;
+ this.MOPSelectedField.seal1  = visible;
+ this.MOPSelectedField.seal2  = visible;
 }
 
 
@@ -69,8 +70,8 @@ var visible = true;
  if(vhcleSts == 'N'){
   visible = false;
  }
- //this.MOPSelectedField.seal1  = visible;
- //this.MOPSelectedField.seal2  = visible;
+ this.MOPSelectedField.seal1  = visible;
+ this.MOPSelectedField.seal2  = visible;
 }
 
 filterAgencies(name: string) {
@@ -127,7 +128,17 @@ agencies = [];
   //   that.TransModes =  docs;
   // })
   // this.agenciesData();
-  // this.MOPSelectionChange();
+
+  
+
+  //node server
+  this.http.get('/Params/TrnsprtMode')
+  .map(res => res.json())
+  .subscribe(docs => {
+    that.TransModes =  docs;
+})
+
+   this.MOPSelectionChange();
   }
 
 agenciesData(){

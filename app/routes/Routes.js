@@ -2,6 +2,7 @@
 module.exports = function(app) {
   var vrnList = require('../controllers/VRNHeaderController');
   var vrnDetail = require('../controllers/VRNDetailController');
+  var Params = require('../controllers/ParamsController');
   var license = require('../controllers/LicenseController');
   var licenseRegion = require('../controllers/LicenseRegionController');
   var transporter = require('../controllers/TransporterController');
@@ -13,10 +14,12 @@ module.exports = function(app) {
     .post(vrnList.create_a_vrn);
 
   app.route('/VRNDetail/:VRN')
-    .get(vrnDetail.read_detail_vrn)
+    .get(vrnDetail.read_detail_vrn);
     //.put(vrnList.update_a_vrn)
     //.delete(vrnList.delete_a_vrn);
-
+    app.route('/Params/:Domain')
+    .get(Params.read_params);
+    
   app.route('/License')
     .post(license.create_license);
 
