@@ -1,6 +1,6 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema;  
 
 var VRNSchema = new Schema({
     VRN: {
@@ -66,5 +66,7 @@ var VRNSchema = new Schema({
       type: String
     }
 });
+
+VRNSchema.plugin(auto__Increment.plugin, { model: 'VRNHeader', field: 'VRN' });
   
 module.exports = mongoose.model('VRNHeader', VRNSchema,  "VRNHeader");

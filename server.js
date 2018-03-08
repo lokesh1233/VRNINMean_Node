@@ -16,8 +16,9 @@
     methodOverride = require('method-override'), // simulate DELETE and PUT (express4)
     database = require('./config/database'),
     port     = process.env.PORT || 8888;         // set the port
-    mongoose.set('debug', true);
+    mongoose.set('debug', true);    
 
+    auto__Increment = require('mongoose-auto-increment');
 
     // configuration ===============================================================
     mongoose.connect(database.url);     // connect to mongoDB database on modulus.io
