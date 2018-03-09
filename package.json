@@ -28,14 +28,15 @@
     "@angular/router": "~5.0.0",
     "@angular/upgrade": "~5.0.0",
     "angular-in-memory-web-api": "~0.5.0",
+    "body-parser": "~1.14.1",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
+    "method-override": "~2.3.5",
+    "mongodb-autoincrement": "^1.0.1",
     "mongoose": "^5.0.9",
+    "morgan": "~1.6.1",
     "rxjs": "^5.5.0",
-    "zone.js": "^0.8.4",
-    "morgan"     : "~1.6.1",
-    "body-parser": "~1.14.1",
-    "method-override": "~2.3.5"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/cdk": "5.1.0",

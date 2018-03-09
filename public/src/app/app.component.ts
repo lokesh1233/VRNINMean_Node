@@ -21,7 +21,6 @@ export class AppComponent implements OnInit{
        }
 
        searchChange(evt){
-         debugger;
          this.searchVal = evt.srcElement.value;
          var that = this;
          if(this.searchVal === ""){
@@ -29,18 +28,9 @@ export class AppComponent implements OnInit{
          }
          else{
           this.createUserData = this.createUserData.filter(function(ele){
-              return (ele.VRN.indexOf(that.searchVal) > -1 || ele.VEHICLENUM.indexOf(that.searchVal) > -1);
+              return (ele.VRN.toString().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.indexOf(that.searchVal) > -1);
           });
          }
-//         var dat = this.createUserData;
-
-//          for(var i=0;i<dat.length;i++){
-// if(dat[i].VRN.indexOf(this.searchVal)>-1){
-//   dat[i].visible=true;
-// }else{
-//   dat[i].visible=false;
-// }
-  //       }
        }       
 
   loadVRNMasterList(){
