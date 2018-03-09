@@ -65,7 +65,7 @@
                      
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
                           <input matInput placeholder="Seal No. 2"  value="{{createVRNDtlData.SEAL2}}" [(ngModel)]="createVRNDtlData.SEAL2">
-                        </mat-form-field>
+                        </mat-form-field> 
 
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
                           <input matInput placeholder="No of Boxes"  value="{{createVRNDtlData.NUMOFBOXES}}" [(ngModel)]="createVRNDtlData.NUMOFBOXES">
@@ -98,16 +98,26 @@
                 <input matInput placeholder="Driver/Pickup Person Name."  value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
             </mat-form-field>
          
-            <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.idProof">
-                <input matInput placeholder="ID proof type"  (change)="licenseSelection()"  value="{{createVRNData.IDPROOFTYPE}}" [(ngModel)]="createVRNData.IDPROOFTYPE" disabled='true'>
+            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
+              <input matInput placeholder="ID proof type"   value="{{createVRNData.IDPROOFTYPE}}" aria-label="IDProof" [matAutocomplete]="auto" [formControl]="IDProofCtrl" [(ngModel)]="createVRNData.IDPROOFTYPE">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let prf of filteredProofs | async" [value]="prf.modeTxt">              
+                {{prf.modeTxt}} 
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+
+            <!-- <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.idProof">
+                <input matInput placeholder="ID proof type"   value="{{createVRNData.IDPROOFTYPE}}" [(ngModel)]="createVRNData.IDPROOFTYPE" disabled='true'>
               </mat-form-field>
               <button mat-icon-button (click)='selectIDProof()' *ngIf="MOPSelectedField.idProof">
                 <mat-icon aria-label="">add</mat-icon>
-              </button>
+              </button> -->
               
           
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
-                <input matInput placeholder="ID proof No."  value="{{createVRNData.IDPROOFNO}}" [(ngModel)]="createVRNData.IDPROOFNO">
+                <input matInput placeholder="ID proof No."  value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
             </mat-form-field>     
 
             <div>

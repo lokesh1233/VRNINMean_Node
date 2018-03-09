@@ -23,18 +23,25 @@ exports.read_detail_vrn = function(req, res) {
                   modeNum:vrnDat.SEALCONDITION,
                   }, {
                   Domain: 'VEHICLESTATUS',
-                  modeNum:vrnDat.VEHICLESTATUS,
+                  modeNum:vrnDat.VEHICLESTATUS  ,
                   }]}, function(err, prm) {
           if (err)
           res.json(vrn);
+          try {
+          
+          if(prm && prm[0] && prm[0]._doc){
           if(prm[0]._doc.Domain == 'SEALCONDITION'){
-            vrnDat.VEHICLESTATUS = prm[1]._doc.modeTxt
-            vrnDat.SEALCONDITION = prm[0]._doc.modeTxt;
+            vrnDat.VEHICLESTATUS = prm && prm[1] && prm[1]._doc ? prm[1]._doc.modeTxt : "";
+            vrnDat.SEALCONDITION = prm && prm[0] && prm[0]._doc ? prm[0]._doc.modeTxt : "";
           }else{
-            vrnDat.VEHICLESTATUS = prm[0]._doc.modeTxt
-            vrnDat.SEALCONDITION = prm[1]._doc.modeTxt;
+            vrnDat.VEHICLESTATUS = prm && prm[0] && prm[0]._doc ? prm[0]._doc.modeTxt : "";
+            vrnDat.SEALCONDITION = prm && prm[1] && prm[1]._doc ? prm[1]._doc.modeTxt : "";
           }
-         res.json(vrn);
+        }
+      } catch (error) {
+        res.json(vrn);
+      }
+      res.json(vrn);
         });
      
       

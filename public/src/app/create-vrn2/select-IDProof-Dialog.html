@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>License details</h1>
+<div mat-dialog-content>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" [mat-dialog-close]="">Close</button>
+</div>
+
+
+
+
+<!-- 
+
+<mat-toolbar >
+  <mat-toolbar-row>
+    <span>License details</span>
+  </mat-toolbar-row>
+   </mat-toolbar>
+<div class="example-container marginStyle">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="License No." value="{{data.Licencenumber}}" [(ngModel)]="data.Licencenumber" disabled='true'>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" required placeholder="Valid upto" value="{{createNewLicense.Validto}}" [(ngModel)]='createNewLicense.Validto'>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Driver Name" required value="{{createNewLicense.Lastname}}" [(ngModel)]='createNewLicense.Lastname'>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Mobile No." required value="{{createNewLicense.Telephone}}" [(ngModel)]='createNewLicense.Telephone'>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Select Region" required [(ngModel)]="createNewLicense.Rg" name="region">
+      <mat-option *ngFor="let region of licenseRegionData" [value]="region.Rg">
+        {{region.Description}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-toolbar >
+    <mat-toolbar-row>
+        <button mat-raised-button color="primary" (click)='onSubmit()'>Submit</button>
+        <button mat-raised-button color="warn" (click)='onClose()'>Close</button>
+    </mat-toolbar-row>
+    </mat-toolbar>
+</div> -->

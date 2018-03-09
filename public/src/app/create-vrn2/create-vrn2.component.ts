@@ -17,20 +17,38 @@ import { AppComponent }   from '../app.component';
 export class CreateVRN2Component {
 
   agencyCtrl: FormControl;
+  IDProofCtrl: FormControl;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   filteredAgencies : Observable<any[]>;
+  filteredProofs: Observable<any[]>;
   constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
+    this.IDProofCtrl = new FormControl();
     var that = this;
     this.filteredAgencies = this.agencyCtrl.valueChanges.pipe(
       startWith(''),
       map(agency => that.filterAgencies(agency))
     );
+    this.filteredProofs = this.IDProofCtrl.valueChanges.pipe(
+      startWith(''),
+      map(proof => that.filterProofs(proof))
+    );
 }
 
 MOPSelectedField;
 addButtonVal = false;
+idProofData = [];
+
+idProofParamData(){
+  var that = this;
+  //node server
+  this.http.get('/Params/IDProffList')
+  .map(res => res.json())
+  .subscribe(docs => {
+    that.idProofData =  docs;
+})
+}
 
 
 MOPSelectionChange(){
@@ -81,24 +99,32 @@ var visible = true;
  }
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
+ this.createVRNDtlData.SEAL1 = '';
+ this.createVRNDtlData.SEAL2 = '';
+
+
 
 }
 
 filterAgencies(name: string) {
   debugger;
   var that = this;
-  // window.VRNUserDB.collection('Transporter').find({$or:[{'Vendor':name},{'Name1':name }]}).execute().then(docs => {
-  //   that.filteredAgencies = docs;
-  // })
-
   if(name == undefined){
     return;
   }
- 
   return this.agencies.filter(agency =>
     agency.Name1.toLowerCase().indexOf(name.toLowerCase()) === 0);
 }
 
+filterProofs(name: string) {
+  debugger;
+  var that = this;
+  if(name == undefined){
+    return;
+  }
+  return this.idProofData.filter(proof =>
+    proof.modeTxt.toLowerCase().indexOf(name.toLowerCase()) === 0);
+}
 
 agencies = [];
 
@@ -138,7 +164,7 @@ agencies = [];
   //   that.TransModes =  docs;
   // })
   this.agenciesData();
-
+  this.idProofParamData();
   
 
   //node server
@@ -153,14 +179,17 @@ agencies = [];
 
 agenciesData(){
   var that = this;
-
-
 //node server
 this.http.get('/Transporter')
 .map(res => res.json())
 .subscribe(docs => {
   that.agencies =  docs;
 })
+
+}
+
+selectIDProof(){
+
 }
 
 

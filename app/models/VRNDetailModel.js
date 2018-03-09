@@ -21,7 +21,10 @@ var VRNDetailSchema = new Schema({
     NUMOFBOXES: {
         type: String
     },
-    SEALNUM: {
+    SEAL1: {
+        type: String
+    },
+    SEAL2: {
         type: String
     },
     VEHICLESECURITYTIME: {

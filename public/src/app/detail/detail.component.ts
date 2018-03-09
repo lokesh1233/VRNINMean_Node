@@ -91,7 +91,7 @@ export class DetailComponent implements OnInit {
      if(docs.length>0){
        vrnMat.VEHICLESTATUS = docs[0].VEHICLESTATUS; //that.paramValues['VEHICLESTATUS'+docs[0].VEHICLESTATUS];
        vrnMat.SEALCONDITION = docs[0].SEALCONDITION; //that.paramValues['SEALCONDITION'+docs[0].SEALCONDITION];
-       vrnMat.TrnsprtMode = vrnMat.MODEOFTRANSPORT
+       //vrnMat.TrnsprtMode = vrnMat.MODEOFTRANSPORT
        vrnMat.REMARKS = docs[0].REMARKS;
        vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
        vrnMat.SEALNUM = docs[0].SEALNUM;

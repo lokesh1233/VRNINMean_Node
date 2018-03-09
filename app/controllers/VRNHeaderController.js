@@ -3,14 +3,35 @@
 var mongoose = require('mongoose'),
     VRN = mongoose.model('VRNHeader'),
     VRNDetail = mongoose.model('VRNDetail'),
+    Params = mongoose.model('Params'),
     VRNCounter = mongoose.model('VRNCounter');
 
 exports.list_all_vrns = function(req, res) {
   VRN.find({VRNSTATUS: ''}, function(err, vrn) {
     if (err)
       res.send(err);
+
+      Params.find({
+        Domain:'TrnsprtMode'}, function(err, prm) {
+if (err)
+res.json(vrn);
+var dataPrm = {};
+try {
+
+for(var i=0;i<prm.length;i++){
+dataPrm[prm[i]._doc.modeNum] =  prm[i]._doc.modeTxt;
+}
+
+for(var i=0;i<vrn.length;i++){
+  vrn[i]._doc.TrnsprtMode = dataPrm[vrn[i]._doc.MODEOFTRANSPORT];
+  }
+
+} catch (error) {
+  
+}
     res.json(vrn);
   });
+})
 };
 
 
