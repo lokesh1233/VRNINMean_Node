@@ -27,8 +27,9 @@ export class AppComponent implements OnInit{
           this.createUserData = this.primaryUserData; 
          }
          else{
-          this.createUserData = this.createUserData.filter(function(ele){
-              return (ele.VRN.toString().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.indexOf(that.searchVal) > -1);
+            this.searchVal = this.searchVal.toLowerCase();
+            this.createUserData = this.createUserData.filter(function(ele){
+              return (ele.VRN.toString().toLowerCase().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.toLowerCase().indexOf(that.searchVal) > -1);
           });
          }
        }       
