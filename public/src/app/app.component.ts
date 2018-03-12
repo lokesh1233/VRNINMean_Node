@@ -14,6 +14,7 @@ import { Http } from '@angular/http';
 export class AppComponent implements OnInit{
   constructor(private router: Router,private http: Http) {}
     searchVal = "";
+    VRNDetlTxt = 'VRN Details';
     ngOnInit(){ 
       this.loadVRNMasterList();
      // window.asd = this;
@@ -34,6 +35,10 @@ export class AppComponent implements OnInit{
          }
        }       
 
+       VRNDetlTxtfn(txt){
+         this.VRNDetlTxt = txt;
+       }
+
   loadVRNMasterList(){
     var that = this;
 
@@ -41,14 +46,14 @@ export class AppComponent implements OnInit{
     this.http.get('/VRNHeader')
     .map(res => res.json())
     .subscribe(docs => {
-    debugger; 
+     
     docs = docs.sort(function(a, b){return b.VRN - a.VRN});
       that.primaryUserData=docs;
        that.createUserData=docs;
       if(docs.length>0){
          that.onVRNSelected(docs[0]);
        }else{
-         that.onVRNSelected({VRN:'0'});
+         that.onVRNSelected({VRN:''});
        }
     })
 
@@ -78,6 +83,7 @@ export class AppComponent implements OnInit{
     data.class="mat-list-item selectedIndex";
     this.selectedVRNData = data;
     this.router.navigate(['/detail',data.VRN]);
+    this.VRNDetlTxtfn('VRN Check-In: '+data.VRN);
   }  
 
   getMasterItem(){
@@ -86,9 +92,9 @@ export class AppComponent implements OnInit{
 
 
 //   webhhokURL(){
-//     debugger;
+//     
 //     var xhttp = new XMLHttpRequest();
-//  xhttp.onreadystatechange = function() { debugger;
+//  xhttp.onreadystatechange = function() { 
 //    if (this.readyState == 4 && this.status == 200) {
 //    // Typical action to be performed when the document is ready:
 //    document.getElementById("demo").innerHTML = xhttp.responseText;

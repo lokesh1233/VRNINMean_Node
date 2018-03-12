@@ -40,13 +40,13 @@
             </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
-                <input matInput placeholder="Fleet Type"  value="{{createVRNData.FLEETTYPE}}" [(ngModel)]="createVRNData.FLEETTYPE">
+                <input matInput placeholder="Fleet Type"  value="{{createVRNData.FLEETTYPE}}" [(ngModel)]="createVRNData.FLEETTYPE" disabled='true'>
               </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.transName">
-                <input matInput placeholder="Transporter/Agency Name."  [value]="createVRNData.TRANSPORTERCODE"  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let agency of filteredAgencies | async" [value]="agency.Name1">              
+                <input matInput placeholder="Transporter/Agency Name."  [value]="createVRNData.TRANSPORTER" [(ngModel)]="createVRNData.TRANSPORTER"  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
+                <mat-autocomplete #auto="matAutocomplete" >
+                  <mat-option *ngFor="let agency of filteredAgencies | async" [value]="agency.Name1" (click)="selectTransporterChange(agency)" >              
                     <span>{{ agency.Name1 }}</span> 
                     <small> ({{ agency.Vendor}})</small>
                   </mat-option>
@@ -91,7 +91,7 @@
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No." required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
@@ -101,7 +101,7 @@
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
               <input matInput placeholder="ID proof type" required  value="{{createVRNData.IDPROOFTYPE}}" aria-label="IDProof" [matAutocomplete]="auto" [formControl]="IDProofCtrl" [(ngModel)]="createVRNData.IDPROOFTYPE">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let prf of filteredProofs | async" [value]="prf.modeTxt">              
+                <mat-option *ngFor="let prf of filteredProofs | async" [value]="prf.modeTxt" (click)="selectIDProofChange(prf)">              
                 {{prf.modeTxt}} 
                 </mat-option>
               </mat-autocomplete>
@@ -132,10 +132,16 @@
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
               <input matInput placeholder="AWB no./Docker no./LR no." value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
           </mat-form-field>
+
+          
         
         <mat-form-field class="example-full-width">
           <textarea matInput placeholder="Remarks" value="{{createVRNDtlData.REMARKS}}" [(ngModel)]="createVRNDtlData.REMARKS"></textarea>
         </mat-form-field>
+
+        <mat-form-field class="example-full-width" >
+          <input matInput placeholder="In Time" value="{{inTime}}" [(ngModel)]='inTime' disabled='true'>
+      </mat-form-field>
 <!-- 
         <mat-form-field class="example-full-width"> -->
             <!-- <label matInput placeholder="Check in time" [(ngModel)]="createVRNDtlData.Time">{{createVRNDtlData.Time}}</label>

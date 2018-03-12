@@ -23,6 +23,7 @@ export class CreateVRN2Component {
   secondFormGroup: FormGroup;
   filteredAgencies : Observable<any[]>;
   filteredProofs: Observable<any[]>;
+  inTime= new Date();
   constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
     this.IDProofCtrl = new FormControl();
@@ -70,25 +71,25 @@ MOPSelectionChange(){
   var valdtn = this.feildValidation;
   this.MOPSelectedField = {};
   var selectedKey = this.createVRNData.MODEOFTRANSPORT;
+  this.defaultUpdationValues(selectedKey);
   for(var i in valdtn){
     this.MOPSelectedField[i] = valdtn[i][selectedKey];
   }
-  this.createVRNDtlData.VEHICLESTATUS = 'L';
-  this.createVRNDtlData.SEALCONDITION = 'I';
-  if(this.MOPSelectedField.vehStat == false){
-    this.createVRNDtlData.VEHICLESTATUS = '';
-  }
-  
-  if(this.MOPSelectedField.sealCond == false){
-    this.createVRNDtlData.SEALCONDITION = '';
-  }
+ // this.createVRNDtlData.VEHICLESTATUS = 'L';
+ // this.createVRNDtlData.SEALCONDITION = 'I';
+ // if(this.MOPSelectedField.vehStat == false){
+ //   this.createVRNDtlData.VEHICLESTATUS = '';
+ // } 
+  // if(this.MOPSelectedField.sealCond == false){
+  //   this.createVRNDtlData.SEALCONDITION = '';
+  // }
 
   this.addButtonVal = false;
 }
 
 
 vehicleStatusChange(){
-  debugger;
+  
 
  var vhcleSts =  this.createVRNDtlData.VEHICLESTATUS;
 var visible = true;
@@ -99,13 +100,15 @@ var visible = true;
  this.MOPSelectedField.sealCond  = visible;
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
+ this.MOPSelectedField.noOfBoxes  = visible;
+ this.createVRNDtlData.NUMOFBOXES = '';
  this.createVRNDtlData.SEAL1 = '';
  this.createVRNDtlData.SEAL2 = '';
 }
 
 
 sealConditionChange(){
-  debugger;
+  
 
  var vhcleSts =  this.createVRNDtlData.SEALCONDITION;
 var visible = true;
@@ -122,7 +125,7 @@ var visible = true;
 }
 
 filterAgencies(name: string) {
-  debugger;
+  
   var that = this;
   if(name == undefined){
     return;
@@ -132,7 +135,7 @@ filterAgencies(name: string) {
 }
 
 filterProofs(name: string) {
-  debugger;
+  
   var that = this;
   if(name == undefined){
     return;
@@ -178,6 +181,7 @@ agencies = [];
   // window.VRNUserDB.collection('Params').find({'Domain':'TrnsprtMode'},{'modeNum':1,'modeTxt':1 }).execute().then(docs => {
   //   that.TransModes =  docs;
   // })
+  this.defaultUpdationValues('RD');
   this.agenciesData();
   this.idProofParamData();
   
@@ -203,14 +207,13 @@ this.http.get('/Transporter')
 
 }
 
-selectIDProof(){
 
-}
-
-
- createVRNData = {
+createVRNData;
+createVRNDtlData;
+defaultUpdationValues(dta){
+ this.createVRNData = {
   VRN:"",
-  MODEOFTRANSPORT:"RD",
+  MODEOFTRANSPORT:dta,
   PURPOSE:"",
   SITE:"",
   VEHICLENUM:"",
@@ -219,6 +222,7 @@ selectIDProof(){
   FLEETTYPECODE:"",
   IDPROOFNUM:"",
   IDPROOFTYPE:"",
+  IDPROOFCodeTYPE:"",
   LRNUM:"",
   FLEETTYPE:"",
   LRDATE:new Date(),
@@ -233,20 +237,21 @@ selectIDProof(){
 }
 
 
-createVRNDtlData = {
+this.createVRNDtlData = {
   VRN:"",
   CHECKINOUT:"I",  
-  VEHICLESTATUS:"L",
-  SEALCONDITION:"I",
+  VEHICLESTATUS:dta == "RD"?"L":"",
+  SEALCONDITION:dta == "RD"?"I":"",
   REMARKS:"",
   NUMOFBOXES:"",
   SEAL1:"",
   SEAL2:"",
   VEHICLESECURITYTIME: new Date(),
   VEHICLESECURITYDATE: new Date(),
-  VEHICLECHECKINDATE: new Date(),
-  VEHICLECHECKINTIME: new Date(),
+  VEHICLECHECKINDATE:'',
+  VEHICLECHECKINTIME: '',
   VRNCHECKINBY: 'Bhaskar'
+}
 }
 
 licenseSelection(){
@@ -260,13 +265,13 @@ licenseSelection(){
   this.http.get('/License/'+LcnseNo)
   .map(res => res.json())
   .subscribe(docs => {
-   debugger;
+   
    if(docs.length>0){
         that.createVRNData.DRIVERNAME = docs[0].Lastname;
         that.createVRNData.DRIVERNUM = docs[0].Telephone;
         that.addButtonVal = false;
       }else{
-        that.createVRNData.DRIVERNAME = "";
+        that.createVRNData.DRIVERNAME = ""; 
         that.createVRNData.DRIVERNUM = "";
         that.addButtonVal = true;
       }
@@ -297,15 +302,20 @@ vehicleSelection(){
   }
 
   var that = this;
-
+ var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.http.get('/Vehicle/'+vhcle,{})
 .map(res => res.json())
 .subscribe(docs => {
-  debugger;
-  that.createVRNData.TRANSPORTER = docs.length>0?docs[0].Vendor:"";
-  that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";
-  that.createVRNData.FLEETTYPECODE = 'M';//docs.length>0?docs[0].FleetType:""; 
-  that.createVRNData.FLEETTYPE = 'Market Vehicle';
+  
+  that.createVRNData.TRANSPORTER = docs.length>0?docs[0].VendorName:"";
+  that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";  
+  if(!docs[0] || !docs[0].FleetType){
+    that.createVRNData.FLEETTYPECODE = MOTType == 'RD'?'M':(MOTType == 'CA' || MOTType == 'CR')?'V':MOTType == 'RB'?'B':'';//docs.length>0?docs[0].FleetType:""; 
+    that.createVRNData.FLEETTYPE = MOTType == 'RD'?'Market Vehicle':(MOTType == 'CA' || MOTType == 'CR')?'Vendor Vehicle':MOTType == 'RB'?'Biker':'';  
+  }else{
+    that.createVRNData.FLEETTYPECODE = docs[0].FleetType; 
+    that.createVRNData.FLEETTYPE = docs[0].FleetTypeDesc;
+  }
   //that.openSnackBar('Succesflly placed new Vehicle', '');
   //that.appComponent.loadVRNMasterList();
  // that.TransModes =  docs;
@@ -324,7 +334,7 @@ switchHstl(evt){
 
 onSubmit(){
  
-debugger;
+
 
 this.createVRNData.PURPOSE = '';//this.selectedIndex == 0 ? "Inbound" : "Outbound"; 
 var that = this;
@@ -332,7 +342,6 @@ var that = this;
 this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
 .map(res => res.json())
 .subscribe(docs => {
-  debugger;
   that.openDialog(docs);
   //that.openSnackBar('Succesflly placed VRN', '');
   //  that.appComponent.loadVRNMasterList();
@@ -343,7 +352,7 @@ this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.creat
 
 //var cnt = window.VRNUserDB.collection('VRNHeader').count();
 // setTimeout(function(){
-//   debugger;
+//   ;
 //that.createVRNData.VRN = (100000900 + cnt.__zone_symbol__value).toString(); 
 
 //that.createVRNDtlData.VRN = that.createVRNData.VRN;
@@ -351,17 +360,31 @@ this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.creat
 //   that.openSnackBar('Succesflly placed VRN', '');
 //   that.appComponent.loadVRNMasterList();
 //   window.VRNUserDB.collection('VRNDetail').insertOne(that.createVRNDtlData).then(function(){
-//     debugger;
+//     
 //    });  
-//   debugger;
+//   
 // });  
 
 //},1500)
 }
 
+selectTransporterChange(data){
+debugger;
+this.createVRNData.TRANSPORTER = data.Vendor;
+this.createVRNData.TRANSPORTERCODE = data.Name1;
+}
+
+
 VRNCheckIn(){
   this.createVRNData.VRNSTATUS = "X";
+  this.createVRNDtlData.VEHICLECHECKINDATE= new Date(),
+  this.createVRNDtlData.VEHICLECHECKINTIME= new Date(),
   this.onSubmit();
+}
+
+selectIDProofChange(data){
+debugger;
+this.createVRNData.IDPROOFCodeTYPE = data.modeNum;
 }
 
   // window.HostelUserDB.collection('UserList').insertOne(dta).then(function(){
@@ -418,7 +441,7 @@ feildValidation={
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
+      
       console.log('The dialog was closed');
       that.createVRNData.DRIVERNUM = result.Telephone;
       that.createVRNData.DRIVERNAME = result.Lastname;
@@ -484,14 +507,14 @@ onSubmit() {
   this.http.post('/License',this.createNewLicense)
   .map(res => res.json())
   .subscribe(docs => {
-   debugger;
+   
    that.openSnackBar('Succesflly created license '+ that.createNewLicense.Licencenumber, '');
    //    // that.createVRNComponent.createVRNData.DRIVERNUM = dta.Telephone;
    //    // that.createVRNComponent.createVRNData.DRIVERNAME = dta.Lastname;
         that.dialogRef.close(dta);
 })
   // window.VRNUserDB.collection('License').insertOne(this.createNewLicense).then(docs => {
-  //   debugger;
+  //   
   //     that.openSnackBar('Succesflly created license', '');
   //    // that.createVRNComponent.createVRNData.DRIVERNUM = dta.Telephone;
   //    // that.createVRNComponent.createVRNData.DRIVERNAME = dta.Lastname;

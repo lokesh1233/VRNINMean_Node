@@ -13,7 +13,7 @@
                      </mat-form-field>
                     
                 <mat-nav-list>
-                    <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data)" class="{{data.class}} heightStable">
+                    <mat-list-item *ngFor="let data of createUserData" (click)="drawer.toggle(); onVRNSelected(data);" class="{{data.class}} heightStable">
              
                         <div>
                    <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
@@ -32,7 +32,7 @@
                                 <div class="button-row"> -->
 
                                         <a routerLink="/createvrn" >
-                                            <button mat-mini-fab>
+                                            <button mat-mini-fab (click)='drawer.toggle(); VRNDetlTxtfn("Create VRN")'>
                                               <mat-icon>add</mat-icon>
                                             </button>
                                             </a>
@@ -51,7 +51,7 @@
                 <button mat-icon-button mat-button (click)="drawer.toggle()">
                     <mat-icon aria-label="Menu Icon">menu</mat-icon>
                 </button>                
-                <span class="detailTitle">VRN Details</span>
+                <span class="detailTitle">{{VRNDetlTxt}}</span>
                 <span class="example-spacer"></span>
             </mat-toolbar-row>
         </mat-toolbar>
