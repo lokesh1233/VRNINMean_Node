@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MatSnackBar, MatDialog, MatTableDataSource} from '@angular/material';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { AppComponent }   from '../app.component';
 import { FormsModule }    from '@angular/forms';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-master',
@@ -13,7 +14,7 @@ import { Http } from '@angular/http';
 })
 
 export class DetailComponent implements OnInit {
-  constructor(public snackBar: MatSnackBar,private http: Http, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent) {
+  constructor(public snackBar: MatSnackBar,private http: Http, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
   }
   
   ngOnInit(){ 
@@ -94,7 +95,8 @@ export class DetailComponent implements OnInit {
        //vrnMat.TrnsprtMode = vrnMat.MODEOFTRANSPORT
        vrnMat.REMARKS = docs[0].REMARKS;
        vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
-       vrnMat.SEALNUM = docs[0].SEALNUM;
+       vrnMat.SEAL1 = docs[0].SEAL1;
+       vrnMat.SEAL2 = docs[0].SEAL2;
      }
  })
 
@@ -134,11 +136,12 @@ export class DetailComponent implements OnInit {
   VRNCheckIn(){
 var that = this;
 
-this.http.put(/VRNHeader/+this.vrnMaterData.VRN,{})
+this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
    .map(res => res.json())
    .subscribe(docs => {
-    that.openSnackBar(docs.message, '');
-     that.appComponent.loadVRNMasterList();
+    that.openDialog(docs);
+    //that.openSnackBar(docs.message, '');
+   //  that.appComponent.loadVRNMasterList();
      })
 
   //   window.VRNUserDB.collection('VRNHeader').updateOne({VRN:this.VRNId},{ '$set': {VRNSTATUS : "X"}}).then(docs => {
@@ -177,5 +180,23 @@ this.http.put(/VRNHeader/+this.vrnMaterData.VRN,{})
     lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: false },
     idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
   };
+
+  openDialog(msg): void {
+    var that = this;
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: '350px',
+      data: msg 
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      that.appComponent.loadVRNMasterList();
+      //this.animal = result;
+    });
+  }
+  
+
+
+
 
 }

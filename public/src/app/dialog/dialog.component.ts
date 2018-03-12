@@ -6,14 +6,22 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent{
 
-  ngOnInit(){
-
-  }  
+ 
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+      if(data.msgCode == 'S'){
+        data.messageHdrClr = 'primary';
+        data.messageIcon = 'done';
+        data.messageType = 'Success';
+      }else{
+        data.messageHdrClr = 'warn';
+        data.messageIcon = 'clear';
+        data.messageType =  'Error';
+      }
+    }
 
   onNoClick(): void {
     this.dialogRef.close();

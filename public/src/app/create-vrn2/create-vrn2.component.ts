@@ -52,13 +52,15 @@ idProofParamData(){
 }
 
 openDialog(msg): void {
+  var that = this;
   let dialogRef = this.dialog.open(DialogComponent, {
     width: '250px',
-    data: { message: msg }
+    data: msg 
   });
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
+    that.appComponent.loadVRNMasterList();
     //this.animal = result;
   });
 }
@@ -333,7 +335,7 @@ this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.creat
   debugger;
   that.openDialog(docs);
   //that.openSnackBar('Succesflly placed VRN', '');
-   that.appComponent.loadVRNMasterList();
+  //  that.appComponent.loadVRNMasterList();
  // that.TransModes =  docs;
 })
 

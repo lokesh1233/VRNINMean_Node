@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     VRN = mongoose.model('VRNHeader'),
     VRNDetail = mongoose.model('VRNDetail'),
     Params = mongoose.model('Params'),
+    Vehicle = mongoose.model('Vehicle'),
     VRNCounter = mongoose.model('VRNCounter');
 
 exports.list_all_vrns = function(req, res) {
@@ -52,12 +53,19 @@ getNextSequenceVlue('VRNNum',function(err,doc){
     var new_vrn = new VRN(req.body.headerData);
     new_vrn.save(function(VRNerr, vrn) {
       if (VRNerr)
-        res.send(VRNerr);
+        res.send({message:VRNerr.message,msgCode:"E", Payload:VRNerr});
         var vrn_dtl = new VRNDetail(req.body.detailData);
         vrn_dtl.save(function(err, vrnbdy) {
         });
-      res.json(vrn);
+        res.json({message:'VRN: '+doc._doc.seq+' created sccesfully' ,msgCode:"S", Payload:vrn});
     });
+
+    // Vehicle.findOneAndUpdate({VehicleNumber: req.body.headerData.VEHICLENUM}, { '$set': {
+    //   FleetType : '', Vendor : 
+    // }}, {new: true, upsert: true}, function(err, vrndtl) {
+    // })
+
+    
 });
 
 
@@ -93,7 +101,7 @@ exports.update_vrn = function(req, res) {
       res.send(err);
       VRNDetail.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VEHICLECHECKINDATE  : new Date(), VEHICLESECURITYTIME: new Date() }}, {new: true, upsert: true}, function(err, vrndtl) {
       })
-    res.json({message:'VRN Checked in succesfully'+req.params.VRN, data:vrn});
+    res.json({message:'VRN Checked in succesfully '+req.params.VRN, msgCode:"S", Payload:vrn});
   });
 };
 

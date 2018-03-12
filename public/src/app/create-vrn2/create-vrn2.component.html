@@ -30,13 +30,13 @@
             <ng-template matStepLabel>Vehicle</ng-template>
 
             <!-- <form > -->
-            <mat-radio-group placeholder="Vehicle Status" (change)="vehicleStatusChange()" value={{createVRNDtlData.VEHICLESTATUS}}  *ngIf="MOPSelectedField.vehStat" required  [(ngModel)]="createVRNDtlData.VEHICLESTATUS">
+            <mat-radio-group placeholder="Vehicle Status" (change)="vehicleStatusChange()" value={{createVRNDtlData.VEHICLESTATUS}}  *ngIf="MOPSelectedField.vehStat"   [(ngModel)]="createVRNDtlData.VEHICLESTATUS">
                 <mat-radio-button value="L">Loaded</mat-radio-button>
                 <mat-radio-button value="E">Empty</mat-radio-button>
             </mat-radio-group>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
-                <input matInput  placeholder="Vehicle No."  (change) = 'vehicleSelection()'  [(ngModel)]="createVRNData.VEHICLENUM">
+                <input matInput  placeholder="Vehicle No."  required (change) = 'vehicleSelection()'  [(ngModel)]="createVRNData.VEHICLENUM">
             </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
@@ -60,7 +60,7 @@
                       </mat-radio-group>
          
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
-                          <input matInput placeholder="Seal No. 1"  value="{{createVRNDtlData.SEAL1}}" [(ngModel)]="createVRNDtlData.Seal1">
+                          <input matInput placeholder="Seal No. 1"  value="{{createVRNDtlData.SEAL1}}" [(ngModel)]="createVRNDtlData.SEAL1">
                       </mat-form-field>
                      
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
@@ -84,22 +84,22 @@
            
 
             <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.licNo">
-                <input matInput placeholder="Driver License No."  (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM}}" [(ngModel)]="createVRNData.LICENSENUM">
+                <input matInput placeholder="Driver License No." required  (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM}}" [(ngModel)]="createVRNData.LICENSENUM">
               </mat-form-field>
               <button mat-icon-button (click)='createLicenseDta()' *ngIf="addButtonVal">
                 <mat-icon aria-label="">add</mat-icon>
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No."  value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
-                <input matInput placeholder="Driver/Pickup Person Name."  value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
+                <input matInput placeholder="Driver/Pickup Person Name." required  value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
             </mat-form-field>
          
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
-              <input matInput placeholder="ID proof type"   value="{{createVRNData.IDPROOFTYPE}}" aria-label="IDProof" [matAutocomplete]="auto" [formControl]="IDProofCtrl" [(ngModel)]="createVRNData.IDPROOFTYPE">
+              <input matInput placeholder="ID proof type" required  value="{{createVRNData.IDPROOFTYPE}}" aria-label="IDProof" [matAutocomplete]="auto" [formControl]="IDProofCtrl" [(ngModel)]="createVRNData.IDPROOFTYPE">
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let prf of filteredProofs | async" [value]="prf.modeTxt">              
                 {{prf.modeTxt}} 
@@ -117,7 +117,7 @@
               
           
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
-                <input matInput placeholder="ID proof No."  value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
+                <input matInput placeholder="ID proof No." required value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
             </mat-form-field>     
 
             <div>

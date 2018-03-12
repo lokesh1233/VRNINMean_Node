@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 var VRNSchema = new Schema({
     VRN: {
       type: Number,
-      default:0
+      default:0,
+        unique: true
     },
     MODEOFTRANSPORT: {
       type: String
