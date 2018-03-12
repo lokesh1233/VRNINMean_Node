@@ -10,9 +10,10 @@
     justify-content: center;
   }
   
-  /* .example-sidenav {
-    width: 18%;
-  } */
+  .example-sidenav {
+    overflow: hidden;
+    height: 100%;
+  }
 
   .example-icon {
     padding: 0 14px;
@@ -126,15 +127,49 @@
 
   .mainFooter{
     position: fixed !important;
-    top: 85%;
-    left: 75%;
+    bottom: 30px;
+    right: 30px;
 
-  }
-
-  .widthContent{
-    width: 95%;
-  }
+  }  
 
   .detailTitle{
     padding-left: 10px;
-}
+  }
+
+  .detailForm{
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*height: 100%;*/
+    /*position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;*/
+    max-height: 570px;
+  }
+
+  @media only screen and (max-width: 600px){
+    .detailForm{
+      max-height: 590px;
+      /*height: 100%;*/
+    }
+  }
+
+  .masterList{
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 520px;
+  }
+
+  .list{
+    padding-top: 0px;
+  }
+
+  @media only screen and (max-width: 600px){
+    .masterList{
+      max-height: 540px;
+    }
+  }
+
+  .mat-drawer-content{
+    overflow: hidden !important;
+  }

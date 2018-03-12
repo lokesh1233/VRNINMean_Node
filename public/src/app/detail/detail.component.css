@@ -114,12 +114,6 @@
 
 .mainFooter{
   position: fixed !important;
-  top: 85%;
-  left: 85%;
-
-}
-
-.widthContent{
-  width: 95%;
-  height: 95%;
+  bottom: 30px;
+  right: 30px;
 }

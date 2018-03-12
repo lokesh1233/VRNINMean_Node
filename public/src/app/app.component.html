@@ -8,23 +8,22 @@
                     </mat-toolbar-row>
                     </mat-toolbar>
                 <!-- <form class="example-form"> -->
-                     <mat-form-field class="example-full-width"> 
-                      <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
-                     </mat-form-field>
-                    
-                <mat-nav-list>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                <section class="masterList">
+                <mat-nav-list class="list">
                     <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data)" class="{{data.class}} heightStable">
-             
                         <div>
                    <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
                         <h4 class="marginTitle">VRN. {{data.VRN}}</h4>
-                 <span class="marginTitle">Vehicle No. {{data.VEHICLENUM}}</span>
-               
-                 <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->
-                
-                </div>
-                </mat-list-item> 
+                        <span class="marginTitle">Vehicle No. {{data.VEHICLENUM}}</span>               
+                 <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->                
+                    </div>
+                    </mat-list-item> 
                   </mat-nav-list>
+                </section>
                
                   <div class="mainFooter button-row"> 
                   <!-- <mat-toolbar color="primary">
@@ -44,21 +43,22 @@
                         </mat-toolbar> -->
                     </div>
     </mat-drawer>
-
-    <div class="example-sidenav-content">
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <button mat-icon-button mat-button (click)="drawer.toggle()">
-                    <mat-icon aria-label="Menu Icon">menu</mat-icon>
-                </button>                
-                <span class="detailTitle">VRN Details</span>
-                <span class="example-spacer"></span>
-            </mat-toolbar-row>
-        </mat-toolbar>
-        <div class="widthContent">
-        <router-outlet></router-outlet>        
-    </div>
-    </div>
+    <mat-drawer-content>
+        <div class="example-sidenav-content">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <button mat-icon-button mat-button (click)="drawer.toggle()">
+                        <mat-icon aria-label="Menu Icon">menu</mat-icon>
+                    </button>                
+                    <span class="detailTitle">VRN Details</span>
+                    <span class="example-spacer"></span>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <div class="detailForm">
+                <router-outlet></router-outlet>        
+            </div>
+        </div>
+    </mat-drawer-content>
 </mat-drawer-container>
 
         
