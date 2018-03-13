@@ -398,7 +398,7 @@ VRNCheckIn(){
 }
 
 selectIDProofChange(data){
-debugger;
+//debugger;
 this.createVRNData.IDPROOFCodeTYPE = data.modeNum;
 }
 
@@ -445,7 +445,7 @@ mandatoryFields={
   vehNo 	  : {msg:'Enter vehicle number', id:'VEHICLENUM'},
   transName : {msg:'Select transporter name', id:'TRANSPORTERCODE'},
   licNo 	  : {msg:'Enter license number', id:'LICENSENUM'},
-  mobNo 	  : {msg:'Enter license number', id:'DRIVERNUM'},
+  mobNo 	  : {msg:'Enter mobile number', id:'DRIVERNUM'},
   personName: {msg:'Enter driver name', id:'DRIVERNAME'},
   idProof 	: {msg:'Select id proof', id:'IDPROOFTYPE'},
   idProofNum 	: {msg:'Enter id proof number', id:'IDPROOFNUM'}
