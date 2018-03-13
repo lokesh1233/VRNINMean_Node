@@ -13,6 +13,7 @@ import { Http } from '@angular/http';
 })
 export class AppComponent implements OnInit{
   constructor(private router: Router,private http: Http) {}
+    searchVisible = false;
     searchVal = "";
     VRNDetlTxt = 'VRN Details';
     ngOnInit(){ 
@@ -80,7 +81,7 @@ export class AppComponent implements OnInit{
     for(var i=0;i<dta.length;i++){
       dta[i].class="mat-list-item"
     }
-    data.class="mat-list-item selectedIndex";
+    data.class="mat-list-item";
     this.selectedVRNData = data;
     this.router.navigate(['/detail',data.VRN]);
     this.VRNDetlTxtfn('VRN Check-In: '+data.VRN);

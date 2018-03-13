@@ -2,15 +2,19 @@
     <mat-drawer #drawer class="example-sidenav" mode="side" opened="true" >
         <!-- opened="true" -->
          
-                <mat-toolbar color="primary">
-                    <mat-toolbar-row>
+                <mat-toolbar color="primary">                    
                       <span>VRN List</span>
-                    </mat-toolbar-row>
+                      <!-- *ngIf="!searchVisible" -->
+                      <span class="example-spacer"></span>
+                      <!-- *ngIf="!searchVisible"  -->
+                      <!-- <button mat-icon-button (click)="searchVisible = !searchVisible" *ngIf="!searchVisible">
+                            <mat-icon aria-label="Search">search</mat-icon>
+                      </button> -->
+                      <!-- <input *ngIf="searchVisible" matInput placeholder="Search" type="search" (keyup)="searchChange($event)"> -->
                     </mat-toolbar>
                 <!-- <form class="example-form"> -->
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
-                            <mat-icon matSuffix>search</mat-icon>
                         </mat-form-field>
                 <section class="masterList">
                 <mat-nav-list class="list">
@@ -25,23 +29,13 @@
                   </mat-nav-list>
                 </section>
                
-                  <div class="mainFooter button-row"> 
-                  <!-- <mat-toolbar color="primary">
-                        <mat-toolbar-row>
-                                <div class="button-row"> -->
-
-                                        <a routerLink="/createvrn" >
-                                            <button mat-mini-fab (click)='drawer.toggle(); VRNDetlTxtfn("Create VRN")'>
-                                              <mat-icon>add</mat-icon>
-                                            </button>
-                                            </a>
-                                        <!-- <button mat-mini-fab>
-                                                <mat-icon>add</mat-icon>
-                                              </button> -->
-                                      <!-- </div>
-                        </mat-toolbar-row>
-                        </mat-toolbar> -->
-                    </div>
+                <div class="mainFooter"> 
+                    <a routerLink="/createvrn" >
+                        <button mat-mini-fab color="primary" (click)='drawer.toggle(); VRNDetlTxtfn("Create VRN")'>
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </a>
+                </div>
     </mat-drawer>
     <mat-drawer-content>
         <div class="example-sidenav-content">
