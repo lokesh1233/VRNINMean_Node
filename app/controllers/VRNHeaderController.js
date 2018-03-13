@@ -56,14 +56,18 @@ getNextSequenceVlue('VRNNum',function(err,doc){
         res.send({message:VRNerr.message,msgCode:"E", Payload:VRNerr});
         var vrn_dtl = new VRNDetail(req.body.detailData);
         vrn_dtl.save(function(err, vrnbdy) {
+          if(req.body.headerData.VEHICLENUM){
+          Vehicle.findOneAndUpdate({VehicleNumber: req.body.headerData.VEHICLENUM}, { '$set': {
+            FleetType : req.body.headerData.FLEETTYPECODE, Vendor : req.body.headerData.TRANSPORTERCODE,
+            VendorName:req.body.headerData.TRANSPORTER
+          }}, {new: true, upsert: true}, function(err, vrndtl) {
+          })
+        }
         });
         res.json({message:'VRN: '+doc._doc.seq+' created sccesfully' ,msgCode:"S", Payload:vrn});
     });
 
-    // Vehicle.findOneAndUpdate({VehicleNumber: req.body.headerData.VEHICLENUM}, { '$set': {
-    //   FleetType : '', Vendor : 
-    // }}, {new: true, upsert: true}, function(err, vrndtl) {
-    // })
+   
 
     
 });
@@ -82,9 +86,9 @@ getNextSequenceVlue('VRNNum',function(err,doc){
 //   that.openSnackBar('Succesflly placed VRN', '');
 //   that.appComponent.loadVRNMasterList();
 //   window.VRNUserDB.collection('VRNDetail').insertOne(that.createVRNDtlData).then(function(){
-//     debugger;
+//     
 //    });  
-//   debugger;
+//   
 // });  
 
 
@@ -99,7 +103,7 @@ exports.update_vrn = function(req, res) {
   VRN.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VRNSTATUS : "X"}}, {new: true, upsert: true}, function(err, vrn) {
     if (err)
       res.send(err);
-      VRNDetail.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VEHICLECHECKINDATE  : new Date(), VEHICLESECURITYTIME: new Date() }}, {new: true, upsert: true}, function(err, vrndtl) {
+      VRNDetail.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VEHICLECHECKINDATE  : new Date(), VEHICLECHECKINTIME : new Date() }}, {new: true, upsert: true}, function(err, vrndtl) {
       })
     res.json({message:'VRN Checked in succesfully '+req.params.VRN, msgCode:"S", Payload:vrn});
   });

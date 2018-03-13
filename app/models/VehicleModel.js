@@ -18,6 +18,9 @@ var VehicleSchema = new Schema({
     Vendor: {
         type: String
     },
+    VendorName: {
+        type: String
+    },
     VehicleIdentifier: {
         type: String
     },
