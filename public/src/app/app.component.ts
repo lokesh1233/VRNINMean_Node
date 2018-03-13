@@ -81,7 +81,7 @@ export class AppComponent implements OnInit{
     for(var i=0;i<dta.length;i++){
       dta[i].class="mat-list-item"
     }
-    data.class="mat-list-item";
+    data.class="mat-list-item selectedIndex";
     this.selectedVRNData = data;
     this.router.navigate(['/detail',data.VRN]);
     this.VRNDetlTxtfn('VRN Check-In: '+data.VRN);
