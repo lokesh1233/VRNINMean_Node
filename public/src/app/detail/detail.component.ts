@@ -167,7 +167,7 @@ this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
 
   feildValidation={
     vehStat 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
-    vehNo 	  : { RD: true,  RB: true,  HD: true,  CR: true,  CA: true  },
+    vehNo 	  : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
     fleetType : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
     transName : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
     sealCond 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },

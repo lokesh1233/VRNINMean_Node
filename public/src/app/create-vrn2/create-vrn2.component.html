@@ -26,7 +26,7 @@
       </mat-grid-list> -->
 
     <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
-        <mat-step *ngIf='createVRNData.MODEOFTRANSPORT != HD'>
+        <mat-step *ngIf='createVRNData.MODEOFTRANSPORT != "HD"'>
             <ng-template matStepLabel>Vehicle</ng-template>
 
             <!-- <form > -->
@@ -44,7 +44,7 @@
               </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.transName">
-                <input matInput placeholder="Transporter/Agency Name."  [value]="createVRNData.TRANSPORTER" [(ngModel)]="createVRNData.TRANSPORTER"  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
+                <input matInput placeholder="Transporter/Agency Name." required  [value]="createVRNData.TRANSPORTER" [(ngModel)]="createVRNData.TRANSPORTER"  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
                 <mat-autocomplete #auto="matAutocomplete" >
                   <mat-option *ngFor="let agency of filteredAgencies | async" [value]="agency.Name1" (click)="selectTransporterChange(agency)" >              
                     <span>{{ agency.Name1 }}</span> 
@@ -91,7 +91,7 @@
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No." value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
@@ -116,7 +116,7 @@
               </button> -->
               
           
-            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
+            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProofNum">
                 <input matInput placeholder="ID proof No." required value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
             </mat-form-field>     
 
@@ -139,9 +139,9 @@
           <textarea matInput placeholder="Remarks" value="{{createVRNDtlData.REMARKS}}" [(ngModel)]="createVRNDtlData.REMARKS"></textarea>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" >
+        <!-- <mat-form-field class="example-full-width" *ngIf=false>
           <input matInput placeholder="In Time" value="{{inTime}}" [(ngModel)]='inTime' disabled='true'>
-      </mat-form-field>
+      </mat-form-field> -->
 <!-- 
         <mat-form-field class="example-full-width"> -->
             <!-- <label matInput placeholder="Check in time" [(ngModel)]="createVRNDtlData.Time">{{createVRNDtlData.Time}}</label>
@@ -149,8 +149,8 @@
         
           <div>
             <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button (click)="onSubmit()" color="primary">Report-In</button>
-            <button mat-raised-button (click)="VRNCheckIn()" color="accent">Check-In</button>
+            <button mat-raised-button (click)="onSubmit(false)" color="warn">Report-In</button>
+            <button mat-raised-button (click)="VRNCheckIn()" color="primary">Check-In</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>

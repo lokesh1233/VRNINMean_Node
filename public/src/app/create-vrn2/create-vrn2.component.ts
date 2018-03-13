@@ -332,12 +332,30 @@ switchHstl(evt){
   //this.createUserData.typeOfHstl=evt.value;
 }
 
-onSubmit(){
+onSubmit(ind){
  
+  var mandtry = this.mandatoryFields;
+  var fldValdtn = this.feildValidation;
+  var vrnDta = this.createVRNData;
+for(var i in mandtry){
+  if(fldValdtn[i][vrnDta.MODEOFTRANSPORT] && vrnDta[mandtry[i]['id']] == ''){
+    this.openSnackBar(mandtry[i]['msg'], '');
+    return;
+  }
+}
+
+  this.createVRNData.PURPOSE = '';//this.selectedIndex == 0 ? "Inbound" : "Outbound"; 
+  var that = this;
 
 
-this.createVRNData.PURPOSE = '';//this.selectedIndex == 0 ? "Inbound" : "Outbound"; 
-var that = this;
+if(ind == true){
+  this.createVRNData.VRNSTATUS = "X";
+  this.createVRNDtlData.VEHICLECHECKINDATE= new Date();
+  this.createVRNDtlData.VEHICLECHECKINTIME= new Date();
+}
+
+
+
 
 this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
 .map(res => res.json())
@@ -369,17 +387,14 @@ this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.creat
 }
 
 selectTransporterChange(data){
-debugger;
-this.createVRNData.TRANSPORTER = data.Vendor;
-this.createVRNData.TRANSPORTERCODE = data.Name1;
+this.createVRNData.TRANSPORTER = data.Name1;
+this.createVRNData.TRANSPORTERCODE = data.Vendor;
 }
 
 
 VRNCheckIn(){
-  this.createVRNData.VRNSTATUS = "X";
-  this.createVRNDtlData.VEHICLECHECKINDATE= new Date(),
-  this.createVRNDtlData.VEHICLECHECKINTIME= new Date(),
-  this.onSubmit();
+ 
+  this.onSubmit(true);
 }
 
 selectIDProofChange(data){
@@ -410,7 +425,7 @@ licenseRegionData = [];
 
 feildValidation={
   vehStat 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
-  vehNo 	  : { RD: true,  RB: true,  HD: true,  CR: true,  CA: true  },
+  vehNo 	  : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
   fleetType : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
   transName : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
   sealCond 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
@@ -421,8 +436,22 @@ feildValidation={
   personName: { RD: true,  RB: true,  HD: true,   CR: true,  CA: true  },
   noOfBoxes : { RD: true,  RB: false, HD: false,  CR: false, CA: false },
   lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: false },
-  idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
+  idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false },
+  idProofNum 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
 };
+
+
+mandatoryFields={
+  vehNo 	  : {msg:'Enter vehicle number', id:'VEHICLENUM'},
+  transName : {msg:'Select transporter name', id:'TRANSPORTERCODE'},
+  licNo 	  : {msg:'Enter license number', id:'LICENSENUM'},
+  mobNo 	  : {msg:'Enter license number', id:'DRIVERNUM'},
+  personName: {msg:'Enter driver name', id:'DRIVERNAME'},
+  idProof 	: {msg:'Select id proof', id:'IDPROOFTYPE'},
+  idProofNum 	: {msg:'Enter id proof number', id:'IDPROOFNUM'}
+};
+
+
 
   createLicenseDta(): void{
     var that = this;

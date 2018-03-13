@@ -105,7 +105,7 @@ exports.update_vrn = function(req, res) {
       res.send(err);
       VRNDetail.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VEHICLECHECKINDATE  : new Date(), VEHICLECHECKINTIME : new Date() }}, {new: true, upsert: true}, function(err, vrndtl) {
       })
-    res.json({message:'VRN Checked in succesfully '+req.params.VRN, msgCode:"S", Payload:vrn});
+    res.json({message:'VRN '+req.params.VRN+' checked in succesfully ', msgCode:"S", Payload:vrn});
   });
 };
 
