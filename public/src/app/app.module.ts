@@ -44,6 +44,7 @@ import { DetailComponent }   from './detail/detail.component';
 import { CreateVRN2Component, CreateLicenseDialog }   from './create-vrn2/create-vrn2.component';
 import { AppRoutingModule }     from './app-routing.module';
 import { DialogComponent } from './dialog/dialog.component';
+import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -118,13 +119,14 @@ import { DialogComponent } from './dialog/dialog.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  entryComponents: [CreateLicenseDialog, DialogComponent],
+  entryComponents: [CreateLicenseDialog, DialogComponent, BusyDialogComponent],
   declarations: [
     AppComponent,
     DetailComponent,
     CreateVRN2Component,
     CreateLicenseDialog,
-    DialogComponent
+    DialogComponent,
+    BusyDialogComponent
   ],
   providers: [ DetailComponent, AppComponent, CreateVRN2Component ],
   bootstrap: [ AppComponent ]

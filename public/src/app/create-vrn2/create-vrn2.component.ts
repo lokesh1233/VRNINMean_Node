@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { AppComponent } from '../app.component';
 import { DialogComponent } from '../dialog/dialog.component';
+import { BusyDialogComponent } from '../busy-dialog/busy-dialog.component';
 
 @Component({
    selector: 'app-create-user',
@@ -24,6 +25,7 @@ export class CreateVRN2Component {
   filteredAgencies : Observable<any[]>;
   filteredProofs: Observable<any[]>;
   inTime= new Date();
+  busyDialog;
   constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
     this.IDProofCtrl = new FormControl();
@@ -66,6 +68,17 @@ openDialog(msg): void {
   });
 }
 
+openBusyDialog(): void {
+  var that = this;
+  this.busyDialog = this.dialog.open(BusyDialogComponent, {
+    width: '250px',
+    panelClass: 'busyDialog'
+  });
+
+  this.busyDialog.afterClosed().subscribe(result => {
+    console.log('The busy dialog was closed');
+  });
+}
 
 MOPSelectionChange(){
   var valdtn = this.feildValidation;
@@ -356,10 +369,11 @@ if(ind == true){
 
 
 
-
+this.openBusyDialog();
 this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
 .map(res => res.json())
 .subscribe(docs => {
+  that.busyDialog.close();
   that.openDialog(docs);
   //that.openSnackBar('Succesflly placed VRN', '');
   //  that.appComponent.loadVRNMasterList();
@@ -555,5 +569,3 @@ onClose() {
   this.dialogRef.close();
 }
 }
-
-
