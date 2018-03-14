@@ -75,24 +75,13 @@ MOPSelectionChange(){
   for(var i in valdtn){
     this.MOPSelectedField[i] = valdtn[i][selectedKey];
   }
- // this.createVRNDtlData.VEHICLESTATUS = 'L';
- // this.createVRNDtlData.SEALCONDITION = 'I';
- // if(this.MOPSelectedField.vehStat == false){
- //   this.createVRNDtlData.VEHICLESTATUS = '';
- // } 
-  // if(this.MOPSelectedField.sealCond == false){
-  //   this.createVRNDtlData.SEALCONDITION = '';
-  // }
-
   this.addButtonVal = false;
 }
 
 
 vehicleStatusChange(){
-  
-
  var vhcleSts =  this.createVRNDtlData.VEHICLESTATUS;
-var visible = true;
+ var visible = true;
  if(vhcleSts == 'E'){
   visible = false;
  }
@@ -108,8 +97,6 @@ var visible = true;
 
 
 sealConditionChange(){
-  
-
  var vhcleSts =  this.createVRNDtlData.SEALCONDITION;
 var visible = true;
  if(vhcleSts == 'N'){
@@ -119,13 +106,9 @@ var visible = true;
  this.MOPSelectedField.seal2  = visible;
  this.createVRNDtlData.SEAL1 = '';
  this.createVRNDtlData.SEAL2 = '';
-
-
-
 }
 
-filterAgencies(name: string) {
-  
+filterAgencies(name: string) {  
   var that = this;
   if(name == undefined){
     return;
@@ -135,7 +118,6 @@ filterAgencies(name: string) {
 }
 
 filterProofs(name: string) {
-  
   var that = this;
   if(name == undefined){
     return;
@@ -145,13 +127,6 @@ filterProofs(name: string) {
 }
 
 agencies = [];
-
-  // filterStates(name: string) {
-  //   return this.states.filter(state =>
-  //     state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
-  // }
-  
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -162,35 +137,14 @@ agencies = [];
   TransModes=[];
   ngOnInit() {
   var that = this;
-
-  // this.firstFormGroup = this._formBuilder.group({
-  //   firstCtrl: ['', Validators.required],
-  //   vhcleNoCtrl: ['', Validators.required],
-  //   vhcleStsCtrl: ['', Validators.required],
-  //   sealNoCtrl: ['', Validators.required],
-  //   sealCnCtrl: ['', Validators.required],
-  //   agncyNmeCtrl: ['', Validators.required],
-  //   noOfBxCtrl: ['', Validators.required],
-  //   seal1Ctrl:['', Validators.required]
-  // });
-  // this.secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required]
-  // });
-
-
-  // window.VRNUserDB.collection('Params').find({'Domain':'TrnsprtMode'},{'modeNum':1,'modeTxt':1 }).execute().then(docs => {
-  //   that.TransModes =  docs;
-  // })
   this.defaultUpdationValues('RD');
   this.agenciesData();
   this.idProofParamData();
-  
-
   //node server
-this.oData.getTrnsprtModeList()
-.subscribe(docs => {
+  this.oData.getTrnsprtModeList()
+    .subscribe(docs => {
   that.TransModes =  docs;
-})
+  })
    this.MOPSelectionChange();
   }
 
@@ -231,7 +185,6 @@ defaultUpdationValues(dta){
   TRANSPORTERCODE:""
 }
 
-
 this.createVRNDtlData = {
   VRN:"",
   CHECKINOUT:"I",  
@@ -270,7 +223,6 @@ licenseSelection(){
 })
 }
 
-
 vehicleSelection(){
   let vhcle = this.createVRNData.VEHICLENUM;
   if(vhcle == ""){
@@ -281,8 +233,7 @@ vehicleSelection(){
   var that = this;
   var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.oData.getVehicleValidation(vhcle)
-.subscribe(docs => {
-  
+.subscribe(docs => {  
   that.createVRNData.TRANSPORTER = docs.length>0?docs[0].VendorName:"";
   that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";  
   if(!docs[0] || !docs[0].FleetType){
@@ -293,7 +244,6 @@ vehicleSelection(){
     that.createVRNData.FLEETTYPE = docs[0].FleetTypeDesc;
   }
 })
-
 }
 
 switchHstl(evt){
@@ -324,9 +274,6 @@ if(ind == true){
 this.oData.createVRN({headerData:this.createVRNData,detailData:this.createVRNDtlData})
 .subscribe(docs => {
   that.openDialog(docs);
-  //that.openSnackBar('Succesflly placed VRN', '');
-  //  that.appComponent.loadVRNMasterList();
- // that.TransModes =  docs;
 })
 }
 
@@ -344,17 +291,10 @@ selectIDProofChange(data){
 this.createVRNData.IDPROOFCodeTYPE = data.modeNum;
 }
 
-  // window.HostelUserDB.collection('UserList').insertOne(dta).then(function(){
-  //   that.openSnackBar('Succesflly user '+ dta.fullName + ' created', '');
-  //   that.fileUpload(fileString, id, MIMEType);
-  //   that.router.navigate(['/master']);
-  //   });   
-
   navigateBefore(evt){
    this.router.navigate(['/master']);
   }
 licenseRegionData = [];
-
 feildValidation={
   vehStat 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
   vehNo 	  : { RD: true,  RB: true,  HD: false,  CR: true,  CA: true  },
@@ -383,11 +323,9 @@ mandatoryFields={
   idProofNum 	: {msg:'Enter id proof number', id:'IDPROOFNUM'}
 };
 
-
-
-  createLicenseDta(): void{
-    var that = this;
-    if(that.createVRNData.LICENSENUM == ''){
+createLicenseDta(): void{
+  var that = this;
+  if(that.createVRNData.LICENSENUM == ''){
       that.openSnackBar('Enter license number', '');
       return;
     }
@@ -403,7 +341,6 @@ mandatoryFields={
       that.createVRNData.DRIVERNAME = result.Lastname;
     });
   }
-
 }
 
 @Component({
@@ -412,12 +349,9 @@ mandatoryFields={
   styleUrls: ['./create-vrn2.component.css']
 })
 export class CreateLicenseDialog {
-
   constructor(
     public dialogRef: MatDialogRef<CreateLicenseDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,private oData : DataService, public snackBar: MatSnackBar,public http: Http,public createVRNComponent: CreateVRN2Component) { }
-
-
 
     openSnackBar(message: string, action: string) {
       this.snackBar.open(message, action, {
@@ -463,5 +397,4 @@ onClose() {
   this.dialogRef.close();
 }
 }
-
 
