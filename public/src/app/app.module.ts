@@ -2,6 +2,7 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { AppComponent }   from './app.component';
+import { DataService } from './services/data.service';
 
 import {
   MatAutocompleteModule,
@@ -128,7 +129,7 @@ import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
     DialogComponent,
     BusyDialogComponent
   ],
-  providers: [ DetailComponent, AppComponent, CreateVRN2Component ],
+  providers: [ DetailComponent, AppComponent, CreateVRN2Component,DataService ],
   bootstrap: [ AppComponent ]
 })
 

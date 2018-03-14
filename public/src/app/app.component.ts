@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import {MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DataService } from './services/data.service';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
@@ -13,7 +14,7 @@ import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  constructor(private router: Router,private http: Http, public dialog: MatDialog) {}
+  constructor(private router: Router,private http: Http,private oData : DataService, private dialog: MatDialog) {}
     searchVisible = false;
     searchVal = "";
     VRNDetlTxt = 'VRN Details';
@@ -72,19 +73,6 @@ export class AppComponent implements OnInit{
          that.onVRNSelected({VRN:''});
        }
     })
-
-    
-
-    // window.VRNUserDB.collection('VRNHeader').find({VRNSTATUS:''}).execute().then(docs => {
-    //  docs = docs.sort(function(a, b){return b.VRN - a.VRN});
-    //   that.createUserData=docs;
-    //   if(docs.length>0){
-    //     that.onVRNSelected(docs[0]);
-    //   }else{
-    //     that.onVRNSelected({VRN:'0'});
-    //   }
-    // });
-
   }
 
   createUserData = []
@@ -106,23 +94,6 @@ export class AppComponent implements OnInit{
     return this.selectedVRNData;
   }
 
-
-//   webhhokURL(){
-//     
-//     var xhttp = new XMLHttpRequest();
-//  xhttp.onreadystatechange = function() { 
-//    if (this.readyState == 4 && this.status == 200) {
-//    // Typical action to be performed when the document is ready:
-//    document.getElementById("demo").innerHTML = xhttp.responseText;
-//  }
-// };
-// xhttp.open("GET", "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/vrn_apps-iejcy/service/VRNCreate/incoming_webhook/VRNCreateWebHook", true);
-
-// xhttp.setRequestHeader('signature','test');
-// xhttp.setRequestHeader('Accept','application/json');
-// xhttp.setRequestHeader('Access-Control-Allow-Origin','*');
-// xhttp.setRequestHeader('X-Hook-Signature','test');
-// xhttp.send();
-//   }
-
 }
+
+
