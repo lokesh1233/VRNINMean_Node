@@ -26,12 +26,8 @@ export class CreateVRN2Component {
   filteredAgencies : Observable<any[]>;
   filteredProofs: Observable<any[]>;
   inTime= new Date();
-<<<<<<< HEAD
   busyDialog;
-  constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
-=======
   constructor(public snackBar: MatSnackBar,private oData : DataService,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
->>>>>>> dcaddd6a1937957635f01c650df21f0295fb28cb
     this.agencyCtrl = new FormControl();
     this.IDProofCtrl = new FormControl();
     var that = this;
@@ -288,15 +284,7 @@ if(ind == true){
   this.createVRNDtlData.VEHICLECHECKINTIME= new Date();
 }
 
-<<<<<<< HEAD
-
-
-this.openBusyDialog();
-this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
-.map(res => res.json())
-=======
 this.oData.createVRN({headerData:this.createVRNData,detailData:this.createVRNDtlData})
->>>>>>> dcaddd6a1937957635f01c650df21f0295fb28cb
 .subscribe(docs => {
   that.busyDialog.close();
   that.openDialog(docs);
@@ -422,9 +410,4 @@ onSubmit() {
 onClose() {
   this.dialogRef.close();
 }
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> dcaddd6a1937957635f01c650df21f0295fb28cb
