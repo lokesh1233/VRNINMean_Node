@@ -2,6 +2,7 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { AppComponent }   from './app.component';
+import { DataService } from './services/data.service';
 
 import {
   MatAutocompleteModule,
@@ -126,7 +127,7 @@ import { DialogComponent } from './dialog/dialog.component';
     CreateLicenseDialog,
     DialogComponent
   ],
-  providers: [ DetailComponent, AppComponent, CreateVRN2Component ],
+  providers: [ DetailComponent, AppComponent, CreateVRN2Component,DataService ],
   bootstrap: [ AppComponent ]
 })
 

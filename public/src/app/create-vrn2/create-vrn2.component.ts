@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { DataService } from '../services/data.service';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
@@ -24,7 +25,7 @@ export class CreateVRN2Component {
   filteredAgencies : Observable<any[]>;
   filteredProofs: Observable<any[]>;
   inTime= new Date();
-  constructor(public snackBar: MatSnackBar,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
+  constructor(public snackBar: MatSnackBar,private oData : DataService,public http: Http,private _formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) {
     this.agencyCtrl = new FormControl();
     this.IDProofCtrl = new FormControl();
     var that = this;
@@ -45,8 +46,7 @@ idProofData = [];
 idProofParamData(){
   var that = this;
   //node server
-  this.http.get('/Params/IDProffList')
-  .map(res => res.json())
+  this.oData.getIDProffList()
   .subscribe(docs => {
     that.idProofData =  docs;
 })
@@ -187,26 +187,21 @@ agencies = [];
   
 
   //node server
-  this.http.get('/Params/TrnsprtMode')
-  .map(res => res.json())
-  .subscribe(docs => {
-    that.TransModes =  docs;
+this.oData.getTrnsprtModeList()
+.subscribe(docs => {
+  that.TransModes =  docs;
 })
-
    this.MOPSelectionChange();
   }
 
 agenciesData(){
   var that = this;
-//node server
-this.http.get('/Transporter')
-.map(res => res.json())
-.subscribe(docs => {
+  //node server
+  this.oData.getVendorList('')
+  .subscribe(docs => {
   that.agencies =  docs;
 })
-
 }
-
 
 createVRNData;
 createVRNDtlData;
@@ -260,12 +255,9 @@ licenseSelection(){
     this.openSnackBar('Enter License Number', '');
      return;
   }
-
   var that = this;
-  this.http.get('/License/'+LcnseNo)
-  .map(res => res.json())
+  this.oData.getLicenseValidation(LcnseNo)
   .subscribe(docs => {
-   
    if(docs.length>0){
         that.createVRNData.DRIVERNAME = docs[0].Lastname;
         that.createVRNData.DRIVERNUM = docs[0].Telephone;
@@ -276,23 +268,8 @@ licenseSelection(){
         that.addButtonVal = true;
       }
 })
-
-  
-
-
-  // window.VRNUserDB.collection('License').find({'Licencenumber':Number(LcnseNo)},{'Lastname': 1,'Telephone': 1 }).execute().then(docs => {
-  //   if(docs.length>0){
-  //     that.createVRNData.DRIVERNAME = docs[0].Lastname;
-  //     that.createVRNData.DRIVERNUM = docs[0].Telephone;
-  //     that.addButtonVal = false;
-  //   }else{
-  //     that.createVRNData.DRIVERNAME = "";
-  //     that.createVRNData.DRIVERNUM = "";
-  //     that.addButtonVal = true;
-  //   }
-  // })
-  
 }
+
 
 vehicleSelection(){
   let vhcle = this.createVRNData.VEHICLENUM;
@@ -302,9 +279,8 @@ vehicleSelection(){
   }
 
   var that = this;
- var MOTType = this.createVRNData.MODEOFTRANSPORT;
-  this.http.get('/Vehicle/'+vhcle,{})
-.map(res => res.json())
+  var MOTType = this.createVRNData.MODEOFTRANSPORT;
+  this.oData.getVehicleValidation(vhcle)
 .subscribe(docs => {
   
   that.createVRNData.TRANSPORTER = docs.length>0?docs[0].VendorName:"";
@@ -316,16 +292,8 @@ vehicleSelection(){
     that.createVRNData.FLEETTYPECODE = docs[0].FleetType; 
     that.createVRNData.FLEETTYPE = docs[0].FleetTypeDesc;
   }
-  //that.openSnackBar('Succesflly placed new Vehicle', '');
-  //that.appComponent.loadVRNMasterList();
- // that.TransModes =  docs;
 })
 
-  // window.VRNUserDB.collection('Vehicle').find({'VehicleNumber':vhcle},{'Vendor': 1 }).execute().then(docs => {
-  //   that.createVRNData.TRANSPORTER = docs.length>0?docs[0].Vendor:"";
-  //   that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";
-  // })
-  
 }
 
 switchHstl(evt){
@@ -344,9 +312,8 @@ for(var i in mandtry){
   }
 }
 
-  this.createVRNData.PURPOSE = '';//this.selectedIndex == 0 ? "Inbound" : "Outbound"; 
+  this.createVRNData.PURPOSE = '';
   var that = this;
-
 
 if(ind == true){
   this.createVRNData.VRNSTATUS = "X";
@@ -354,36 +321,13 @@ if(ind == true){
   this.createVRNDtlData.VEHICLECHECKINTIME= new Date();
 }
 
-
-
-
-this.http.post('/VRNHeader',{headerData:this.createVRNData,detailData:this.createVRNDtlData})
-.map(res => res.json())
+this.oData.createVRN({headerData:this.createVRNData,detailData:this.createVRNDtlData})
 .subscribe(docs => {
   that.openDialog(docs);
   //that.openSnackBar('Succesflly placed VRN', '');
   //  that.appComponent.loadVRNMasterList();
  // that.TransModes =  docs;
 })
-
-
-
-//var cnt = window.VRNUserDB.collection('VRNHeader').count();
-// setTimeout(function(){
-//   ;
-//that.createVRNData.VRN = (100000900 + cnt.__zone_symbol__value).toString(); 
-
-//that.createVRNDtlData.VRN = that.createVRNData.VRN;
-//  window.VRNUserDB.collection('VRNHeader').insertOne(that.createVRNData).then(function(){
-//   that.openSnackBar('Succesflly placed VRN', '');
-//   that.appComponent.loadVRNMasterList();
-//   window.VRNUserDB.collection('VRNDetail').insertOne(that.createVRNDtlData).then(function(){
-//     
-//    });  
-//   
-// });  
-
-//},1500)
 }
 
 selectTransporterChange(data){
@@ -391,9 +335,7 @@ this.createVRNData.TRANSPORTER = data.Name1;
 this.createVRNData.TRANSPORTERCODE = data.Vendor;
 }
 
-
 VRNCheckIn(){
- 
   this.onSubmit(true);
 }
 
@@ -412,16 +354,6 @@ this.createVRNData.IDPROOFCodeTYPE = data.modeNum;
    this.router.navigate(['/master']);
   }
 licenseRegionData = [];
-// createNewLicense = {
-//   Licencenumber : this.createVRNData.LICENSENUM,
-//   Lastname : '',
-//   Validto : '',
-//   MobileNum : '',
-//   ReasonCode : ''
-
-// }
-
-
 
 feildValidation={
   vehStat 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
@@ -455,10 +387,6 @@ mandatoryFields={
 
   createLicenseDta(): void{
     var that = this;
-    // window.VRNUserDB.collection('LicenseRegion').find({}).execute().then(docs => {
-    //   that.licenseRegionData =  docs;
-    // })
-
     if(that.createVRNData.LICENSENUM == ''){
       that.openSnackBar('Enter license number', '');
       return;
@@ -470,11 +398,9 @@ mandatoryFields={
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      
       console.log('The dialog was closed');
       that.createVRNData.DRIVERNUM = result.Telephone;
       that.createVRNData.DRIVERNAME = result.Lastname;
-    //  this.animal = result;
     });
   }
 
@@ -489,7 +415,7 @@ export class CreateLicenseDialog {
 
   constructor(
     public dialogRef: MatDialogRef<CreateLicenseDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar,public http: Http,public createVRNComponent: CreateVRN2Component) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,private oData : DataService, public snackBar: MatSnackBar,public http: Http,public createVRNComponent: CreateVRN2Component) { }
 
 
 
@@ -512,43 +438,25 @@ export class CreateLicenseDialog {
    }
   ngOnInit() {
   var that = this;
-  this.http.get('/LicenseRegion')
-  .map(res => res.json())
+  this.oData.getLicenseRegionList()
   .subscribe(docs => {
     that.licenseRegionData =  docs;
 })
-  // window.VRNUserDB.collection('LicenseRegion').find({}).execute().then(docs => {
-  //   that.licenseRegionData =  docs;
-  // })
 }
 
 onSubmit() {
   var that = this;
   var dta = this.createNewLicense;
-
   if(dta.Lastname == '' || dta.Rg == ''|| dta.Telephone == '' || dta.Validto == '' ){
     that.openSnackBar('Enter required fields', '');
     return;
   }
 
-
-
-  this.http.post('/License',this.createNewLicense)
-  .map(res => res.json())
+  this.oData.createLicense(this.createNewLicense)
   .subscribe(docs => {
-   
    that.openSnackBar('Succesflly created license '+ that.createNewLicense.Licencenumber, '');
-   //    // that.createVRNComponent.createVRNData.DRIVERNUM = dta.Telephone;
-   //    // that.createVRNComponent.createVRNData.DRIVERNAME = dta.Lastname;
         that.dialogRef.close(dta);
 })
-  // window.VRNUserDB.collection('License').insertOne(this.createNewLicense).then(docs => {
-  //   
-  //     that.openSnackBar('Succesflly created license', '');
-  //    // that.createVRNComponent.createVRNData.DRIVERNUM = dta.Telephone;
-  //    // that.createVRNComponent.createVRNData.DRIVERNAME = dta.Lastname;
-  //     that.dialogRef.close(dta);
-  // })
 }
 
 onClose() {
