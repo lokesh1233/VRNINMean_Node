@@ -25,7 +25,7 @@ exports.list_all_vrns = function (req, res) {
         if (user[0]._doc.roleId.indexOf('VRN_OUT') > -1) {
           for (var i = 0; i < vrn.length; i++) {
             vrn[i]._doc.VRNOut = 'X';
-          }
+          } 
         }
         res.json(vrn);
       })
