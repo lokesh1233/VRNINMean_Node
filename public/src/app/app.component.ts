@@ -67,10 +67,9 @@ export class AppComponent implements OnInit{
     docs = docs.sort(function(a, b){return b.VRN - a.VRN});
       that.primaryUserData=docs;
        that.createUserData=docs;
-      if(docs.length>0){
+       that.onVRNSelected({VRN:'A'});
+       if(docs.length>0){
          that.onVRNSelected(docs[0]);
-       }else{
-         that.onVRNSelected({VRN:''});
        }
     })
   }

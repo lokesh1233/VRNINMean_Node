@@ -98,11 +98,12 @@ exports.createVRNCheckOut = function (req, res) {
       obj.VEHICLESECURITYDATE  = new Date();
       obj.VEHICLECHECKINDATE  = new Date();
       obj.VRNCHECKINBY = 'Bhaskar';
+      obj.CHECKINOUT = 'O';
     var vrn_dtl = new VRNDetail(req.body);
     vrn_dtl.save(function (VRNerr, vrndtl) {
       if (VRNerr)
         res.send({ message: VRNerr.message, msgCode: "E", Payload: VRNerr });
-      res.json({ message: 'VRN ' + req.params.VRN + ' checked out succesfully ', msgCode: "S", Payload: vrn });
+      res.json({ message: 'VRN ' + obj.VRN + ' checked out succesfully ', msgCode: "S", Payload: vrn });
     });
   });
 }
