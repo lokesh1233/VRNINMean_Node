@@ -58,10 +58,10 @@ export class NewDetailComponent implements OnInit {
     this.loadVRNDetail(id);
     this.MOPSelectionChange();
     this.CheckOutpostdata={
-      vehcleStatus : "",
-      NoofBox : "",
-      sealCon : "",
-      outRemarks : ""
+      VEHICLESTATUS : "",
+      NUMOFBOXES : "",
+      SEALCONDITION : "",
+      REMARKS : ""
  };
     this.checkoutSelectionChange();
 

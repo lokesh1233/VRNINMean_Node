@@ -105,20 +105,20 @@
 
   <mat-tab label="Out">
     <p></p>
-    <mat-radio-group  (change)="vehicleStaChange()" value={{CheckOutpostdata.vehcleStatus}}  *ngIf="checkoutField.vehStat"   [(ngModel)]="CheckOutpostdata.vehcleStatus">
+    <mat-radio-group  (change)="vehicleStaChange()" value={{CheckOutpostdata.VEHICLESTATUS}}  *ngIf="checkoutField.vehStat"   [(ngModel)]="CheckOutpostdata.VEHICLESTATUS">
                 <mat-radio-button value="L">Loaded</mat-radio-button>
                 <mat-radio-button value="E">Empty</mat-radio-button>
     </mat-radio-group>
 
     <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes && checkoutField.noOfBoxes ">  
-        <input matInput  placeholder="No of Boxes" value="{{CheckOutpostdata.NoofBox}}" [(ngModel)]="CheckOutpostdata.NoofBox">
+        <input matInput  placeholder="No of Boxes" value="{{CheckOutpostdata.NUMOFBOXES}}" [(ngModel)]="CheckOutpostdata.NUMOFBOXES">
     </mat-form-field>
 
     <!-- <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
         <input matInput  placeholder="Trip Info" >
     </mat-form-field> -->
 
-    <mat-radio-group placeholder="Seal Condition" (change)="SealConditionStaChange()" value={{CheckOutpostdata.sealCon}}  *ngIf="MOPSelectedField.sealCond && checkoutField.sealCond"   [(ngModel)]="CheckOutpostdata.sealCon" >
+    <mat-radio-group placeholder="Seal Condition" (change)="SealConditionStaChange()" value={{CheckOutpostdata.SEALCONDITION}}  *ngIf="MOPSelectedField.sealCond && checkoutField.sealCond"   [(ngModel)]="CheckOutpostdata.SEALCONDITION" >
         <mat-radio-button value="I">Intact</mat-radio-button>
         <mat-radio-button value="D">Damaged</mat-radio-button>
         <mat-radio-button value="N">No Seal</mat-radio-button>
@@ -126,7 +126,7 @@
 
         
     <mat-form-field class="example-full-width" *ngIf="checkoutField.podremarks" >  
-        <input matInput  placeholder="POD/Out Remarks" value={{CheckOutpostdata.outRemarks}} [(ngModel)]="CheckOutpostdata.outRemarks" >
+        <input matInput  placeholder="POD/Out Remarks" value={{CheckOutpostdata.REMARKS}} [(ngModel)]="CheckOutpostdata.REMARKS" >
     </mat-form-field>
 
     <!-- <div class="mainFooter">
@@ -137,8 +137,8 @@
 
 
 <div class="mainFooter">
-    <button mat-raised-button color="primary" (click)='VRNCheckIn()'>Check-In</button>
-    <button mat-raised-button color="primary" (click)='VRNCheckOut()'>Check-Out</button>
+    <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'R'" (click)='VRNCheckIn()'>Check-In</button>
+    <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOUT == 'X'" (click)='VRNCheckOut()'>Check-Out</button>
     </div>
 </div>
 
