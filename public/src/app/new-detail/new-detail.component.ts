@@ -23,7 +23,9 @@ export class NewDetailComponent implements OnInit {
     })
   }
 
-  MOPSelectedField = {};
+  MOPSelectedField;
+  checkoutField;
+  CheckOutpostdata;
   VRNId = '';
   roadTransport='';
   paramValues={};
@@ -55,12 +57,37 @@ export class NewDetailComponent implements OnInit {
     }
     this.loadVRNDetail(id);
     this.MOPSelectionChange();
+    this.CheckOutpostdata={
+      vehcleStatus : "",
+      NoofBox : "",
+      sealCon : "",
+      outRemarks : ""
+ };
+    this.checkoutSelectionChange();
 
+  }
+
+  checkoutSelectionChange(){
+    var valdtn = this.checkout;
+    this.checkoutField = {}; 
+     var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
+      for(var i in valdtn){
+        this.checkoutField[i] = valdtn[i][selectedKey];
+      }
+  }
+  vehicleStaChange(){
+      var veclStus =  this.CheckOutpostdata.vehcleStatus;
+      var visible = true;
+      if(veclStus == 'E'){
+        visible = false;
+       }
+       this.MOPSelectedField.sealCond = visible;
+       this.MOPSelectedField.noOfBoxes  = visible;
   }
 
   MOPSelectionChange(){
     var valdtn = this.feildValidation;
-    this.MOPSelectedField = {};
+    this.MOPSelectedField = {}; 
      var selectedKey = this.vrnMaterData.MODEOFTRANSPORT;
       for(var i in valdtn){
         this.MOPSelectedField[i] = valdtn[i][selectedKey];
@@ -189,6 +216,14 @@ this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
     lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: false },
     idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
   };
+
+  checkout={
+    vehStat 	: { RD: true,  RB: true, HD: false,  CR: true, CA: true },  
+    sealCond 	: { RD: true,  RB: false, HD: false,  CR: false, CA: false },
+    noOfBoxes : { RD: true,  RB: true, HD: true,  CR: true, CA: true },
+    podremarks : { RD: true,  RB: true,  HD: true,  CR: true,  CA: true },
+  };
+
 
   openDialog(msg): void {
     var that = this;
