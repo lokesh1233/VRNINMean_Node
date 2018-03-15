@@ -46,6 +46,7 @@ import { CreateVRN2Component, CreateLicenseDialog }   from './create-vrn2/create
 import { AppRoutingModule }     from './app-routing.module';
 import { DialogComponent } from './dialog/dialog.component';
 import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
+import { NewDetailComponent } from './new-detail/new-detail.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -127,7 +128,8 @@ import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
     CreateVRN2Component,
     CreateLicenseDialog,
     DialogComponent,
-    BusyDialogComponent
+    BusyDialogComponent,
+    NewDetailComponent
   ],
   providers: [ DetailComponent, AppComponent, CreateVRN2Component,DataService ],
   bootstrap: [ AppComponent ]
