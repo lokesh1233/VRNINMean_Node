@@ -44,6 +44,8 @@ import { DetailComponent }   from './detail/detail.component';
 import { CreateVRN2Component, CreateLicenseDialog }   from './create-vrn2/create-vrn2.component';
 import { AppRoutingModule }     from './app-routing.module';
 import { DialogComponent } from './dialog/dialog.component';
+import { NewDetailComponent } from './new-detail/new-detail.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -124,7 +126,8 @@ import { DialogComponent } from './dialog/dialog.component';
     DetailComponent,
     CreateVRN2Component,
     CreateLicenseDialog,
-    DialogComponent
+    DialogComponent,
+    NewDetailComponent,
   ],
   providers: [ DetailComponent, AppComponent, CreateVRN2Component ],
   bootstrap: [ AppComponent ]
