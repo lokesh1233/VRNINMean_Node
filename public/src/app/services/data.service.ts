@@ -60,8 +60,8 @@ export class DataService {
 		}).map(res => res.json());
 	}
 
-	createVRNCheckOut(id, data){
-		return this.http.post('/createVRNCheckOut/'+id, data,{
+	createVRNCheckOut(data){
+		return this.http.post('/createVRNCheckOut', data,{
 				// headers:new Headers({'Content-Type':'application/json'})
 			}).map(res => res.json());
 		}
