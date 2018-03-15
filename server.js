@@ -13,6 +13,8 @@
     TransporterModel = require('./app/models/TransporterModel'),
     VehicleModel = require('./app/models/VehicleModel'),
     VRNCOunter = require('./app/models/VRNCounterModel'),
+    VehicleModel = require('./app/models/Auth_user'),
+    VRNCOunter = require('./app/models/PlantRoleModel'),
     bodyParser = require('body-parser'),         // pull information from HTML POST (express4)
     methodOverride = require('method-override'), // simulate DELETE and PUT (express4)
     database = require('./config/database'),
