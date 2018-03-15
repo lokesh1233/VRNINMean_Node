@@ -83,16 +83,21 @@ exports.update_vrn = function (req, res) {
   VRN.findOneAndUpdate({ VRN: req.params.VRN }, { '$set': { VRNSTATUS: "C" } }, { new: true, upsert: true }, function (err, vrn) {
     if (err)
       res.send(err);
-    VRNDetail.findOneAndUpdate({ VRN: req.params.VRN }, { '$set': { VEHICLECHECKINDATE: new Date(), VEHICLECHECKINTIME: new Date() } }, { new: true, upsert: true }, function (err, vrndtl) {
+    VRNDetail.findOneAndUpdate({ VRN: req.params.VRN }, { '$set': { VEHICLECHECKINDATE: new Date() } }, { new: true, upsert: true }, function (err, vrndtl) {
     })
     res.json({ message: 'VRN ' + req.params.VRN + ' checked in succesfully ', msgCode: "S", Payload: vrn });
   });
 };
 
-exports.createVRNCheckOut = function () {
-  VRN.findOneAndUpdate({ VRN: req.params.VRN }, { '$set': { VRNSTATUS: "X" } }, { new: true, upsert: true }, function (err, vrn) {
+exports.createVRNCheckOut = function (req, res) {
+  var obj = req.body;
+  VRN.findOneAndUpdate({ VRN: obj.VRN }, { '$set': { VRNSTATUS: "X" } }, { new: true, upsert: true }, function (err, vrn) {
     if (err)
       res.send(err);
+      var obj = req.body;
+      obj.VEHICLESECURITYDATE  = new Date();
+      obj.VEHICLECHECKINDATE  = new Date();
+      obj.VRNCHECKINBY = 'Bhaskar';
     var vrn_dtl = new VRNDetail(req.body);
     vrn_dtl.save(function (VRNerr, vrndtl) {
       if (VRNerr)
