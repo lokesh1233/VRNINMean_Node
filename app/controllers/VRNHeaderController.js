@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
     VRNCounter = mongoose.model('VRNCounter');
 
 exports.list_all_vrns = function(req, res) {
-  VRN.find({VRNSTATUS: ''}, function(err, vrn) {
+  VRN.find({$or : [{VRNSTATUS: 'R'}, {VRNSTATUS: 'C'}]}, function(err, vrn) {
     if (err)
       res.send(err);
 
@@ -98,9 +98,8 @@ getNextSequenceVlue('VRNNum',function(err,doc){
   
 };
 
-
 exports.update_vrn = function(req, res) {
-  VRN.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VRNSTATUS : "X"}}, {new: true, upsert: true}, function(err, vrn) {
+  VRN.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VRNSTATUS : "C"}}, {new: true, upsert: true}, function(err, vrn) {
     if (err)
       res.send(err);
       VRNDetail.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VEHICLECHECKINDATE  : new Date(), VEHICLECHECKINTIME : new Date() }}, {new: true, upsert: true}, function(err, vrndtl) {
@@ -108,6 +107,22 @@ exports.update_vrn = function(req, res) {
     res.json({message:'VRN '+req.params.VRN+' checked in succesfully ', msgCode:"S", Payload:vrn});
   });
 };
+
+
+
+
+exports.createVRNCheckOut = function(){
+  VRN.findOneAndUpdate({VRN: req.params.VRN}, { '$set': {VRNSTATUS : "X"}}, {new: true, upsert: true}, function(err, vrn) {
+    if (err)
+      res.send(err);
+      var vrn_dtl = new VRNDetail(req.body);
+      vrn_dtl.save(function(VRNerr, vrndtl) {
+        if (VRNerr)
+          res.send({message:VRNerr.message,msgCode:"E", Payload:VRNerr});
+    res.json({message:'VRN '+req.params.VRN+' checked out succesfully ', msgCode:"S", Payload:vrn});
+          });
+  });
+}
 
 /*exports.delete_a_vrn = function(req, res) {
   VRN.remove({
