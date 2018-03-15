@@ -2,6 +2,7 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { AppComponent }   from './app.component';
+import { DataService } from './services/data.service';
 
 import {
   MatAutocompleteModule,
@@ -44,8 +45,8 @@ import { DetailComponent }   from './detail/detail.component';
 import { CreateVRN2Component, CreateLicenseDialog }   from './create-vrn2/create-vrn2.component';
 import { AppRoutingModule }     from './app-routing.module';
 import { DialogComponent } from './dialog/dialog.component';
+import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
 import { NewDetailComponent } from './new-detail/new-detail.component';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -120,16 +121,17 @@ import { NewDetailComponent } from './new-detail/new-detail.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  entryComponents: [CreateLicenseDialog, DialogComponent],
+  entryComponents: [CreateLicenseDialog, DialogComponent, BusyDialogComponent],
   declarations: [
     AppComponent,
     DetailComponent,
     CreateVRN2Component,
     CreateLicenseDialog,
     DialogComponent,
-    NewDetailComponent,
+    BusyDialogComponent,
+    NewDetailComponent
   ],
-  providers: [ DetailComponent, AppComponent, CreateVRN2Component ],
+  providers: [ DetailComponent, AppComponent, CreateVRN2Component,DataService ],
   bootstrap: [ AppComponent ]
 })
 
