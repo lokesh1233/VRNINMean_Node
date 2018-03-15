@@ -189,7 +189,7 @@ defaultUpdationValues(dta){
   FLEETTYPE:"",
   LRDATE:new Date(),
   LICENSENUM:"",
-  VRNSTATUS:"",
+  VRNSTATUS:"R",
   CHANGEDBY:"Bhaskar",
   CHANGEDON:new Date(),
   CREATEDBY:'Bhaskar',
@@ -279,7 +279,7 @@ for(var i in mandtry){
   var that = this;
 
 if(ind == true){
-  this.createVRNData.VRNSTATUS = "X";
+  this.createVRNData.VRNSTATUS = "C";
   this.createVRNDtlData.VEHICLECHECKINDATE= new Date();
   this.createVRNDtlData.VEHICLECHECKINTIME= new Date();
 }
