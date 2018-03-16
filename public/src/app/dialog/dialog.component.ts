@@ -13,11 +13,11 @@ export class DialogComponent{
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
       if(data.msgCode == 'S'){
-        data.messageHdrClr = 'primary';
+        data.messageHdrCls = 'primary';
         data.messageIcon = 'done';
         data.messageType = 'Success';
       }else{
-        data.messageHdrClr = 'warn';
+        data.messageHdrCls = 'warn';
         data.messageIcon = 'clear';
         data.messageType =  'Error';
       }

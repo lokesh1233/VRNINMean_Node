@@ -1,14 +1,14 @@
 <h1 mat-dialog-title>
-    <mat-toolbar >
-        <mat-toolbar-row>
-            <mat-icon aria-label="Message" color="{{data.messageHdrClr}}">{{data.messageIcon}}</mat-icon>
-            {{data.messageType}}
-        </mat-toolbar-row>
-</mat-toolbar>
+    <!-- <mat-toolbar >
+        <mat-toolbar-row> -->
+            <!-- <mat-icon aria-label="Message" color="{{data.messageHdrClr}}">{{data.messageIcon}}</mat-icon> -->
+         <label  mat-label  class="{{data.messageHdrCls}}">{{data.messageType}}</label>
+        <!-- </mat-toolbar-row>
+</mat-toolbar> -->
 </h1>
 <div mat-dialog-content>
-  <p>{{data.message}}</p>
+  <h3>{{data.message}}</h3>
 </div>
 <div mat-dialog-actions align="End">
-  <button mat-raised-button color="primary" [mat-dialog-close]="">OK</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="">Close</button>
 </div>

@@ -68,8 +68,12 @@ export class AppComponent implements OnInit{
       that.primaryUserData=docs;
        that.createUserData=docs;
        that.onVRNSelected({VRN:'A'});
-       if(docs.length>0){
-         that.onVRNSelected(docs[0]);
+        if(docs.length>0 && window.location.href.indexOf(docs[0].VRN) == -1){
+          that.onVRNSelected(docs[0]);
+       }else if(docs.length>0){
+        setTimeout(function(){
+          that.onVRNSelected(docs[0]);
+        },100)
        }
     })
   }
