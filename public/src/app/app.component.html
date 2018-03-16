@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true" >
+    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]=!isMobile>
         <!-- opened="true" -->
          
                 <mat-toolbar color="primary">                    
@@ -18,7 +18,7 @@
                         </mat-form-field>
                 <section class="masterList">
                 <mat-nav-list class="list">
-                    <mat-list-item *ngFor="let data of createUserData" (click)="drawer.toggle(); onVRNSelected(data)" class="{{data.class}} heightStable">
+                    <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data); (isMobile && drawer.toggle())" class="{{data.class}} heightStable">
                         <div>
                    <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
                         <h4 class="marginTitle">VRN. {{data.VRN}}</h4>
@@ -31,7 +31,7 @@
                
                 <div class="mainFooter"> 
                     <a routerLink="/createvrn" >
-                        <button mat-mini-fab color="primary" (click)='drawer.toggle(); VRNDetlTxtfn("Create VRN")'>
+                        <button mat-mini-fab color="primary" (click)='VRNDetlTxtfn("Create VRN"); selectedVRNData.class = "mat-list-item"; (isMobile && drawer.toggle())'>
                             <mat-icon>add</mat-icon>
                         </button>
                     </a>
@@ -41,7 +41,7 @@
         <div class="example-sidenav-content">
             <mat-toolbar color="primary">
                 <mat-toolbar-row>
-                    <button mat-icon-button mat-button (click)="drawer.toggle()">
+                    <button mat-icon-button mat-button (click)="drawer.toggle()" *ngIf="isMobile">
                         <mat-icon aria-label="Menu Icon">menu</mat-icon>
                     </button>                
                     <span class="detailTitle">{{VRNDetlTxt}}</span>
