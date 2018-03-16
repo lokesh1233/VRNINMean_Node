@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
-import {MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DataService } from './services/data.service';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
@@ -13,31 +13,37 @@ import { BusyDialogComponent } from './busy-dialog/busy-dialog.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  constructor(private router: Router,private http: Http,private oData : DataService, private dialog: MatDialog) {}
-    searchVisible = false;
-    searchVal = "";
-    VRNDetlTxt = 'VRN Details';
-    busyDialog;
-    ngOnInit(){ 
-      this.loadVRNMasterList();
-     // window.asd = this;
-    // this.webhhokURL();
-       }
+export class AppComponent implements OnInit {
+  constructor(private router: Router, private http: Http, private oData: DataService, private dialog: MatDialog) { }
+  searchVisible = false;
+  searchVal = "";
+  VRNDetlTxt = 'VRN Details';
+  busyDialog;
+  isMobile;
+  ngOnInit() {
+    this.loadVRNMasterList();
+    var ua = navigator.userAgent;
+    if (/Android|webOS|iPhone|iPad|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.isMobile = true;
+    }
+    else {
+      this.isMobile = false;
+    }
+  }
 
-       searchChange(evt){
-         this.searchVal = evt.srcElement.value;
-         var that = this;
-         if(this.searchVal === ""){
-          this.createUserData = this.primaryUserData; 
-         }
-         else{
-            this.searchVal = this.searchVal.toLowerCase();
-            this.createUserData = this.createUserData.filter(function(ele){
-              return (ele.VRN.toString().toLowerCase().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.toLowerCase().indexOf(that.searchVal) > -1);
-          });
-         }
-       }       
+  searchChange(evt) {
+    this.searchVal = evt.srcElement.value;
+    var that = this;
+    if (this.searchVal === "") {
+      this.createUserData = this.primaryUserData;
+    }
+    else {
+      this.searchVal = this.searchVal.toLowerCase();
+      this.createUserData = this.createUserData.filter(function (ele) {
+        return (ele.VRN.toString().toLowerCase().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.toLowerCase().indexOf(that.searchVal) > -1);
+      });
+    }
+  }
 
   openBusyDialog(): void {
     var that = this;
@@ -51,49 +57,46 @@ export class AppComponent implements OnInit{
     });
   }
 
-       VRNDetlTxtfn(txt){
-         this.VRNDetlTxt = txt;
-       }
+  VRNDetlTxtfn(txt) {
+    this.VRNDetlTxt = txt;
+  }
 
-  loadVRNMasterList(){
+  loadVRNMasterList() {
     var that = this;
 
     //node server
     this.openBusyDialog();
     this.http.get('/VRNHeader')
-    .map(res => res.json())
-    .subscribe(docs => {
-      this.busyDialog.close();
-    docs = docs.sort(function(a, b){return b.VRN - a.VRN});
-      that.primaryUserData=docs;
-       that.createUserData=docs;
-      if(docs.length>0){
-         that.onVRNSelected(docs[0]);
-       }else{
-         that.onVRNSelected({VRN:''});
-       }
-    })
+      .map(res => res.json())
+      .subscribe(docs => {
+        this.busyDialog.close();
+        docs = docs.sort(function (a, b) { return b.VRN - a.VRN });
+        that.primaryUserData = docs;
+        that.createUserData = docs;
+        if (docs.length > 0) {
+          that.onVRNSelected(docs[0]);
+        } else {
+          that.onVRNSelected({ VRN: '' });
+        }
+      })
   }
 
   createUserData = []
   primaryUserData = [];
-  selectedVRNData = {}
+  selectedVRNData;
 
-  onVRNSelected(data){
+  onVRNSelected(data) {
     var dta = this.createUserData;
-    for(var i=0;i<dta.length;i++){
-      dta[i].class="mat-list-item"
+    for (var i = 0; i < dta.length; i++) {
+      dta[i].class = "mat-list-item"
     }
-    data.class="mat-list-item selectedIndex";
+    data.class = "mat-list-item selectedIndex";
     this.selectedVRNData = data;
-    this.router.navigate(['/detail',data.VRN]);
-    this.VRNDetlTxtfn('VRN Check-In: '+data.VRN);
-  }  
-
-  getMasterItem(){
-    return this.selectedVRNData;
+    this.router.navigate(['/detail', data.VRN]);
+    this.VRNDetlTxtfn('VRN Check-In: ' + data.VRN);
   }
 
+  getMasterItem() {
+    return this.selectedVRNData;
+  }
 }
-
-
