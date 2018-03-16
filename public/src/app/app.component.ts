@@ -67,18 +67,17 @@ export class AppComponent implements OnInit {
     //node server
     this.openBusyDialog();
     this.http.get('/VRNHeader')
-      .map(res => res.json())
-      .subscribe(docs => {
-        this.busyDialog.close();
-        docs = docs.sort(function (a, b) { return b.VRN - a.VRN });
-        that.primaryUserData = docs;
-        that.createUserData = docs;
-        if (docs.length > 0) {
-          that.onVRNSelected(docs[0]);
-        } else {
-          that.onVRNSelected({ VRN: '' });
-        }
-      })
+    .map(res => res.json())
+    .subscribe(docs => {
+      this.busyDialog.close();
+    docs = docs.sort(function(a, b){return b.VRN - a.VRN});
+      that.primaryUserData=docs;
+       that.createUserData=docs;
+       that.onVRNSelected({VRN:'A'});
+       if(docs.length>0){
+         that.onVRNSelected(docs[0]);
+       }
+    })
   }
 
   createUserData = []

@@ -3,9 +3,11 @@ import {MatSnackBar, MatDialog, MatTableDataSource} from '@angular/material';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { AppComponent }   from '../app.component';
 import { FormsModule }    from '@angular/forms';
+import { DataService } from '../services/data.service';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import { DialogComponent } from '../dialog/dialog.component';
+import { BusyDialogComponent } from '../busy-dialog/busy-dialog.component';
 
 @Component({
   selector: 'app-new-detail',
@@ -14,7 +16,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 export class NewDetailComponent implements OnInit {
 
-  constructor(public snackBar: MatSnackBar,private http: Http, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog) { }
+  constructor(public snackBar: MatSnackBar,private http: Http, private router: Router, private route: ActivatedRoute, public appComponent: AppComponent, public dialog: MatDialog, private oData : DataService) { }
 
   ngOnInit() {
     var that = this;
@@ -23,6 +25,7 @@ export class NewDetailComponent implements OnInit {
     })
   }
 
+  busyDialog;
   MOPSelectedField;
   checkoutField;
   CheckOutpostdata;
@@ -40,6 +43,18 @@ export class NewDetailComponent implements OnInit {
   userIds = [];
   itemIds = []; 
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+
+  openBusyDialog(): void {
+    var that = this;
+    this.busyDialog = this.dialog.open(BusyDialogComponent, {
+      width: '250px',
+      panelClass: 'busyDialog'
+    });
+  
+    this.busyDialog.afterClosed().subscribe(result => {
+      console.log('The busy dialog was closed');
+    });
+  }
 
   vrnMasterSelData(){
     let id = this.route.snapshot.paramMap.get('id');
@@ -61,7 +76,8 @@ export class NewDetailComponent implements OnInit {
       VEHICLESTATUS : "",
       NUMOFBOXES : "",
       SEALCONDITION : "",
-      REMARKS : ""
+      REMARKS : "",
+      VRN:this.vrnMaterData.VRN
  };
     this.checkoutSelectionChange();
 
@@ -111,11 +127,12 @@ export class NewDetailComponent implements OnInit {
 
 
    //node server
-   this.http.get('/VRNDetail/'+id)
-   .map(res => res.json())
+
+   this.oData.getVRNDetail(id)
    .subscribe(docs => {
    var vrnMat = that.vrnMaterData;
-     if(docs.length>0){
+   
+   if(docs.length>0){
        vrnMat.VEHICLESTATUS = docs[0].VEHICLESTATUS; //that.paramValues['VEHICLESTATUS'+docs[0].VEHICLESTATUS];
        vrnMat.SEALCONDITION = docs[0].SEALCONDITION; //that.paramValues['SEALCONDITION'+docs[0].SEALCONDITION];
        //vrnMat.TrnsprtMode = vrnMat.MODEOFTRANSPORT
@@ -161,11 +178,12 @@ export class NewDetailComponent implements OnInit {
 
   VRNCheckIn(){
 var that = this;
-
-this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
-   .map(res => res.json())
+this.openBusyDialog();
+  
+this.oData.updateVRNCheckIn(this.vrnMaterData.VRN)
    .subscribe(docs => {
     that.openDialog(docs);
+    that.busyDialog.close();
     //that.openSnackBar(docs.message, '');
    //  that.appComponent.loadVRNMasterList();
      })
@@ -181,11 +199,18 @@ this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
   VRNCheckOut(){
     var that = this;
 
-this.http.put('/VRNHeader/'+this.vrnMaterData.VRN,{})
-   .map(res => res.json())
+    var dat = this.CheckOutpostdata
+      if(dat.VEHICLESTATUS == '' && this.checkoutField.vehStat){
+        that.openSnackBar('Select vehicle status loaded or empty', '');
+        return;
+      }
+      this.openBusyDialog();
+  
+this.oData.createVRNCheckOut(dat)
    .subscribe(docs => {
     that.openDialog(docs);
-   })
+    that.busyDialog.close();
+  })
   }
   
 
