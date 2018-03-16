@@ -111,6 +111,14 @@
   .example-full-width {
     width: 100%;
   }
+
+  .paddingReport{
+    padding: 20px 0px;
+  }
+
+  .bold{
+    font-weight: bold;
+  }
   
   .mainFooter{
     position: fixed !important;

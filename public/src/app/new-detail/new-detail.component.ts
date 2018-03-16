@@ -63,23 +63,21 @@ export class NewDetailComponent implements OnInit {
     if(id != 'A'){
       this.vrnMaterData = this.appComponent.getMasterItem();
       this.roadTransport = this.vrnMaterData.MODEOFTRANSPORT;
-    //  this.vrnMaterData.MODEOFTRANSPORT = '';
-    //   this.vrnMaterData.VEHICLESTATUS = '';
-    //   this.vrnMaterData.SEALCONDITION = '';
-    //   this.vrnMaterData.REMARKS = '';
-    //   this.vrnMaterData.NUMOFBOXES = '';
-    //   this.vrnMaterData.SEALNUM = '';
+      this.loadVRNDetail(id);
+      this.MOPSelectionChange();
+      this.CheckOutpostdata={
+        VEHICLESTATUS : "",
+        NUMOFBOXES : "",
+        SEALCONDITION : "",
+        REMARKS : "",
+        VRN:this.vrnMaterData.VRN
+   };
+      this.checkoutSelectionChange();
+    }else{
+      this.openSnackBar('No Data', 'Error');
+        return;
     }
-    this.loadVRNDetail(id);
-    this.MOPSelectionChange();
-    this.CheckOutpostdata={
-      VEHICLESTATUS : "",
-      NUMOFBOXES : "",
-      SEALCONDITION : "",
-      REMARKS : "",
-      VRN:this.vrnMaterData.VRN
- };
-    this.checkoutSelectionChange();
+    
 
   }
 
@@ -140,8 +138,14 @@ export class NewDetailComponent implements OnInit {
        vrnMat.NUMOFBOXES = docs[0].NUMOFBOXES;
        vrnMat.SEAL1 = docs[0].SEAL1;
        vrnMat.SEAL2 = docs[0].SEAL2;
+       //vrnMat.REPIN = this.dateformater(docs[0].VEHICLECHECKINDATE);
+       //vrnMat.CHEKIN = this.dateformater(docs[0].VEHICLESECURITYDATE);
+       vrnMat.REPIN = docs[0].VEHICLECHECKINDATE;
+       vrnMat.CHEKIN = docs[0].VEHICLESECURITYDATE;
      }
  })
+
+
 
 
 
@@ -156,6 +160,14 @@ export class NewDetailComponent implements OnInit {
     //     vrnMat.SEALNUM = docs[0].SEALNUM;
     //   }
     // });
+  }
+
+  dateformater(repDate){
+    var tmpDate = new Date(repDate);
+    var nDate = tmpDate.getDate();
+    var month = tmpDate.getMonth();
+    var year = tmpDate.getFullYear();
+    return nDate+"-"+month+"-"+year
   }
 
   paramData(){

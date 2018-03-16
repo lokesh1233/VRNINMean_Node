@@ -1,147 +1,178 @@
 <div class="example-container example-form widthContent">
-<mat-form-field>
-    <input matInput placeholder="Mode of Transport" value="{{vrnMaterData.TrnsprtMode}}" [(ngModel)]="vrnMaterData.TrnsprtMode" disabled='true'>
+  <mat-form-field>
+    <input matInput placeholder="Mode of Transport" value="{{vrnMaterData.TrnsprtMode}}" [(ngModel)]="vrnMaterData.TrnsprtMode"
+      disabled='true'>
   </mat-form-field>
 
-<mat-tab-group>
-  <mat-tab label="In">
-        <mat-accordion>
-          <mat-expansion-panel *ngIf='vrnMaterData.MODEOFTRANSPORT != "HD"'>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Vehicle
-              </mat-panel-title>
-              <mat-panel-description>
-                {{vrnMaterData.VEHICLENUM}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehStat">
-              <input matInput placeholder="Vehicle Status" value="{{vrnMaterData.VEHICLESTATUS}}" [(ngModel)]="vrnMaterData.VEHICLESTATUS" disabled='true'>
-            </mat-form-field> 
-        
-          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">
-              <input matInput placeholder="Vehicle No." value="{{vrnMaterData.VEHICLENUM}}" [(ngModel)]="vrnMaterData.VEHICLENUM" disabled='true'>
-            </mat-form-field>
-        
-        
-           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
-              <input matInput placeholder="Fleet Type"  value="{{vrnMaterData.FLEETTYPE}}" [(ngModel)]="vrnMaterData.FLEETTYPE" disabled='true'>
-            </mat-form-field> 
-        
-        
-          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.transName">
-              <input matInput placeholder="Transporter/Agency Name." value="{{vrnMaterData.TRANSPORTER}}" [(ngModel)]="vrnMaterData.TRANSPORTER" disabled='true'>
+  <mat-tab-group>
+    <mat-tab label="In">
+      <mat-accordion>
+        <mat-expansion-panel *ngIf='vrnMaterData.MODEOFTRANSPORT != "HD"'>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Vehicle
+            </mat-panel-title>
+            <mat-panel-description>
+              {{vrnMaterData.VEHICLENUM}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehStat">
+            <input matInput placeholder="Vehicle Status" value="{{vrnMaterData.VEHICLESTATUS}}" [(ngModel)]="vrnMaterData.VEHICLESTATUS"
+              disabled='true'>
           </mat-form-field>
-        
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">
+            <input matInput placeholder="Vehicle No." value="{{vrnMaterData.VEHICLENUM}}" [(ngModel)]="vrnMaterData.VEHICLENUM" disabled='true'>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
+            <input matInput placeholder="Fleet Type" value="{{vrnMaterData.FLEETTYPE}}" [(ngModel)]="vrnMaterData.FLEETTYPE" disabled='true'>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.transName">
+            <input matInput placeholder="Transporter/Agency Name." value="{{vrnMaterData.TRANSPORTER}}" [(ngModel)]="vrnMaterData.TRANSPORTER"
+              disabled='true'>
+          </mat-form-field>
+
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.sealCond">
-            <input matInput placeholder="Seal Condition" value="{{vrnMaterData.SEALCONDITION}}" [(ngModel)]="vrnMaterData.SEALCONDITION" disabled='true'>
-        </mat-form-field>
-        
-        <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
+            <input matInput placeholder="Seal Condition" value="{{vrnMaterData.SEALCONDITION}}" [(ngModel)]="vrnMaterData.SEALCONDITION"
+              disabled='true'>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
             <input matInput placeholder="Seal No. 1" value="{{vrnMaterData.SEAL1}}" [(ngModel)]="vrnMaterData.SEAL1" disabled='true'>
           </mat-form-field>
-        
+
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
             <input matInput placeholder="Seal No. 2" value="{{vrnMaterData.SEAL2}}" [(ngModel)]="vrnMaterData.SEAL2" disabled='true'>
           </mat-form-field>
-        
-            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
-                <input matInput placeholder="No of Boxes"  value="{{vrnMaterData.NUMOFBOXES}}" [(ngModel)]="vrnMaterData.NUMOFBOXES" disabled='true'>
-            </mat-form-field>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Driver
-              </mat-panel-title>
-              <mat-panel-description>
-                {{vrnMaterData.DRIVERNAME}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.licNo">
-              <input matInput placeholder="Driver License No."  value="{{vrnMaterData.LICENSENUM}}" [(ngModel)]="vrnMaterData.LICENSENUM" disabled='true'>
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
+            <input matInput placeholder="No of Boxes" value="{{vrnMaterData.NUMOFBOXES}}" [(ngModel)]="vrnMaterData.NUMOFBOXES" disabled='true'>
           </mat-form-field>
-        
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Driver
+            </mat-panel-title>
+            <mat-panel-description>
+              {{vrnMaterData.DRIVERNAME}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.licNo">
+            <input matInput placeholder="Driver License No." value="{{vrnMaterData.LICENSENUM}}" [(ngModel)]="vrnMaterData.LICENSENUM"
+              disabled='true'>
+          </mat-form-field>
+
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo">
-              <input matInput placeholder="Mobile No."   value="{{vrnMaterData.DRIVERNUM}}" [(ngModel)]="vrnMaterData.DRIVERNUM" disabled='true'>
+            <input matInput placeholder="Mobile No." value="{{vrnMaterData.DRIVERNUM}}" [(ngModel)]="vrnMaterData.DRIVERNUM" disabled='true'>
           </mat-form-field>
-        
+
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
-              <input matInput placeholder="Driver/Pickup Person Name." value="{{vrnMaterData.DRIVERNAME}}" [(ngModel)]="vrnMaterData.DRIVERNAME" disabled='true'>
+            <input matInput placeholder="Driver/Pickup Person Name." value="{{vrnMaterData.DRIVERNAME}}" [(ngModel)]="vrnMaterData.DRIVERNAME"
+              disabled='true'>
           </mat-form-field>
-        
+
           <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.idProof">
-              <input matInput placeholder="ID proof type"  (change)="licenseSelection()"  value="{{vrnMaterData.IDPROOFTYPE}}" [(ngModel)]="vrnMaterData.IDPROOFTYPE" disabled='true'>
-            </mat-form-field>  
-        
-          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
-              <input matInput placeholder="ID proof No."  value="{{vrnMaterData.IDPROOFNUM}}" [(ngModel)]="vrnMaterData.IDPROOFNUM" disabled='true'>
-          </mat-form-field>  
-          </mat-expansion-panel>
-        
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                More
-              </mat-panel-title>
-              <mat-panel-description>
-                
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
-              <input matInput placeholder="AWB no./Docker no./LR no." value="{{vrnMaterData.LRNUM}}" [(ngModel)]="vrnMaterData.LRNUM" disabled='true'>
+            <input matInput placeholder="ID proof type" (change)="licenseSelection()" value="{{vrnMaterData.IDPROOFTYPE}}" [(ngModel)]="vrnMaterData.IDPROOFTYPE"
+              disabled='true'>
           </mat-form-field>
-        
-        <mat-form-field >
-          <textarea matInput placeholder="In Remarks" value="{{vrnMaterData.REMARKS}}" [(ngModel)]="vrnMaterData.REMARKS" disabled='true'></textarea>
-        </mat-form-field>
-          </mat-expansion-panel>
-        </mat-accordion>
-        
-        <!-- <div class="mainFooter">
+
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
+            <input matInput placeholder="ID proof No." value="{{vrnMaterData.IDPROOFNUM}}" [(ngModel)]="vrnMaterData.IDPROOFNUM" disabled='true'>
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              More
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
+            <input matInput placeholder="AWB no./Docker no./LR no." value="{{vrnMaterData.LRNUM}}" [(ngModel)]="vrnMaterData.LRNUM" disabled='true'>
+          </mat-form-field>
+
+          <mat-form-field>
+            <textarea matInput placeholder="In Remarks" value="{{vrnMaterData.REMARKS}}" [(ngModel)]="vrnMaterData.REMARKS" disabled='true'></textarea>
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <!-- <div class="mainFooter">
           <button mat-raised-button color="primary" (click)='VRNCheckIn()'>Check-In</button>
           </div> -->
     </mat-tab>
 
-  <mat-tab label="Out" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'">
-    <p></p>
-    <mat-radio-group  (change)="vehicleStaChange()" value={{CheckOutpostdata.VEHICLESTATUS}}  *ngIf="checkoutField.vehStat"   [(ngModel)]="CheckOutpostdata.VEHICLESTATUS">
-                <mat-radio-button value="L">Loaded</mat-radio-button>
-                <mat-radio-button value="E">Empty</mat-radio-button>
-    </mat-radio-group>
+    <mat-tab label="Out" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'">
+      <p></p>
+      <mat-radio-group (change)="vehicleStaChange()" value={{CheckOutpostdata.VEHICLESTATUS}} *ngIf="checkoutField.vehStat" [(ngModel)]="CheckOutpostdata.VEHICLESTATUS">
+        <mat-radio-button value="L">Loaded</mat-radio-button>
+        <mat-radio-button value="E">Empty</mat-radio-button>
+      </mat-radio-group>
 
-    <mat-form-field class="example-full-width" *ngIf="CheckOutpostdata.VEHICLESTATUS != 'E' && checkoutField.noOfBoxes">  
-        <input matInput  placeholder="No of Boxes" value="{{CheckOutpostdata.NUMOFBOXES}}" [(ngModel)]="CheckOutpostdata.NUMOFBOXES">
-    </mat-form-field>
+      <mat-form-field class="example-full-width" *ngIf="CheckOutpostdata.VEHICLESTATUS != 'E' && checkoutField.noOfBoxes">
+        <input matInput placeholder="No of Boxes" value="{{CheckOutpostdata.NUMOFBOXES}}" [(ngModel)]="CheckOutpostdata.NUMOFBOXES">
+      </mat-form-field>
 
-    <!-- <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
+      <!-- <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
         <input matInput  placeholder="Trip Info" >
     </mat-form-field> -->
 
-    <mat-radio-group placeholder="Seal Condition" (change)="SealConditionStaChange()" value={{CheckOutpostdata.SEALCONDITION}}  *ngIf="CheckOutpostdata.VEHICLESTATUS != 'E' && checkoutField.sealCond"   [(ngModel)]="CheckOutpostdata.SEALCONDITION" >
+      <mat-radio-group placeholder="Seal Condition" (change)="SealConditionStaChange()" value={{CheckOutpostdata.SEALCONDITION}}
+        *ngIf="CheckOutpostdata.VEHICLESTATUS != 'E' && checkoutField.sealCond" [(ngModel)]="CheckOutpostdata.SEALCONDITION">
         <mat-radio-button value="I">Intact</mat-radio-button>
         <mat-radio-button value="D">Damaged</mat-radio-button>
         <mat-radio-button value="N">No Seal</mat-radio-button>
-    </mat-radio-group>
+      </mat-radio-group>
 
-        
-    <mat-form-field class="example-full-width">  
-        <input matInput  placeholder="POD/Out Remarks" value={{CheckOutpostdata.REMARKS}} [(ngModel)]="CheckOutpostdata.REMARKS" >
-    </mat-form-field>
 
-    <!-- <div class="mainFooter">
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="POD/Out Remarks" value={{CheckOutpostdata.REMARKS}} [(ngModel)]="CheckOutpostdata.REMARKS"></textarea>
+      </mat-form-field>
+      <div>
+        <!-- <mat-form-field class="example-full-width">  
+        <input matInput  placeholder="Reported" [(ngModel)]="vrnMaterData.REPIN" disabled='true'>
+    </mat-form-field> -->
+
+        <!-- <mat-form-field class="example-full-width">   
+        <label mat-label>
+            Reported:  {{vrnMaterData.REPIN | date: 'dd MMM yyyy'}}
+        </label>
+     </mat-form-field>  -->
+        <div class="paddingReport">
+          <label>Reported:</label>
+          <span  class="bold">
+            {{vrnMaterData.REPIN | date: 'dd MMM yyyy HH:mm:ss'}}
+          </span>
+        </div>
+        <div>
+          <label>Checked:</label>
+          <span class="bold">
+            {{vrnMaterData.CHEKIN | date: 'dd MMM yyyy HH:mm:ss'}}
+          </span>
+        </div>
+      </div>
+
+        <!-- <mat-form-field class="example-full-width">  
+        <input matInput  placeholder="Checked" value={{vrnMaterData.CHEKIN}} [(ngModel)]="vrnMaterData.CHEKIN" disabled='true'>
+    </mat-form-field> -->
+
+        <!-- <div class="mainFooter">
         <button mat-raised-button color="primary" (click)='VRNCheckOut()'>Check-Out</button>
     </div> -->
-  </mat-tab>
-</mat-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 
 
-<div class="mainFooter">
+  <div class="mainFooter">
     <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'R'" (click)='VRNCheckIn()'>Check-In</button>
     <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'" (click)='VRNCheckOut()'>Check-Out</button>
-    </div>
-</div>
-
-
-
-
+  </div>
+  </div>
