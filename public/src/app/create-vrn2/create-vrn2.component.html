@@ -91,7 +91,7 @@
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No." required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." required (change) = 'mobilenuvalid()' required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">

@@ -205,6 +205,13 @@ licenseSelection(){
     this.openSnackBar('Enter License Number', '');
      return;
   }
+
+  var licpattern = /[a-zA-Z0-9]/;
+  if(!licpattern.test(LcnseNo)){
+    this.openSnackBar('Enter Valid License Number', '');
+    this.createVRNData.LICENSENUM = "";
+     return;
+  }
   var that = this;
   this.oData.getLicenseValidation(LcnseNo)
   .subscribe(docs => {
@@ -221,13 +228,13 @@ licenseSelection(){
 }
 
 vehicleSelection(){
-  let vhcle = this.createVRNData.VEHICLENUM;
+  let vhcle = this.createVRNData.VEHICLENUM.toUpperCase();
   if(vhcle == ""){
     this.openSnackBar('Enter Vehicle Number', '');
      return;
   }
 
-  var pattern = /^[A-Z]{2}([ \-])[0-9]{2}[ ,][A-Z0-9]{1,2}[A-Z]\1[0-9]{4}$/;
+  var pattern = /^[A-Za-z]{2}([ \-])[0-9]{2}[ ,][A-Za-z0-9]{1,2}[A-Za-z]\1[0-9]{4}$/;
   if(!pattern.test(vhcle)){
     this.openSnackBar('Vehicle Number Invalid','');
     this.createVRNData.VEHICLENUM = "";
@@ -247,6 +254,16 @@ vehicleSelection(){
     that.createVRNData.FLEETTYPE = docs[0].FleetTypeDesc;
   }
 })
+}
+
+mobilenuvalid(){
+  let mobNum = this.createVRNData.DRIVERNUM;
+  var mobpattern = /^\d{10}$/;
+  if(!mobpattern.test(mobNum)){
+    this.openSnackBar('Mobile Number Invalid','');
+    this.createVRNData.DRIVERNUM = "";
+    return;
+  }
 }
 
 switchHstl(evt){
