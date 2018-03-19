@@ -27,19 +27,11 @@ var VRNDetailSchema = new Schema({
     SEAL2: {
         type: String
     },
-    VEHICLESECURITYTIME: {
-        type: Date,
-        Default: Date.now
-    },
     VEHICLESECURITYDATE: {
         type: Date,
         Default: Date.now
     },
     VEHICLECHECKINDATE: {
-        type: Date,
-        Default: Date.now
-    },
-    VEHICLECHECKINTIME: {
         type: Date,
         Default: Date.now
     },
