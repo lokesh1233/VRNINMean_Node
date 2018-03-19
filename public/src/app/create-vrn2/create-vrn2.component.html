@@ -30,7 +30,7 @@
             <ng-template matStepLabel>Vehicle</ng-template>
 
             <!-- <form > -->
-            <mat-radio-group placeholder="Vehicle Status" (change)="vehicleStatusChange()" value={{createVRNDtlData.VEHICLESTATUS}}  *ngIf="MOPSelectedField.vehStat"   [(ngModel)]="createVRNDtlData.VEHICLESTATUS">
+            <mat-radio-group placeholder="Vehicle Status" (change)="vehicleStatusChange()" value={{createVRNData.VEHICLESTATUS}}  *ngIf="MOPSelectedField.vehStat"   [(ngModel)]="createVRNData.VEHICLESTATUS">
                 <mat-radio-button value="L">Loaded</mat-radio-button>
                 <mat-radio-button value="E">Empty</mat-radio-button>
             </mat-radio-group>
@@ -53,22 +53,22 @@
                 </mat-autocomplete>
               </mat-form-field>
 
-                      <mat-radio-group [(value)]="createVRNDtlData.SEALCONDITION" (change)="sealConditionChange()"  *ngIf="MOPSelectedField.sealCond" [(ngModel)]="createVRNDtlData.SEALCONDITION">
+                      <mat-radio-group [(value)]="createVRNData.SEALCONDITION" (change)="sealConditionChange()"  *ngIf="MOPSelectedField.sealCond" [(ngModel)]="createVRNData.SEALCONDITION">
                           <mat-radio-button value="I">Intact </mat-radio-button>
                           <mat-radio-button value="D">Damaged</mat-radio-button>
                           <mat-radio-button value="N">No Seal</mat-radio-button>
                       </mat-radio-group>
          
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
-                          <input matInput placeholder="Seal No. 1"  value="{{createVRNDtlData.SEAL1}}" [(ngModel)]="createVRNDtlData.SEAL1">
+                          <input matInput placeholder="Seal No. 1"  value="{{createVRNData.SEAL1}}" [(ngModel)]="createVRNData.SEAL1">
                       </mat-form-field>
                      
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
-                          <input matInput placeholder="Seal No. 2"  value="{{createVRNDtlData.SEAL2}}" [(ngModel)]="createVRNDtlData.SEAL2">
+                          <input matInput placeholder="Seal No. 2"  value="{{createVRNData.SEAL2}}" [(ngModel)]="createVRNData.SEAL2">
                         </mat-form-field> 
 
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
-                          <input matInput placeholder="No of Boxes"  value="{{createVRNDtlData.NUMOFBOXES}}" [(ngModel)]="createVRNDtlData.NUMOFBOXES">
+                          <input matInput placeholder="No of Boxes"  value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
                       </mat-form-field>
 
                       <!-- </form> -->
@@ -91,7 +91,7 @@
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No." required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." required (change) = 'mobilenuvalid()' required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
@@ -136,7 +136,7 @@
           
         
         <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Remarks" value="{{createVRNDtlData.REMARKS}}" [(ngModel)]="createVRNDtlData.REMARKS"></textarea>
+          <textarea matInput placeholder="Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
         </mat-form-field>
 
         <!-- <mat-form-field class="example-full-width" *ngIf=false>
@@ -144,7 +144,7 @@
       </mat-form-field> -->
 <!-- 
         <mat-form-field class="example-full-width"> -->
-            <!-- <labloel matInput placeholder="Check in time" [(ngModel)]="createVRNDtlData.Time">{{createVRNDtlData.Time}}</label>
+            <!-- <labloel matInput placeholder="Check in time" [(ngModel)]="createVRNData.Time">{{createVRNData.Time}}</label>
           </mat-form-field> -->
         
           <div>
@@ -174,14 +174,14 @@
             <input matInput placeholder="Enter Vehicle No." (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM}}" [(ngModel)]="createVRNData.VEHICLENUM">
           </mat-form-field>
      
-            <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNDtlData.VEHICLESTATUS" [(ngModel)]="createVRNDtlData.VEHICLESTATUS">
+            <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNData.VEHICLESTATUS" [(ngModel)]="createVRNData.VEHICLESTATUS">
               checked="{{createVRNData.vehstat}}"
               <mat-radio-button value="L">Loaded</mat-radio-button>
               <mat-radio-button value="E">Empty</mat-radio-button>
             </mat-radio-group>
          
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Enter Seal No." value="{{createVRNDtlData.SEALNUM}}" [(ngModel)]="createVRNDtlData.SEALNUM">
+              <input matInput placeholder="Enter Seal No." value="{{createVRNData.SEALNUM}}" [(ngModel)]="createVRNData.SEALNUM">
             </mat-form-field>
             
             
@@ -198,17 +198,17 @@
                 </mat-autocomplete>
               </mat-form-field>
             
-              <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNDtlData.SEALCONDITION" [(ngModel)]="createVRNDtlData.SEALCONDITION">
+              <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNData.SEALCONDITION" [(ngModel)]="createVRNData.SEALCONDITION">
                   <mat-radio-button value="I">Intact </mat-radio-button>
                   <mat-radio-button value="D">Damaged</mat-radio-button>
                   <mat-radio-button value="N">No Seal</mat-radio-button>
               </mat-radio-group>
             
               <mat-form-field class="example-full-width">
-                  <input matInput placeholder="No of Boxes" value="{{createVRNDtlData.NUMOFBOXES}}" [(ngModel)]="createVRNDtlData.NUMOFBOXES">
+                  <input matInput placeholder="No of Boxes" value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
               </mat-form-field>
               <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Seal 1" value="{{createVRNDtlData.Seal1}}" [(ngModel)]="createVRNDtlData.Seal1">
+                  <input matInput placeholder="Seal 1" value="{{createVRNData.Seal1}}" [(ngModel)]="createVRNData.Seal1">
               </mat-form-field>
               
 
@@ -246,7 +246,7 @@
         </mat-form-field>
       
       <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="In Remarks" value="{{createVRNDtlData.REMARKS}}" [(ngModel)]="createVRNDtlData.REMARKS"></textarea>
+        <textarea matInput placeholder="In Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
       </mat-form-field>
       </mat-expansion-panel>
     </mat-accordion>
@@ -258,14 +258,14 @@
 <!--    
     <mat-tab-group [(selectedIndex)] = "selectedIndex">
       <mat-tab label="Vehicle details">
-          <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNDtlData.VEHICLESTATUS" [(ngModel)]="createVRNDtlData.VEHICLESTATUS">
+          <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNData.VEHICLESTATUS" [(ngModel)]="createVRNData.VEHICLESTATUS">
             checked="{{createVRNData.vehstat}}"
             <mat-radio-button value="L">Loaded</mat-radio-button>
             <mat-radio-button value="E">Empty</mat-radio-button>
           </mat-radio-group>
           
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Enter Seal No." value="{{createVRNDtlData.SEALNUM}}" [(ngModel)]="createVRNDtlData.SEALNUM">
+            <input matInput placeholder="Enter Seal No." value="{{createVRNData.SEALNUM}}" [(ngModel)]="createVRNData.SEALNUM">
           </mat-form-field>
           
           
@@ -286,14 +286,14 @@
             </mat-form-field>
           
           
-            <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNDtlData.SEALCONDITION" [(ngModel)]="createVRNDtlData.SEALCONDITION">
+            <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNData.SEALCONDITION" [(ngModel)]="createVRNData.SEALCONDITION">
                 <mat-radio-button value="I">Intact </mat-radio-button>
                 <mat-radio-button value="D">Damaged</mat-radio-button>
                 <mat-radio-button value="N">No Seal</mat-radio-button>
             </mat-radio-group>
           
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="No of Boxes" value="{{createVRNDtlData.NUMOFBOXES}}" [(ngModel)]="createVRNDtlData.NUMOFBOXES">
+                <input matInput placeholder="No of Boxes" value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
             </mat-form-field>
         
       </mat-tab>
@@ -322,7 +322,7 @@
       </mat-form-field>
     
     <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="In Remarks" value="{{createVRNDtlData.REMARKS}}" [(ngModel)]="createVRNDtlData.REMARKS"></textarea>
+      <textarea matInput placeholder="In Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
     </mat-form-field>
       
      
