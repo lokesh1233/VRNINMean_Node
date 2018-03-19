@@ -74,7 +74,9 @@ export class NewDetailComponent implements OnInit {
    };
       this.checkoutSelectionChange();
     }else{
-      this.openSnackBar('No Data', 'Error');
+      this.vrnMaterData = {};
+
+      //this.openSnackBar('No Data', 'Error');
         return;
     }
     
@@ -250,7 +252,7 @@ this.oData.createVRNCheckOut(dat)
     mobNo 	  : { RD: true,  RB: true,  HD: true,   CR: true,  CA: true  },
     personName: { RD: true,  RB: true,  HD: true,   CR: true,  CA: true  },
     noOfBoxes : { RD: true,  RB: false, HD: false,  CR: false, CA: false },
-    lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: false },
+    lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: true },
     idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
   };
 
@@ -265,7 +267,7 @@ this.oData.createVRNCheckOut(dat)
   openDialog(msg): void {
     var that = this;
     let dialogRef = this.dialog.open(DialogComponent, {
-      width: '350px',
+      width: '400px',
       data: msg 
     });
   

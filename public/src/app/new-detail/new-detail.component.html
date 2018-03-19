@@ -5,7 +5,7 @@
   </mat-form-field>
 
   <mat-tab-group>
-    <mat-tab label="In">
+    <mat-tab label="Arrival">
       <mat-accordion>
         <mat-expansion-panel *ngIf='vrnMaterData.MODEOFTRANSPORT != "HD"'>
           <mat-expansion-panel-header>
@@ -89,10 +89,10 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              More
+              Remarks
             </mat-panel-title>
             <mat-panel-description>
-
+                {{vrnMaterData.REMARKS}}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
@@ -110,7 +110,7 @@
           </div> -->
     </mat-tab>
 
-    <mat-tab label="Out" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'">
+    <mat-tab label="Departure" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'">
       <p></p>
       <mat-radio-group (change)="vehicleStaChange()" value={{CheckOutpostdata.VEHICLESTATUS}} *ngIf="checkoutField.vehStat" [(ngModel)]="CheckOutpostdata.VEHICLESTATUS">
         <mat-radio-button value="L">Loaded</mat-radio-button>

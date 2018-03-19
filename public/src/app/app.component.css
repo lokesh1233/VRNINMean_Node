@@ -113,16 +113,16 @@
   }
 
   .heightStable > div{
-  border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000;
   }
   .zeromarginStable{
     margin: 0%;
   }
 
   .marginTitle{
-    margin: 10px;
+    margin: 0px;
     width: 100%;
-    display: block;
+    display: flex;
   }
 
   .mainFooter{
@@ -172,4 +172,8 @@
 
   .mat-drawer-content{
     overflow: hidden !important;
+  }
+
+  .boldLabel{
+    font-weight: bold;
   }

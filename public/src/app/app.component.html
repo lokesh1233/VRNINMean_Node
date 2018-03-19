@@ -1,41 +1,45 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" [opened]=!isMobile>
+    <mat-drawer #drawer class="example-sidenav" [mode]='(isMobile) ? "over" : "side"' [opened]=!isMobile>
         <!-- opened="true" -->
-         
-                <mat-toolbar color="primary">                    
-                      <span>VRN List</span>
-                      <!-- *ngIf="!searchVisible" -->
-                      <span class="example-spacer"></span>
-                      <!-- *ngIf="!searchVisible"  -->
-                      <!-- <button mat-icon-button (click)="searchVisible = !searchVisible" *ngIf="!searchVisible">
+
+        <mat-toolbar color="primary">
+            <span>VRN List</span>
+            <!-- *ngIf="!searchVisible" -->
+            <span class="example-spacer"></span>
+            <!-- *ngIf="!searchVisible"  -->
+            <!-- <button mat-icon-button (click)="searchVisible = !searchVisible" *ngIf="!searchVisible">
                             <mat-icon aria-label="Search">search</mat-icon>
                       </button> -->
-                      <!-- <input *ngIf="searchVisible" matInput placeholder="Search" type="search" (keyup)="searchChange($event)"> -->
-                    </mat-toolbar>
-                <!-- <form class="example-form"> -->
-                        <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
-                        </mat-form-field>
-                <section class="masterList">
-                <mat-nav-list class="list">
-                    <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data); (isMobile && drawer.toggle())" class="{{data.class}} heightStable">
-                        <div>
-                   <!-- <mat-icon mat-list-icon color='primary'> {{data.transportIcon}} </mat-icon>  -->
-                        <h4 class="marginTitle">VRN. {{data.VRN}}</h4>
-                        <span class="marginTitle">Vehicle No. {{data.VEHICLENUM}}</span>               
-                 <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->                
-                    </div>
-                    </mat-list-item> 
-                  </mat-nav-list>
-                </section>
-               
-                <div class="mainFooter"> 
-                    <a routerLink="/createvrn" >
-                        <button mat-mini-fab color="primary" (click)='VRNDetlTxtfn("Create VRN"); selectedVRNData.class = "mat-list-item"; (isMobile && drawer.toggle())'>
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </a>
-                </div>
+            <!-- <input *ngIf="searchVisible" matInput placeholder="Search" type="search" (keyup)="searchChange($event)"> -->
+        </mat-toolbar>
+        <!-- <form class="example-form"> -->
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
+        </mat-form-field>
+        <section class="masterList">
+            <mat-nav-list class="list">
+                <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data); (isMobile && drawer.toggle())" [class]='"heightStable " + data.class'>
+                        <mat-icon mat-list-icon matTooltip={{data.TrnsprtMode}} color='primary'>
+                            {{data.MODEOFTRANSPORT == "RD" ? "local_shipping" : (data.MODEOFTRANSPORT == "RB" ? "directions_bike" : (data.MODEOFTRANSPORT
+                            == "HD" ? "directions_walk" : (data.MODEOFTRANSPORT == "CR" ? "local_taxi" : (data.MODEOFTRANSPORT
+                            == "CA" ? "flight": ""))))}}
+                        </mat-icon>
+                        <h4 mat-line class="marginTitle">VRN: <span class="boldLabel">{{data.VRN}}</span></h4>
+                        <mat-icon *ngIf="data.VRNSTATUS === 'C'" mat-list-icon color='primary'>check_circle</mat-icon>
+                        <p mat-line class="marginTitle">{{data.MODEOFTRANSPORT === "HD" ? "Driver Name: ": "Vehicle No.: "}}<span class="boldLabel">{{data.MODEOFTRANSPORT === "HD" ? data.DRIVERNAME : data.VEHICLENUM}}</span></p>
+                    <mat-divider></mat-divider>
+                    <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->
+                </mat-list-item>
+            </mat-nav-list>
+        </section>
+
+        <div class="mainFooter">
+            <a routerLink="/createvrn">
+                <button mat-mini-fab color="primary" (click)='VRNDetlTxtfn("Create VRN"); selectedVRNData.class = "mat-list-item"; (isMobile && drawer.toggle())'>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </a>
+        </div>
     </mat-drawer>
     <mat-drawer-content>
         <div class="example-sidenav-content">
@@ -43,16 +47,14 @@
                 <mat-toolbar-row>
                     <button mat-icon-button mat-button (click)="drawer.toggle()" *ngIf="isMobile">
                         <mat-icon aria-label="Menu Icon">menu</mat-icon>
-                    </button>                
+                    </button>
                     <span class="detailTitle">{{VRNDetlTxt}}</span>
                     <span class="example-spacer"></span>
                 </mat-toolbar-row>
             </mat-toolbar>
             <div class="detailForm">
-                <router-outlet></router-outlet>        
+                <router-outlet></router-outlet>
             </div>
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
-
-        
