@@ -93,32 +93,32 @@ MOPSelectionChange(){
 
 
 vehicleStatusChange(){
- var vhcleSts =  this.createVRNDtlData.VEHICLESTATUS;
+ var vhcleSts =  this.createVRNData.VEHICLESTATUS;
  var visible = true;
  if(vhcleSts == 'E'){
   visible = false;
  }
- this.createVRNDtlData.SEALCONDITION = 'I';
+ this.createVRNData.SEALCONDITION = 'I';
  this.MOPSelectedField.sealCond  = visible;
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
  this.MOPSelectedField.noOfBoxes  = visible;
- this.createVRNDtlData.NUMOFBOXES = '';
- this.createVRNDtlData.SEAL1 = '';
- this.createVRNDtlData.SEAL2 = '';
+ this.createVRNData.NUMOFBOXES = '';
+ this.createVRNData.SEAL1 = '';
+ this.createVRNData.SEAL2 = '';
 }
 
 
 sealConditionChange(){
- var vhcleSts =  this.createVRNDtlData.SEALCONDITION;
+ var vhcleSts =  this.createVRNData.SEALCONDITION;
 var visible = true;
  if(vhcleSts == 'N'){
   visible = false;
  }
  this.MOPSelectedField.seal1  = visible;
  this.MOPSelectedField.seal2  = visible;
- this.createVRNDtlData.SEAL1 = '';
- this.createVRNDtlData.SEAL2 = '';
+ this.createVRNData.SEAL1 = '';
+ this.createVRNData.SEAL2 = '';
 }
 
 filterAgencies(name: string) {  
@@ -171,49 +171,33 @@ agenciesData(){
 }
 
 createVRNData;
-createVRNDtlData;
 defaultUpdationValues(dta){
  this.createVRNData = {
-  VRN:"",
   MODEOFTRANSPORT:dta,
-  PURPOSE:"",
-  SITE:"",
   VEHICLENUM:"",
   DRIVERNAME:"",
   DRIVERNUM:"",
   FLEETTYPECODE:"",
   IDPROOFNUM:"",
   IDPROOFTYPE:"",
-  IDPROOFCodeTYPE:"",
   LRNUM:"",
   FLEETTYPE:"",
-  LRDATE:new Date(),
+  LRDATE:'',
   LICENSENUM:"",
   VRNSTATUS:"R",
-  CHANGEDBY:"Bhaskar",
-  CHANGEDON:new Date(),
-  CREATEDBY:'Bhaskar',
-  CREATEDON:new Date(),
   TRANSPORTER:"",
-  TRANSPORTERCODE:""
-}
-
-this.createVRNDtlData = {
-  VRN:"",
+  TRANSPORTERCODE:"",
   CHECKINOUT:"I",  
   VEHICLESTATUS:dta == "RD"?"L":"",
   SEALCONDITION:dta == "RD"?"I":"",
   REMARKS:"",
   NUMOFBOXES:"",
   SEAL1:"",
-  SEAL2:"",
-  VEHICLESECURITYTIME: new Date(),
-  VEHICLESECURITYDATE: new Date(),
-  VEHICLECHECKINDATE:'',
-  VEHICLECHECKINTIME: '',
-  VRNCHECKINBY: 'Bhaskar'
+  SEAL2:"",  
 }
 }
+
+IDPROOFCodeTYPE;
 
 licenseSelection(){
   let LcnseNo = this.createVRNData.LICENSENUM;
@@ -275,17 +259,15 @@ for(var i in mandtry){
   }
 }
 
-  this.createVRNData.PURPOSE = '';
-  var that = this;
+vrnDta.IDPROOFTYPE = this.IDPROOFCodeTYPE;
 
 if(ind == true){
-  this.createVRNData.VRNSTATUS = "C";
-  this.createVRNDtlData.VEHICLECHECKINDATE= new Date();
-  this.createVRNDtlData.VEHICLECHECKINTIME= new Date();
+  vrnDta.VRNSTATUS = "C";
 }
 
 this.openBusyDialog();
-this.oData.createVRN({headerData:this.createVRNData,detailData:this.createVRNDtlData})
+var that = this;
+this.oData.createVRN(vrnDta)
 .subscribe(docs => {
   that.busyDialog.close();
   that.openDialog(docs);
@@ -303,7 +285,7 @@ VRNCheckIn(){
 
 selectIDProofChange(data){
 //debugger;
-this.createVRNData.IDPROOFCodeTYPE = data.modeNum;
+this.IDPROOFCodeTYPE = data.modeNum;
 }
 
   navigateBefore(evt){
@@ -322,7 +304,7 @@ feildValidation={
   mobNo 	  : { RD: true,  RB: true,  HD: true,   CR: true,  CA: true  },
   personName: { RD: true,  RB: true,  HD: true,   CR: true,  CA: true  },
   noOfBoxes : { RD: true,  RB: false, HD: false,  CR: false, CA: false },
-  lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: false },
+  lrNo 		  : { RD: true,  RB: false, HD: false,  CR: true,  CA: true },
   idProof 	: { RD: false, RB: false, HD: true,   CR: false, CA: false },
   idProofNum 	: { RD: false, RB: false, HD: true,   CR: false, CA: false }
 };
