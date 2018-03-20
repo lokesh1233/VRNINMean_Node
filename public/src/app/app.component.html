@@ -24,8 +24,10 @@
                             == "HD" ? "directions_walk" : (data.MODEOFTRANSPORT == "CR" ? "local_taxi" : (data.MODEOFTRANSPORT
                             == "CA" ? "flight": ""))))}}
                         </mat-icon>
-                        <h4 mat-line class="marginTitle">VRN: <span class="boldLabel">{{data.VRN}}</span></h4>
-                        <mat-icon *ngIf="data.VRNSTATUS === 'C'" mat-list-icon color='primary'>check_circle</mat-icon>
+                        <h4 mat-line class="marginTitle">VRN: <span class="boldLabel">{{data.VRN}}</span>
+                            <mat-icon *ngIf="data.VRNSTATUS === 'C'" mat-list-icon color='primary' class="checkIn">check_circle</mat-icon>                        
+                        </h4>
+                        
                         <p mat-line class="marginTitle">{{data.MODEOFTRANSPORT === "HD" ? "Driver Name: ": "Vehicle No.: "}}<span class="boldLabel">{{data.MODEOFTRANSPORT === "HD" ? data.DRIVERNAME : data.VEHICLENUM}}</span></p>
                     <mat-divider></mat-divider>
                     <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->
