@@ -28,7 +28,7 @@ function postSAPData(pth, data){
       msg += chunk;
     });
      res.on('end', function() {
-       console.log(JSON.parse(msg));
+       console.log('error: '+msg);
      });
   });
   
