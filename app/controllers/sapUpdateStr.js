@@ -11,7 +11,7 @@ function fetchCSRFToken(pth, data){
     host: 'nwgwtgd.rjil.ril.com',
     auth: 'fiori_test3:Welcome.1',
     port: '8000',
-    path: hstData+pth+'?saml2=disabled',
+    path: hstData+'?saml2=disabled',
     method: 'GET',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
