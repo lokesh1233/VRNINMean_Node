@@ -75,7 +75,7 @@ export class NewDetailComponent implements OnInit {
       this.checkoutSelectionChange();
     }else{
       this.vrnMaterData = {};
-
+      this.MOPSelectedField = {}; 
       //this.openSnackBar('No Data', 'Error');
         return;
     }

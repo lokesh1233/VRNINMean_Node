@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     License = mongoose.model('License'),
     LicenseRegion = mongoose.model('LicenseRegion'),
     Transporter = mongoose.model('Transporter'),
+    Params = mongoose.model('Params'),
     Vehicle = mongoose.model('Vehicle');
 
 exports.read_params = function(req, res) {

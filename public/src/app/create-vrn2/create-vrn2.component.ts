@@ -234,12 +234,12 @@ vehicleSelection(){
      return;
   }
 
-  var pattern = /^[A-Za-z]{2}([ \-])[0-9]{2}[ ,][A-Za-z0-9]{1,2}[A-Za-z]\1[0-9]{4}$/;
-  if(!pattern.test(vhcle)){
-    this.openSnackBar('Vehicle Number Invalid','');
-    this.createVRNData.VEHICLENUM = "";
-    return;
-  }
+  // var pattern = /^[A-Za-z]{2}([ \-])[0-9]{2}[ ,][A-Za-z0-9]{1,2}[A-Za-z]\1[0-9]{4}$/;
+  // if(!pattern.test(vhcle)){
+  //   this.openSnackBar('Vehicle Number Invalid','');
+  //   this.createVRNData.VEHICLENUM = "";
+  //   return;
+  // }
   var that = this;
   var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.oData.getVehicleValidation(vhcle)
