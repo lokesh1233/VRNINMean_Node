@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    sapUpdateStr = require('./sapUpdateStr'),
     License = mongoose.model('License');
 
 exports.create_license = function(req, res) {
@@ -8,9 +9,11 @@ exports.create_license = function(req, res) {
   new_license.save(function(err, lic) {
     if (err)
       res.send(err);
+      sapUpdateStr.createLicense(req.body);
     res.json(lic);
   });
 };
+
 
 exports.read_license = function(req, res) {
     License.find({Licencenumber: req.params.Licencenumber}, function(err, lic) {

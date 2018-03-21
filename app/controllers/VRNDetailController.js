@@ -1,5 +1,4 @@
 'use strict';
-var param = require('./ParamsController');
 var mongoose = require('mongoose'),
     Params = mongoose.model('Params'),
     VRNDetail = mongoose.model('VRNDetail');
