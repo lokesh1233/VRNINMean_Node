@@ -7,7 +7,8 @@ function postSAPData(pth, data){
   var http = require('http');
   var dta = JSON.stringify(data);
   var options = {
-    host: 'fiori_test3:Welcome.1@nwgwtgd.rjil.ril.com',
+    host: 'nwgwtgd.rjil.ril.com',
+    auth: 'fiori_test3:Welcome.1',
     port: '8000',
     path: hstData+pth+'?saml2=disabled',
     method: 'POST',
@@ -24,9 +25,9 @@ function postSAPData(pth, data){
     res.on('data', function(chunk) {
       msg += chunk;
     });
-    res.on('end', function() {
-      console.log(JSON.parse(msg));
-    });
+    // res.on('end', function() {
+    //   console.log(JSON.parse(msg));
+    // });
   });
   
   req.write(dta);
@@ -61,13 +62,13 @@ exports.createVRNCheckOut = function(data) {
       CheckType:"O",
       DepRemarks:data.REMARKS,
       LRDate:"0000-00-00T00:00:00",
-      LRNum:data.LRNum,
+      LRNum:'',
       NoHus:data.NUMOFBOXES,
       Reject: "",
       SealCond:data.SEALCONDITION,
       TripNum:"",
       VRNCREITMDOCNAV:[{DocNum: "", DocType: ""}],
-      VRNNum:data.VRN,
+      VRNNum:data.VRN.toString(),
       VehicleStatus:data.VEHICLESTATUS
     }]
     }
