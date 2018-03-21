@@ -126,10 +126,18 @@ exports.create_a_vrn = function (req, res) {
               VendorName: req.body.TRANSPORTER
             }
           }, { new: false, upsert: true }, function (err, vrndtl) {
+            try{
             sapUpdateStr.createVRNReortAndCheckIn(req.body);
+            }catch(err){
+
+            }
           })
         }else{
-          sapUpdateStr.createVRNReortAndCheckIn(req.body);
+          try{
+            sapUpdateStr.createVRNReortAndCheckIn(req.body);
+            }catch(err){
+
+            }
         }
       });
       res.json({ message: 'VRN: ' + doc._doc.seq + ' created sccesfully', msgCode: "S", Payload: vrn });
@@ -144,7 +152,12 @@ exports.update_vrn = function (req, res) {
     VRNDetail.findOneAndUpdate({ VRN: req.params.VRN }, { '$set': { VEHICLECHECKINDATE: new Date(),VRNCHECKINBY: 'Bhaskar'}  }, { new: true, upsert: true }, function (err, vrndtl) {
     })
     res.json({ message: 'VRN ' + req.params.VRN + ' checked in succesfully ', msgCode: "S", Payload: vrn });
-    sapUpdateStr.createVRNCheckIn(req.params.VRN);
+    try{
+      sapUpdateStr.createVRNCheckIn(req.params.VRN);
+      }catch(err){
+
+      }
+   
   });
 };
 
@@ -162,7 +175,11 @@ exports.createVRNCheckOut = function (req, res) {
     vrn_dtl.save(function (VRNerr, vrndtl) {
       if (VRNerr)
         res.send({ message: VRNerr.message, msgCode: "E", Payload: VRNerr });
-        sapUpdateStr.createVRNCheckOut(obj);
+      
+        try{
+          sapUpdateStr.createVRNCheckOut(obj);
+          }catch(err){
+          }
       res.json({ message: 'VRN ' + obj.VRN + ' checked out succesfully ', msgCode: "S", Payload: vrn });
     });
   });

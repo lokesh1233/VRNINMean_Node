@@ -27,9 +27,9 @@ function postSAPData(pth, data){
     res.on('data', function(chunk) {
       msg += chunk;
     });
-    // res.on('end', function() {
-    //   console.log(JSON.parse(msg));
-    // });
+     res.on('end', function() {
+       console.log(JSON.parse(msg));
+     });
   });
   
   req.write(dta);

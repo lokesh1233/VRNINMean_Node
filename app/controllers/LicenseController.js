@@ -9,7 +9,11 @@ exports.create_license = function(req, res) {
   new_license.save(function(err, lic) {
     if (err)
       res.send(err);
-      sapUpdateStr.createLicense(req.body);
+     
+      try{
+        sapUpdateStr.createLicense(req.body);
+        }catch(err){
+        }
     res.json(lic);
   });
 };
