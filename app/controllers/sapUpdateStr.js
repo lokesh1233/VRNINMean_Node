@@ -3,7 +3,61 @@
 var mongoose = require('mongoose'),
   hstData = '/sap/opu/odata/sap/Z_FIORI_VRN_IN_LITE_SRV';
 
+// "X-CSRF-Token":"Fetch"   
+function fetchCSRFToken(pth, data){
+  var http = require('http');
+  var dta = JSON.stringify(data);
+  var options = {
+    host: 'nwgwtgd.rjil.ril.com',
+    auth: 'fiori_test3:Welcome.1',
+    port: '8000',
+    path: hstData+pth+'?saml2=disabled',
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      "X-CSRF-Token":"Fetch" 
+    }
+  };
+  
+  try{
+    
+  var req = http.request(options, function(res) {
+    var msg = '';
+  
+    res.setEncoding('utf8');
+    res.on('data', function(chunk) {
+      msg += chunk;
+    });
+     res.on('end', function() {
+       console.log('error: '+msg);
+       try{
+        console.log('csrf token'+res.headers['x-csrf-token']);
+        fetchCSRFTokenandPost(pth, data, res.headers['x-csrf-token'])
+       }catch(err){
+        console.log('error in res end catch: '+err);
+       }
+     });
+  });
+  
+  req.on('error', function(e) {
+    console.error('problem with request: '+e.message);
+  });
+
+  req.write(null);
+  req.end();
+
+}catch(err){
+console.log('error upating to sap');
+}
+}
+
+
 function postSAPData(pth, data){
+  fetchCSRFToken(pth, data);
+}
+
+function fetchCSRFTokenandPost(pth, data, csrfTken){
+  
   var http = require('http');
   var dta = JSON.stringify(data);
   var options = {
@@ -14,7 +68,8 @@ function postSAPData(pth, data){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Content-Length': dta.length
+      'Content-Length': dta.length,
+      "X-CSRF-Token":csrfTken
     }
   };
   
