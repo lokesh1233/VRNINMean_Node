@@ -18,6 +18,8 @@ function postSAPData(pth, data){
     }
   };
   
+  try{
+    
   var req = http.request(options, function(res) {
     var msg = '';
   
@@ -33,6 +35,9 @@ function postSAPData(pth, data){
   req.write(dta);
   req.end();
 
+}catch(err){
+console.log('error upating to sap');
+}
 
   // var xhr = new XMLHttpRequest();
   // xhr.onreadystatechange = function() {

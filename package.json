@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "start": "ng build && node-debug server.js",
+    "start": "ng build && node server.js",
     "test": "ng test",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "e2e": "ng e2e"
