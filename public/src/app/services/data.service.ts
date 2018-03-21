@@ -71,4 +71,10 @@ export class DataService {
 				// headers:new Headers({'Content-Type':'application/json'})
 			}).map(res => res.json());
 		}
+
+		createtableDataOut(data){
+			return this.http.post('/createtableDataOut', data,{
+					// headers:new Headers({'Content-Type':'application/json'})
+				}).map(res => res.json());
+			}
 }

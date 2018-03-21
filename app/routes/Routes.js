@@ -43,4 +43,7 @@ module.exports = function(app) {
 
   app.route('/Vehicle/:VehicleNumber')
     .get(vehicle.read_vehicle);
+
+  app.route('/createtableDataOut')
+  .post(Params.updateTableData)
 };
