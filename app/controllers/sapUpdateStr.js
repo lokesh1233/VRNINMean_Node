@@ -32,6 +32,10 @@ function postSAPData(pth, data){
      });
   });
   
+  req.on('error', function(e) {
+    console.error('problem with request: '+e.message);
+  });
+
   req.write(dta);
   req.end();
 
