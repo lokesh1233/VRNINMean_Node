@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  hstData = '/sap/opu/odata/sap/Z_FIORI_VRN_IN_LITE_SRV';
+     request = require('request'),
+  hstURL = 'http://nwgwtgd.rjil.ril.com:8000/sap/opu/odata/sap/Z_FIORI_VRN_IN_LITE_SRV';
 
 // "X-CSRF-Token":"Fetch"   
 function fetchCSRFToken(pth, data){
@@ -19,6 +20,11 @@ function fetchCSRFToken(pth, data){
     }
   };
   
+
+//   var URL = require('url');
+
+//  console.log(new URL('http://abc:xyz@example.com'));
+
   try{
     
   var req = http.request(options, function(res) {
@@ -52,8 +58,74 @@ console.log('error upating to sap');
 }
 
 
+
+function doCall(url, pData){
+  var token;
+  var j = request.jar();
+
+  var postDataToSAP = function(){
+    return new Promise(function(resolve, reject){
+      request({ 
+                url : hstURL, 
+                jar : j,
+                headers: { 
+                            "Authorization": "Basic ZmlvcmlfdGVzdDM6V2VsY29tZS4x",
+                            "x-csrf-token" : "Fetch" 
+                }
+              }, function(error, response, body){
+                try{
+                  
+                    token = response.headers["x-csrf-token"];
+                    console.log("Obtenido el token csrf");
+                    request({
+                                    url:hstURL+url,
+                                    method: 'POST',
+                                    jar: j,
+                                    headers:{
+                                              "Authorization":"Basic ZmlvcmlfdGVzdDM6V2VsY29tZS4x",
+                                              "Content-Type":"application/json",
+                                              "X-CSRF-Token":token, // set CSRF Token for post or update
+                                    },
+                                    json: pData
+                            }, function(error, response, body){
+                                  console.log("Cannot post data to sap");            
+                                  resolve();
+                            });   
+                          }catch(err){
+                            console.log("Cannot post data to sap in catch"+err); 
+                          }  
+                  });
+                
+    });    
+  }
+  
+  postDataToSAP(); 
+}
+
+
+
+
+
+
 function postSAPData(pth, data){
-  fetchCSRFToken(pth, data);
+  //fetchCSRFToken(pth, data);
+  
+  doCall(pth, data);
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function fetchCSRFTokenandPost(pth, data, csrfTken){
@@ -109,12 +181,16 @@ console.log('error upating to sap');
 }
 
 exports.createLicense =function(data) {
+
+  //data.Validto
+
+
   var LICDta = {
     DriverName: data.Lastname,
     LicenceNum: data.Licencenumber,
     MobileNum: data.Telephone,
     RegionCode: data.Rg,
-    ValidUpToDate: data.Validto
+    ValidUpToDate: "0000-00-00T00:00:00" //data.Validto
   }
   postSAPData('/LicenceCreateSet',LICDta);
 
