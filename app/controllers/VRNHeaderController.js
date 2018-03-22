@@ -104,8 +104,26 @@ function createVRNHeaderData(data, vrno){
   }
 }
 
+function vehicleAvailable(req, res){
+  VRN.find({ VEHICLENUM: req.body.VEHICLENUM , $or: [{ VRNSTATUS: 'R' }, { VRNSTATUS: 'C' }] }, function (err, vrn) {
+if(vrn.length>0){
+  res.send({message:"VRN "+vrn[0]._doc.VRN+" is open for vehicle number "+req.body.VEHICLENUM});
+  return;
+}
+create_a_new_vrn(req, res);
+  })
+
+}
 
 exports.create_a_vrn = function (req, res) {
+var vhcle = req.body.VEHICLENUM;
+ if(vhcle != ''){
+  vehicleAvailable(req, res);
+ }else{
+  create_a_new_vrn(req, res);
+ }
+}
+function create_a_new_vrn(req, res){
   getNextSequenceVlue('VRNNum', function (err, doc) {
     if (err) res(err);
    var hdrData =  createVRNHeaderData(req.body, doc._doc.seq)
