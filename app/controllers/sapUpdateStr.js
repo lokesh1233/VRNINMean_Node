@@ -95,9 +95,9 @@ function doCall(url, pData){
                                     json: pData
                             }, function(error, response, body){
                                   console.log("Cannot post data to sap"); 
-                                  console.log(error);           
-                                  console.log(response);  
-                                  console.log(body);  
+                                  console.log("csrf error"+ error);           
+                                  console.log("csrf response"+response);  
+                                  console.log("csrf body"+body);
                                   
                                   resolve();
                             });   
