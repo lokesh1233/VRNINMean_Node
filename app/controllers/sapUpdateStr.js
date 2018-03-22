@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
      request = require('request'),
-  hstURL = 'http://nwgwtgd.rjil.ril.com:8000/sap/opu/odata/sap/Z_FIORI_VRN_IN_LITE_SRV';
+  hstURL = 'http://fiori_test3:Welcome.1@nwgwtgd.rjil.ril.com:8000/sap/opu/odata/sap/Z_FIORI_VRN_IN_LITE_SRV';
 
 // "X-CSRF-Token":"Fetch"   
 function fetchCSRFToken(pth, data){
@@ -76,8 +76,10 @@ function doCall(url, pData){
                 try{
                   
                   console.log("Cannot post data to sap"); 
-                  console.log("csrf error"+ error);           
+                  console.log("csrf error");
+                  console.log(error);           
                   console.log("csrf response"+response);  
+                  console.log(response);  
                   console.log("csrf body"+body);
 
                     token = response.headers["x-csrf-token"];
@@ -95,8 +97,10 @@ function doCall(url, pData){
                                     json: pData
                             }, function(error, response, body){
                                   console.log("Cannot post data to sap"); 
-                                  console.log("csrf error"+ error);           
+                                  console.log("csrf error");
+                                  console.log(error);           
                                   console.log("csrf response"+response);  
+                                  console.log(response);  
                                   console.log("csrf body"+body);
                                   
                                   resolve();
