@@ -69,7 +69,6 @@ function doCall(url, pData){
                 url : hstURL, 
                 jar : j,
                 headers: { 
-                            "Authorization": "Basic ZmlvcmlfdGVzdDM6V2VsY29tZS4x",
                             "x-csrf-token" : "Fetch" 
                 }
               }, function(error, response, body){
@@ -90,7 +89,6 @@ function doCall(url, pData){
                                     method: 'POST',
                                     jar: j,
                                     headers:{
-                                              "Authorization":"Basic ZmlvcmlfdGVzdDM6V2VsY29tZS4x",
                                               "Content-Type":"application/json",
                                               "X-CSRF-Token":token, // set CSRF Token for post or update
                                     },

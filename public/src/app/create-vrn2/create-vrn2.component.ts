@@ -171,6 +171,9 @@ agenciesData(){
 }
 
 createVRNData;
+transporterChange=true;
+driverNm=true;
+
 defaultUpdationValues(dta){
  this.createVRNData = {
   MODEOFTRANSPORT:dta,
@@ -195,6 +198,8 @@ defaultUpdationValues(dta){
   SEAL1:"",
   SEAL2:"",  
 }
+this.transporterChange=true;
+this.driverNm=true;
 }
 
 IDPROOFCodeTYPE;
@@ -219,10 +224,12 @@ licenseSelection(){
         that.createVRNData.DRIVERNAME = docs[0].Lastname;
         that.createVRNData.DRIVERNUM = docs[0].Telephone;
         that.addButtonVal = false;
+        that.driverNm=false;
       }else{
         that.createVRNData.DRIVERNAME = ""; 
         that.createVRNData.DRIVERNUM = "";
         that.addButtonVal = true;
+        that.driverNm=true;
       }
 })
 }
