@@ -125,9 +125,10 @@ exports.create_a_vrn = function (req, res) {
               FleetType: req.body.FLEETTYPECODE, Vendor: req.body.TRANSPORTERCODE,
               VendorName: req.body.TRANSPORTER
             }
-          }, { new: false, upsert: true }, function (err, vrndtl) {
+          }, { new: true, upsert: true }, function (err, vrndtl) {
             try{
-            sapUpdateStr.createVRNReortAndCheckIn(req.body);
+              var ind = (vrndtl && vrndtl.isNew == true)?'X':'';
+            sapUpdateStr.createVRNReortAndCheckIn(req.body, ind);
             }catch(err){
 
             }

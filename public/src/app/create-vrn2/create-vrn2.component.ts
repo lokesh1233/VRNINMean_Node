@@ -57,7 +57,7 @@ idProofParamData(){
 openDialog(msg): void {
   var that = this;
   let dialogRef = this.dialog.open(DialogComponent, {
-    width: '250px',
+    width: '400px',
     data: msg 
   });
 
@@ -372,7 +372,9 @@ createLicenseDta(): void{
       that.createVRNData.DRIVERNUM = result.Telephone;
       that.createVRNData.DRIVERNAME = result.Lastname;
       that.driverNm=false;
+      that.addButtonVal=false;
       }else{
+        that.addButtonVal=true;
         that.driverNm=true;
       }
     });
@@ -424,7 +426,7 @@ onSubmit() {
 
   this.oData.createLicense(this.createNewLicense)
   .subscribe(docs => {
-   that.openSnackBar('Succesflly created license '+ that.createNewLicense.Licencenumber, '');
+   that.openSnackBar('Successfully created license '+ that.createNewLicense.Licencenumber, '');
         that.dialogRef.close(dta);
 })
 }
