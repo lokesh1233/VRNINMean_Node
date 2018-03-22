@@ -251,14 +251,18 @@ vehicleSelection(){
   var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.oData.getVehicleValidation(vhcle)
 .subscribe(docs => {  
-  that.createVRNData.TRANSPORTER = docs.length>0?docs[0].VendorName:"";
-  that.createVRNData.TRANSPORTERCODE = docs.length>0?docs[0].Vendor:"";  
   if(!docs[0] || !docs[0].FleetType){
+    that.transporterChange = true;
+    that.createVRNData.TRANSPORTER = "";
+    that.createVRNData.TRANSPORTERCODE = "";
     that.createVRNData.FLEETTYPECODE = MOTType == 'RD'?'M':(MOTType == 'CA' || MOTType == 'CR')?'V':MOTType == 'RB'?'B':'';//docs.length>0?docs[0].FleetType:""; 
     that.createVRNData.FLEETTYPE = MOTType == 'RD'?'Market Vehicle':(MOTType == 'CA' || MOTType == 'CR')?'Vendor Vehicle':MOTType == 'RB'?'Biker':'';  
   }else{
+    that.createVRNData.TRANSPORTER = docs[0].VendorName;
+    that.createVRNData.TRANSPORTERCODE = docs[0].Vendor;  
     that.createVRNData.FLEETTYPECODE = docs[0].FleetType; 
     that.createVRNData.FLEETTYPE = docs[0].FleetTypeDesc;
+    that.transporterChange = false;
   }
 })
 }
@@ -364,8 +368,13 @@ createLicenseDta(): void{
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if(result != undefined){
       that.createVRNData.DRIVERNUM = result.Telephone;
       that.createVRNData.DRIVERNAME = result.Lastname;
+      that.driverNm=false;
+      }else{
+        that.driverNm=true;
+      }
     });
   }
 }

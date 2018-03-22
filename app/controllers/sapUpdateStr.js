@@ -74,12 +74,12 @@ function doCall(url, pData){
               }, function(error, response, body){
                 try{
                   
-                  console.log("Cannot post data to sap"); 
-                  console.log("csrf error");
-                  console.log(error);           
-                  console.log("csrf response"+response);  
-                  console.log(response);  
-                  console.log("csrf body"+body);
+                  // console.log("Cannot post data to sap"); 
+                  // console.log("csrf error");
+                  // console.log(error);           
+                  // console.log("csrf response"+response);  
+                  // console.log(response);  
+                  // console.log("csrf body"+body);
 
                     token = response.headers["x-csrf-token"];
                     console.log("token csrf "+token);
@@ -94,12 +94,12 @@ function doCall(url, pData){
                                     },
                                     json: pData
                             }, function(error, response, body){
-                                  console.log("Cannot post data to sap"); 
-                                  console.log("csrf error");
-                                  console.log(error);           
-                                  console.log("csrf response"+response);  
-                                  console.log(response);  
-                                  console.log("csrf body"+body);
+                                  // console.log("Cannot post data to sap"); 
+                                  // console.log("csrf error");
+                                  // console.log(error);           
+                                  // console.log("csrf response"+response);  
+                                  // console.log(response);  
+                                   console.log("csrf body"+body);
                                   
                                   resolve();
                             });   
@@ -192,6 +192,14 @@ console.log('error upating to sap');
   // xhr.send(data);
 }
 
+
+//0000-00-00T00:00:00
+function dateFormate(myDate){
+
+  var month = myDate.getMonth() + 1;   
+  return ( myDate.getFullYear() + "-" + month + "-" + myDate.getDate() + "T" + "-" + myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds() + "." + myDate.getMilliseconds());
+}
+
 exports.createLicense =function(data) {
 
   //data.Validto
@@ -202,7 +210,7 @@ exports.createLicense =function(data) {
     LicenceNum: data.Licencenumber,
     MobileNum: data.Telephone,
     RegionCode: data.Rg,
-    ValidUpToDate: "0000-00-00T00:00:00" //data.Validto
+    ValidUpToDate: dateFormate(data.Validto)
   }
   postSAPData('/LicenceCreateSet',LICDta);
 
@@ -239,7 +247,7 @@ exports.createVRNReortAndCheckIn = function createVRNReortAndCheckIn(data, ind) 
       CheckType: "I",
       Depremarks: data.REMARKS,
       Depseal: data.SEAL1,
-      DriverName: data.DRIVERNUM,
+      DriverName: data.DRIVERNAME,
       DriverNum: data.DRIVERNUM,
       FleetType: data.FLEETTYPECODE,
       IDPrfNum: data.IDPROOFNUM,
