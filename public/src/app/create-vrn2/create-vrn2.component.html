@@ -36,7 +36,7 @@
             </mat-radio-group>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
-                <input matInput  placeholder="Vehicle No."  required (change) = 'vehicleSelection()'  [(ngModel)]="createVRNData.VEHICLENUM">
+                <input matInput  placeholder="Vehicle No."  required (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM | uppercase}}"  [(ngModel)]="createVRNData.VEHICLENUM" >
             </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
@@ -84,7 +84,7 @@
            
 
             <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.licNo">
-                <input matInput placeholder="Driver License No." required  (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM}}" [(ngModel)]="createVRNData.LICENSENUM">
+                <input matInput placeholder="Driver License No." required  (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM | uppercase}}" [(ngModel)]="createVRNData.LICENSENUM">
               </mat-form-field>
               <button mat-icon-button (click)='createLicenseDta()' *ngIf="addButtonVal">
                 <mat-icon aria-label="">add</mat-icon>

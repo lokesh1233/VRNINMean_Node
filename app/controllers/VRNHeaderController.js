@@ -127,7 +127,10 @@ exports.create_a_vrn = function (req, res) {
             }
           }, { new: true, upsert: true }, function (err, vrndtl) {
             try{
-              var ind = (vrndtl && vrndtl.isNew == true)?'X':'';
+              var ind ='X';
+              if(vrndtl != undefined){
+                ind = vrndtl.isNew == false?'X':'';
+              }
             sapUpdateStr.createVRNReortAndCheckIn(req.body, ind);
             }catch(err){
 

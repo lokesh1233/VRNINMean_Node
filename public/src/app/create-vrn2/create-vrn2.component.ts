@@ -202,7 +202,7 @@ this.transporterChange=true;
 this.driverNm=true;
 }
 
-IDPROOFCodeTYPE;
+IDPROOFCodeTYPE='';
 
 licenseSelection(){
   let LcnseNo = this.createVRNData.LICENSENUM;
@@ -301,6 +301,8 @@ if(ind == true){
 
 this.openBusyDialog();
 var that = this;
+vrnDta.LICENSENUM = vrnDta.LICENSENUM.toUpperCase();
+vrnDta.VEHICLENUM = vrnDta.VEHICLENUM.toUpperCase();
 this.oData.createVRN(vrnDta)
 .subscribe(docs => {
   that.busyDialog.close();

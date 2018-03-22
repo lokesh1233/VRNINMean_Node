@@ -123,7 +123,7 @@ exports.createVRNReortAndCheckIn = function createVRNReortAndCheckIn(data, ind) 
 exports.createVRNCheckIn = function (vrn) {
   var CheckData = {
     Indicator: "X",
-    VRNNum: vrn
+    VRNNum: vrn.toString()
   }
   postSAPData('/Z_FIORI_VRN_IN_LITE_SRV/CheckInSet', CheckData);
 }
