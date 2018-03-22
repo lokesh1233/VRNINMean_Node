@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose'),
   request = require('request'),
-  hstURL = 'http://fiori_test3:Welcome.1@nwgwtgd.rjil.ril.com:8000/sap/opu/odata/sap/';
+  hstURL = 'http://fiori_test3:Welcome.1@nwgwtgd.rjil.ril.com:8000/sap/opu/odata/sap';
 
 function doCall(url, pData) {
   var token;
@@ -10,7 +10,7 @@ function doCall(url, pData) {
   var postDataToSAP = function () {
     return new Promise(function (resolve, reject) {
       request({
-        url: hstURL,
+        url: hstURL+"/Z_FIORI_VRN_IN_LITE_SRV",
         jar: j,
         headers: {
           "x-csrf-token": "Fetch"
@@ -30,6 +30,14 @@ function doCall(url, pData) {
             },
             json: pData
           }, function (error, response, body) {
+
+            console.log("error " );
+            console.log(error);
+            console.log("response " );
+            console.log(response);
+            console.log("body ");
+            console.log(body);
+
             resolve();
           });
         } catch (err) {
