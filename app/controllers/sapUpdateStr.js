@@ -75,6 +75,11 @@ function doCall(url, pData){
               }, function(error, response, body){
                 try{
                   
+                  console.log("Cannot post data to sap"); 
+                  console.log("csrf error"+ error);           
+                  console.log("csrf response"+response);  
+                  console.log("csrf body"+body);
+
                     token = response.headers["x-csrf-token"];
                     console.log("token csrf "+token);
 
