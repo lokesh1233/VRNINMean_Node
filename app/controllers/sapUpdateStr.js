@@ -76,7 +76,8 @@ function doCall(url, pData){
                 try{
                   
                     token = response.headers["x-csrf-token"];
-                    console.log("Obtenido el token csrf");
+                    console.log("token csrf "+token);
+
                     request({
                                     url:hstURL+url,
                                     method: 'POST',
@@ -88,7 +89,11 @@ function doCall(url, pData){
                                     },
                                     json: pData
                             }, function(error, response, body){
-                                  console.log("Cannot post data to sap");            
+                                  console.log("Cannot post data to sap"); 
+                                  console.log(error);           
+                                  console.log(response);  
+                                  console.log(body);  
+                                  
                                   resolve();
                             });   
                           }catch(err){
