@@ -67,6 +67,7 @@ exports.createLicense = function (data) {
 
 exports.createVRNCheckOut = function (data) {
   var checkOut = {
+    VRNNum: data.VRN.toString(),
     VRNCREHRDITMNAV: [{
       CheckType: "O",
       DepRemarks: data.REMARKS,
