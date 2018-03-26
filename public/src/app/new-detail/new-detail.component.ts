@@ -25,6 +25,11 @@ export class NewDetailComponent implements OnInit {
     })
   }
 
+  selectedTabChange($event){
+    this.selectedIndex = $event;
+  }
+
+  selectedIndex=0;
   busyDialog;
   MOPSelectedField;
   checkoutField;
@@ -33,7 +38,6 @@ export class NewDetailComponent implements OnInit {
   roadTransport='';
   paramValues={};
   vrnMaterData;
-  selectedIndex = null;
   selectedUser = null;
   readUserItemData = 0;
   createUserData = [];

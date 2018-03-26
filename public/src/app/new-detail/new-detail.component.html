@@ -4,8 +4,8 @@
       disabled='true'>
   </mat-form-field>
 
-  <mat-tab-group>
-    <mat-tab label="Arrival">
+  <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedIndexChange)='selectedTabChange($event)'>
+    <mat-tab label="Arrival" >
       <mat-accordion>
         <mat-expansion-panel *ngIf='vrnMaterData.MODEOFTRANSPORT != "HD"'>
           <mat-expansion-panel-header>
@@ -110,7 +110,7 @@
           </div> -->
     </mat-tab>
 
-    <mat-tab label="Departure" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'">
+    <mat-tab label="Departure" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'" >
       <p></p>
       <mat-radio-group (change)="vehicleStaChange()" value={{CheckOutpostdata.VEHICLESTATUS}} *ngIf="checkoutField.vehStat" [(ngModel)]="CheckOutpostdata.VEHICLESTATUS">
         <mat-radio-button value="L">Loaded</mat-radio-button>
@@ -173,6 +173,6 @@
 
   <div class="mainFooter">
     <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'R'" (click)='VRNCheckIn()'>Check-In</button>
-    <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'" (click)='VRNCheckOut()'>Check-Out</button>
+    <button mat-raised-button color="primary" *ngIf="vrnMaterData.VRNSTATUS == 'C' && vrnMaterData.VRNOut == 'X'" (click)='(selectedIndex==1 && VRNCheckOut()) || (selectedIndex==0 && selectedIndex=1)'>Check-Out</button>
   </div>
   </div>

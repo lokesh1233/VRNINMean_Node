@@ -251,7 +251,14 @@ vehicleSelection(){
   var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.oData.getVehicleValidation(vhcle)
 .subscribe(docs => {  
-  if(!docs[0] || !docs[0].FleetType){
+  if(docs.message != ''){
+    that.createVRNData.TRANSPORTER = '';
+    that.createVRNData.TRANSPORTERCODE = '';  
+    that.createVRNData.FLEETTYPECODE = ''; 
+    that.createVRNData.FLEETTYPE = '';
+    that.transporterChange = false;
+    this.openSnackBar(docs.message,'ERROR');
+  }else if(!docs[0] || !docs[0].FleetType){
     that.transporterChange = true;
     that.createVRNData.TRANSPORTER = "";
     that.createVRNData.TRANSPORTERCODE = "";
@@ -363,6 +370,7 @@ createLicenseDta(): void{
       return;
     }
 
+    that.createVRNData.LICENSENUM = that.createVRNData.LICENSENUM.toUpperCase();
     let dialogRef = this.dialog.open(CreateLicenseDialog, {
       width: '500px',
       data: { Licencenumber: that.createVRNData.LICENSENUM ,licenseRegionData: that.licenseRegionData }

@@ -9,22 +9,6 @@
         </mat-select>
       </mat-form-field>
 
-
-    <!-- <mat-grid-list cols="2" >
-        <mat-grid-tile colspan="1">
-            <mat-form-field class="example-full-width">
-                <mat-select placeholder="Mode of Transport"  [(value)]="createVRNData.MODEOFTRANSPORT" [(ngModel)]="createVRNData.MODEOFTRANSPORT">
-                  <mat-option *ngFor="let mode of TransModes" [value]="mode.modeNum" >
-                    {{mode.modeTxt}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1">
-            <mat-slide-toggle>Delivery</mat-slide-toggle>
-        </mat-grid-tile>
-      </mat-grid-list> -->
-
     <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
         <mat-step *ngIf='createVRNData.MODEOFTRANSPORT != "HD"'>
             <ng-template matStepLabel>Vehicle</ng-template>
@@ -106,15 +90,6 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-
-
-            <!-- <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.idProof">
-                <input matInput placeholder="ID proof type"   value="{{createVRNData.IDPROOFTYPE}}" [(ngModel)]="createVRNData.IDPROOFTYPE" disabled='true'>
-              </mat-form-field>
-              <button mat-icon-button (click)='selectIDProof()' *ngIf="MOPSelectedField.idProof">
-                <mat-icon aria-label="">add</mat-icon>
-              </button> -->
-              
           
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProofNum">
                 <input matInput placeholder="ID proof No." required value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
@@ -128,25 +103,12 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
-      
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
               <input matInput placeholder="AWB no./Docker no./LR no." value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
           </mat-form-field>
-
-          
-        
         <mat-form-field class="example-full-width">
           <textarea matInput placeholder="Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
         </mat-form-field>
-
-        <!-- <mat-form-field class="example-full-width" *ngIf=false>
-          <input matInput placeholder="In Time" value="{{inTime}}" [(ngModel)]='inTime' disabled='true'>
-      </mat-form-field> -->
-<!-- 
-        <mat-form-field class="example-full-width"> -->
-            <!-- <labloel matInput placeholder="Check in time" [(ngModel)]="createVRNData.Time">{{createVRNData.Time}}</label>
-          </mat-form-field> -->
-        
           <div>
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button (click)="onSubmit(false)" color="warn">Report-In</button>
@@ -154,186 +116,6 @@
           </div>
         </mat-step>
       </mat-horizontal-stepper>
-
-
-
-
-<!-- 
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Vehicle details
-          </mat-panel-title>
-          <mat-panel-description>
-            
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-    
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Enter Vehicle No." (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM}}" [(ngModel)]="createVRNData.VEHICLENUM">
-          </mat-form-field>
-     
-            <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNData.VEHICLESTATUS" [(ngModel)]="createVRNData.VEHICLESTATUS">
-              checked="{{createVRNData.vehstat}}"
-              <mat-radio-button value="L">Loaded</mat-radio-button>
-              <mat-radio-button value="E">Empty</mat-radio-button>
-            </mat-radio-group>
-         
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Enter Seal No." value="{{createVRNData.SEALNUM}}" [(ngModel)]="createVRNData.SEALNUM">
-            </mat-form-field>
-            
-            
-            
-            
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Enter Transporter/Agency Name."  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let agency of filteredAgencies | async" [value]="agency.Name1">
-               
-                    <span>{{ agency.Name1 }}</span> 
-                    <small> ({{ agency.Vendor}})</small>
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            
-              <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNData.SEALCONDITION" [(ngModel)]="createVRNData.SEALCONDITION">
-                  <mat-radio-button value="I">Intact </mat-radio-button>
-                  <mat-radio-button value="D">Damaged</mat-radio-button>
-                  <mat-radio-button value="N">No Seal</mat-radio-button>
-              </mat-radio-group>
-            
-              <mat-form-field class="example-full-width">
-                  <input matInput placeholder="No of Boxes" value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
-              </mat-form-field>
-              <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Seal 1" value="{{createVRNData.Seal1}}" [(ngModel)]="createVRNData.Seal1">
-              </mat-form-field>
-              
-
-
-
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-           Driver/Other details
-          </mat-panel-title>
-          <mat-panel-description>
-           
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-form-field class="licenseEvent" >
-            <input matInput placeholder="Driver License No." (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM}}" [(ngModel)]="createVRNData.LICENSENUM">
-          </mat-form-field>
-          <button mat-icon-button (click)='createLicenseDta()'>
-            <mat-icon aria-label="">add</mat-icon>
-          </button>
-      
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Driver/Pickup Person Name." value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
-        </mat-form-field>
-      
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Mobile No." value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
-        </mat-form-field>
-    
-  
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="AWB no./Docker no./LR no." value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
-        </mat-form-field>
-      
-      <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="In Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
-      </mat-form-field>
-      </mat-expansion-panel>
-    </mat-accordion>
-
-
- -->
-
-
-<!--    
-    <mat-tab-group [(selectedIndex)] = "selectedIndex">
-      <mat-tab label="Vehicle details">
-          <mat-radio-group placeholder="Vehicle Status" required [(value)]="createVRNData.VEHICLESTATUS" [(ngModel)]="createVRNData.VEHICLESTATUS">
-            checked="{{createVRNData.vehstat}}"
-            <mat-radio-button value="L">Loaded</mat-radio-button>
-            <mat-radio-button value="E">Empty</mat-radio-button>
-          </mat-radio-group>
-          
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Enter Seal No." value="{{createVRNData.SEALNUM}}" [(ngModel)]="createVRNData.SEALNUM">
-          </mat-form-field>
-          
-          
-          <mat-form-field class="example-full-width">
-              <input matInput placeholder="Enter Vehicle No." (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM}}" [(ngModel)]="createVRNData.VEHICLENUM">
-            </mat-form-field>
-          
-      
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Enter Transporter/Agency Name."  aria-label="Agency" [matAutocomplete]="auto" [formControl]="agencyCtrl">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let agency of filteredAgencies | async" [value]="agency.Name1">
-              
-                  <span>{{ agency.Name1 }}</span> 
-                  <small> ({{ agency.Vendor}})</small>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          
-          
-            <mat-radio-group placeholder="Seal Condition" [(value)]="createVRNData.SEALCONDITION" [(ngModel)]="createVRNData.SEALCONDITION">
-                <mat-radio-button value="I">Intact </mat-radio-button>
-                <mat-radio-button value="D">Damaged</mat-radio-button>
-                <mat-radio-button value="N">No Seal</mat-radio-button>
-            </mat-radio-group>
-          
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="No of Boxes" value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
-            </mat-form-field>
-        
-      </mat-tab>
-      <mat-tab label="Driver/Other details">
-    
-
-
-      <mat-form-field class="licenseEvent" >
-          <input matInput placeholder="Driver License No." (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM}}" [(ngModel)]="createVRNData.LICENSENUM">
-        </mat-form-field>
-        <button mat-icon-button (click)='createLicenseDta()'>
-          <mat-icon aria-label="">add</mat-icon>
-        </button>
-    
-      <mat-form-field class="example-full-width">
-          <input matInput placeholder="Driver/Pickup Person Name." value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
-      </mat-form-field>
-    
-      <mat-form-field class="example-full-width">
-          <input matInput placeholder="Mobile No." value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
-      </mat-form-field>
-  
-
-      <mat-form-field class="example-full-width">
-          <input matInput placeholder="AWB no./Docker no./LR no." value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
-      </mat-form-field>
-    
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="In Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
-    </mat-form-field>
-      
-     
-      
-    </mat-tab>
-  </mat-tab-group> -->
-
-  <!-- <div class="mainFooter button-row">
-    <button mat-raised-button (click)="onSubmit()" color="primary">Report-In</button>
-    <button mat-raised-button (click)="VRNCheckIn()" color="accent">Check-In</button>
-    </div> -->
       </div>
 
  
