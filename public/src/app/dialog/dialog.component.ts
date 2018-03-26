@@ -9,22 +9,24 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class DialogComponent{
 
  
-
+success;
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
       if(data.msgCode == 'S'){
         data.messageHdrCls = 'primary';
         data.messageIcon = 'done';
         data.messageType = 'Success';
+        this.success=true;
       }else{
         data.messageHdrCls = 'warn';
         data.messageIcon = 'clear';
         data.messageType =  'Error';
+        this.success=false;
       }
     }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.success);
   }
 
 }

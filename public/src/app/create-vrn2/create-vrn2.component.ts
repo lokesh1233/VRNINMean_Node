@@ -63,7 +63,9 @@ openDialog(msg): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
-    that.appComponent.loadVRNMasterList();
+    if(result == true){
+      that.appComponent.loadVRNMasterList();
+    }
     //this.animal = result;
   });
 }
@@ -241,17 +243,18 @@ vehicleSelection(){
      return;
   }
 
-  // var pattern = /^[A-Za-z]{2}([ \-])[0-9]{2}[ ,][A-Za-z0-9]{1,2}[A-Za-z]\1[0-9]{4}$/;
-  // if(!pattern.test(vhcle)){
-  //   this.openSnackBar('Vehicle Number Invalid','');
-  //   this.createVRNData.VEHICLENUM = "";
-  //   return;
-  // }
+   var pattern = /^[A-Z]{2}[0-9]{1,3}(?:[A-Z])?(?:[A-Z]*)?[0-9]{1,4}$/;
+   if(!pattern.test(vhcle)){
+     this.openSnackBar('Vehicle Number Invalid','');
+     this.createVRNData.VEHICLENUM = "";
+     return;
+   }
   var that = this;
   var MOTType = this.createVRNData.MODEOFTRANSPORT;
   this.oData.getVehicleValidation(vhcle)
 .subscribe(docs => {  
-  if(docs.message != ''){
+  if(docs.message != undefined ){
+    that.createVRNData.VEHICLENUM = '';
     that.createVRNData.TRANSPORTER = '';
     that.createVRNData.TRANSPORTERCODE = '';  
     that.createVRNData.FLEETTYPECODE = ''; 

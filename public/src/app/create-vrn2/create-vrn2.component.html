@@ -20,7 +20,7 @@
             </mat-radio-group>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.vehNo">  
-                <input matInput  placeholder="Vehicle No."  required (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM | uppercase}}"  [(ngModel)]="createVRNData.VEHICLENUM" >
+                <input matInput  placeholder="Vehicle No." maxlength="10" required (change) = 'vehicleSelection()' value="{{createVRNData.VEHICLENUM | uppercase}}"  [(ngModel)]="createVRNData.VEHICLENUM" >
             </mat-form-field>
 
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.fleetType">
@@ -44,15 +44,15 @@
                       </mat-radio-group>
          
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal1">
-                          <input matInput placeholder="Seal No. 1"  value="{{createVRNData.SEAL1}}" [(ngModel)]="createVRNData.SEAL1">
+                          <input matInput placeholder="Seal No. 1" maxlength="15"  value="{{createVRNData.SEAL1}}" [(ngModel)]="createVRNData.SEAL1">
                       </mat-form-field>
                      
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.seal2">
-                          <input matInput placeholder="Seal No. 2"  value="{{createVRNData.SEAL2}}" [(ngModel)]="createVRNData.SEAL2">
+                          <input matInput placeholder="Seal No. 2" maxlength="15"  value="{{createVRNData.SEAL2}}" [(ngModel)]="createVRNData.SEAL2">
                         </mat-form-field> 
 
                       <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.noOfBoxes">
-                          <input matInput placeholder="No of Boxes"  value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
+                          <input matInput placeholder="No of Boxes" maxlength="6" value="{{createVRNData.NUMOFBOXES}}" [(ngModel)]="createVRNData.NUMOFBOXES">
                       </mat-form-field>
 
                       <!-- </form> -->
@@ -68,18 +68,18 @@
            
 
             <mat-form-field class="licenseEvent" *ngIf="MOPSelectedField.licNo">
-                <input matInput placeholder="Driver License No." required  (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM | uppercase}}" [(ngModel)]="createVRNData.LICENSENUM">
+                <input matInput placeholder="Driver License No." required maxlength="20" (change)="licenseSelection()"  value="{{createVRNData.LICENSENUM | uppercase}}" [(ngModel)]="createVRNData.LICENSENUM">
               </mat-form-field>
               <button mat-icon-button (click)='createLicenseDta()' *ngIf="addButtonVal">
                 <mat-icon aria-label="">add</mat-icon>
               </button>
           
               <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.mobNo"  >
-                  <input matInput placeholder="Mobile No." required (change) = 'mobilenuvalid()' required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
+                  <input matInput placeholder="Mobile No." required maxlength="10" (change) = 'mobilenuvalid()' required value="{{createVRNData.DRIVERNUM}}" [(ngModel)]="createVRNData.DRIVERNUM">
               </mat-form-field>
            
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.personName">
-                <input matInput placeholder="Driver/Pickup Person Name." required  value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
+                <input matInput placeholder="Driver/Pickup Person Name." required maxlength="35" value="{{createVRNData.DRIVERNAME}}" [(ngModel)]="createVRNData.DRIVERNAME">
             </mat-form-field>
          
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProof">
@@ -92,7 +92,7 @@
             </mat-form-field>
           
             <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.idProofNum">
-                <input matInput placeholder="ID proof No." required value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
+                <input matInput placeholder="ID proof No." maxlength="15" required value="{{createVRNData.IDPROOFNUM}}" [(ngModel)]="createVRNData.IDPROOFNUM">
             </mat-form-field>     
 
             <div>
@@ -104,10 +104,10 @@
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
           <mat-form-field class="example-full-width" *ngIf="MOPSelectedField.lrNo">
-              <input matInput placeholder="AWB no./Docker no./LR no." value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
+              <input matInput placeholder="AWB no./Docker no./LR no." maxlength="15" value="{{createVRNData.LRNUM}}" [(ngModel)]="createVRNData.LRNUM">
           </mat-form-field>
         <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Remarks" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
+          <textarea matInput placeholder="Remarks" maxlength="40" value="{{createVRNData.REMARKS}}" [(ngModel)]="createVRNData.REMARKS"></textarea>
         </mat-form-field>
           <div>
             <button mat-raised-button matStepperPrevious>Back</button>
