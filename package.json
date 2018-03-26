@@ -31,10 +31,12 @@
     "body-parser": "~1.14.1",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
+    "material-design-icons": "^3.0.1",
     "method-override": "~2.3.5",
     "mongodb-autoincrement": "^1.0.1",
     "mongoose": "^5.0.9",
     "morgan": "~1.6.1",
+    "request": "^2.85.0",
     "rxjs": "^5.5.0",
     "zone.js": "^0.8.4"
   },
