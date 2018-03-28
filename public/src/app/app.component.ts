@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     }
     else {
       this.searchVal = this.searchVal.toLowerCase();
-      this.createUserData = this.createUserData.filter(function (ele) {
+      this.createUserData = this.primaryUserData.filter(function (ele) {
         return (ele.VRN.toString().toLowerCase().indexOf(that.searchVal) > -1 || ele.VEHICLENUM.toLowerCase().indexOf(that.searchVal) > -1);
       });
     }

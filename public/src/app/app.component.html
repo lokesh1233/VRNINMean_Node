@@ -3,32 +3,30 @@
         <!-- opened="true" -->
 
         <mat-toolbar color="primary">
-            <span>VRN List</span>
-            <!-- *ngIf="!searchVisible" -->
-            <span class="example-spacer"></span>
-            <!-- *ngIf="!searchVisible"  -->
-            <!-- <button mat-icon-button (click)="searchVisible = !searchVisible" *ngIf="!searchVisible">
-                            <mat-icon aria-label="Search">search</mat-icon>
-                      </button> -->
-            <!-- <input *ngIf="searchVisible" matInput placeholder="Search" type="search" (keyup)="searchChange($event)"> -->
+            <span *ngIf="!searchVisible">VRN List</span>
+            <span *ngIf="!searchVisible" class="example-spacer"></span>            
+            <input #search *ngIf="searchVisible" matInput class="headerSearch" placeholder="" type="search" (keyup)="searchChange($event)" (search)="searchChange($event)">
+            <button mat-icon-button (click)="searchVisible = !searchVisible; (searchVisible)"> <!--&& search.focus()-->
+                <mat-icon aria-label="Search">search</mat-icon>
+            </button>
         </mat-toolbar>
         <!-- <form class="example-form"> -->
-        <mat-form-field class="example-full-width">
+        <!-- <mat-form-field class="example-full-width">
             <input matInput placeholder="Search" type="search" (keyup)="searchChange($event)">
-        </mat-form-field>
+        </mat-form-field> -->
         <section class="masterList">
             <mat-nav-list class="list">
                 <mat-list-item *ngFor="let data of createUserData" (click)="onVRNSelected(data); (isMobile && drawer.toggle())" [class]='"heightStable " + data.class'>
-                        <mat-icon mat-list-icon matTooltip={{data.TrnsprtMode}} color='primary'>
-                            {{data.MODEOFTRANSPORT == "RD" ? "local_shipping" : (data.MODEOFTRANSPORT == "RB" ? "directions_bike" : (data.MODEOFTRANSPORT
-                            == "HD" ? "directions_walk" : (data.MODEOFTRANSPORT == "CR" ? "local_taxi" : (data.MODEOFTRANSPORT
-                            == "CA" ? "flight": ""))))}}
-                        </mat-icon>
-                        <h4 mat-line class="marginTitle">VRN: <span class="boldLabel">{{data.VRN}}</span>
-                            <mat-icon *ngIf="data.VRNSTATUS === 'C'" mat-list-icon color='primary' class="checkIn">check_circle</mat-icon>                        
-                        </h4>
-                        
-                        <p mat-line class="marginTitle">{{data.MODEOFTRANSPORT === "HD" ? "Driver Name: ": "Vehicle No.: "}}<span class="boldLabel">{{data.MODEOFTRANSPORT === "HD" ? data.DRIVERNAME : data.VEHICLENUM}}</span></p>
+                    <mat-icon mat-list-icon matTooltip={{data.TrnsprtMode}} color='primary'>
+                        {{data.MODEOFTRANSPORT == "RD" ? "local_shipping" : (data.MODEOFTRANSPORT == "RB" ? "directions_bike" : (data.MODEOFTRANSPORT
+                        == "HD" ? "directions_walk" : (data.MODEOFTRANSPORT == "CR" ? "local_taxi" : (data.MODEOFTRANSPORT
+                        == "CA" ? "flight": ""))))}}
+                    </mat-icon>
+                    <h4 mat-line class="marginTitle">VRN: <span class="boldLabel">{{data.VRN}}</span>
+                        <mat-icon *ngIf="data.VRNSTATUS === 'C'" mat-list-icon color='primary' class="checkIn">check_circle</mat-icon>                        
+                    </h4>
+                    
+                    <p mat-line class="marginTitle">{{data.MODEOFTRANSPORT === "HD" ? "Driver Name: ": "Vehicle No.: "}}<span class="boldLabel">{{data.MODEOFTRANSPORT === "HD" ? data.DRIVERNAME : data.VEHICLENUM}}</span></p>
                     <mat-divider></mat-divider>
                     <!-- <span class="marginTitle">{{data.PURPOSE}}</span> -->
                 </mat-list-item>
